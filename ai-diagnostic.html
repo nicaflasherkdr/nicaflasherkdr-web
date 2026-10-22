@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Diagnostic & Smart Repair Agent | Nica Flasher Distrik Mojoroto</title>
+    <meta name="theme-color" content="#030712">
+    <meta name="description"
+        content="AI Diagnostic Agent resmi Nica Flasher Distrik Mojoroto. Diagnosa kerusakan smartphone secara otomatis, estimasi biaya transparan, serta konsultasi interaktif dengan asisten teknisi AI.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Nica Flasher Distrik Mojoroto">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="Nica Flasher Distrik Mojoroto">
+    <meta property="og:title" content="AI Diagnostic & Smart Repair Agent | Nica Flasher Distrik Mojoroto">
+    <meta property="og:description"
+        content="Diagnosa cerdas kerusakan smartphone dan estimasi biaya perbaikan software otomatis bersama AI Agent Nica Flasher Distrik Mojoroto.">
+    <meta property="og:image" content="img/icon-512.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Diagnostic & Smart Repair Agent - Nica Flasher Distrik Mojoroto">
+    <meta name="twitter:description"
+        content="Konsultasi kerusakan HP dengan AI Agent dan kalkulator estimasi biaya software smartphone.">
+
+    <!-- Schema.org SoftwareApplication JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Nica AI Diagnostic Agent",
+        "operatingSystem": "All (Web App)",
+        "applicationCategory": "UtilitiesApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "IDR"
+        },
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "Nica Flasher Distrik Mojoroto",
+            "telephone": "+6287888619552",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Kediri",
+                "addressRegion": "Jawa Timur",
+                "addressCountry": "ID"
+            }
+        }
+    }
+    </script>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="img/icon-192.svg">
+
+    <!-- Offline fallback script -->
+    <script>
+        if (!navigator.onLine) {
+            window.location.replace('./halaman-offline.html');
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            blue: '#00f0ff',
+                            purple: '#8b5cf6',
+                            emerald: '#10b981',
+                            dark: '#030712',
+                            card: '#081226',
+                            cardBorder: 'rgba(0, 240, 255, 0.25)',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Space Grotesk"', 'sans-serif'],
+                        code: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome 6 Pro CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --font-head: 'Space Grotesk', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-tech: 'JetBrains Mono', monospace;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #020611;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 9999px;
+            border: 2px solid #020611;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+
+        body {
+            background-color: #030712;
+            color: #f8fafc;
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .ambient-aurora {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.35;
+        }
+
+        .blob-1 {
+            width: 550px;
+            height: 550px;
+            top: -100px;
+            left: -100px;
+            background: radial-gradient(circle, #00f0ff 0%, transparent 70%);
+            animation: pulse-slow 8s infinite alternate ease-in-out;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            bottom: 10%;
+            right: -100px;
+            background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+            animation: pulse-slow 10s infinite alternate-reverse ease-in-out;
+        }
+
+        .blob-3 {
+            width: 450px;
+            height: 450px;
+            top: 45%;
+            left: 20%;
+            background: radial-gradient(circle, #059669 0%, transparent 75%);
+            opacity: 0.18;
+        }
+
+        @keyframes pulse-slow {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                transform: scale(1.15) translate(40px, 30px);
+            }
+        }
+
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 70%, transparent 100%);
+        }
+
+        .glass-card {
+            background: rgba(10, 20, 38, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .text-holo {
+            background: linear-gradient(135deg, #ffffff 0%, #00f0ff 40%, #a78bfa 75%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-cyber-primary {
+            background: linear-gradient(135deg, #00f0ff 0%, #0284c7 100%);
+            color: #020611;
+            font-weight: 700;
+            font-family: var(--font-head);
+            border-radius: 14px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-cyber-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.65);
+            filter: brightness(1.1);
+        }
+
+        .chat-scroll {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 240, 255, 0.3) transparent;
+        }
+
+        .chat-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: rgba(0, 240, 255, 0.3);
+            border-radius: 999px;
+        }
+
+        .typing-dot {
+            animation: typingBounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes typingBounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+                opacity: 0.3;
+            }
+
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .navbar-island {
+            background: rgba(7, 14, 27, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="antialiased relative" id="mainBody">
+
+    <!-- Ambient Aurora Mesh -->
+    <div class="ambient-aurora">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
+
+    <!-- ================= FLOATING ISLAND NAVBAR ================= -->
+    <header class="fixed top-4 inset-x-0 z-50 px-4 pointer-events-none">
+        <nav class="max-w-6xl mx-auto navbar-island px-5 py-3 pointer-events-auto flex items-center justify-between">
+            <!-- Brand Logo & Live Status -->
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div
+                    class="relative w-10 h-10 rounded-xl overflow-hidden border border-cyan-400/40 shadow-[0_0_15px_rgba(0,240,255,0.3)] bg-slate-900 flex items-center justify-center">
+                    <img src="img/icon-192.svg" alt="NicaFlasher Logo" class="w-8 h-8 object-contain">
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-heading font-extrabold text-white text-base tracking-wide">NICA FLASHER</span>
+                        <span
+                            class="text-[10px] font-code px-1.5 py-0.5 rounded bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 font-bold">MOJOROTO</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-[11px] text-slate-400">
+                        <span class="relative flex h-1.5 w-1.5">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                        </span>
+                        <span class="text-emerald-400 font-medium">Distrik Mojoroto, Kediri</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Nav Links Desktop -->
+            <div
+                class="hidden lg:flex items-center gap-1 bg-slate-900/60 p-1 rounded-full border border-white/5 text-xs font-semibold text-slate-300">
+                <a href="index.html"
+                    class="px-3.5 py-1.5 rounded-full hover:text-cyan-300 hover:bg-white/5 transition">Beranda</a>
+                <a href="ai-diagnostic.html"
+                    class="px-3.5 py-1.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 font-bold flex items-center gap-1.5">
+                    <i class="fa-solid fa-brain text-cyan-400"></i> AI Diagnostic
+                </a>
+                <a href="price-list.html"
+                    class="px-3.5 py-1.5 rounded-full hover:text-cyan-300 hover:bg-white/5 transition">Price List</a>
+                <a href="hubungi-kami.html"
+                    class="px-3.5 py-1.5 rounded-full hover:text-cyan-300 hover:bg-white/5 transition">Portofolio &
+                    Kontak</a>
+                <a href="index.html#reservasi"
+                    class="px-3.5 py-1.5 rounded-full hover:text-cyan-300 hover:bg-white/5 transition">Reservasi</a>
+            </div>
+
+            <!-- Action Buttons Desktop -->
+            <div class="flex items-center gap-2">
+
+
+                <!-- WhatsApp Direct CTA -->
+                <a href="https://wa.me/6287888619552?text=Halo%20Admin%20NicaFlasherKDR,%20saya%20ingin%20konsultasi%20hasil%20AI%20Diagnostic"
+                    target="_blank" class="btn-cyber-primary px-4 py-2 text-xs flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span class="hidden sm:inline">WhatsApp Teknisi</span>
+                </a>
+
+                <!-- Mobile Menu Trigger -->
+                <button onclick="toggleMobileNav()"
+                    class="lg:hidden w-9 h-9 rounded-xl bg-slate-800/80 border border-slate-700 text-white flex items-center justify-center text-sm"
+                    aria-label="Toggle menu">
+                    <i class="fa-solid fa-bars" id="mobileMenuIcon"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileDrawer"
+            class="hidden max-w-md mx-auto mt-2 bg-[#091224]/95 backdrop-blur-2xl border border-cyan-500/30 rounded-3xl p-5 shadow-2xl space-y-2 pointer-events-auto">
+            <a href="index.html"
+                class="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-slate-200 text-sm font-semibold">Beranda</a>
+            <a href="ai-diagnostic.html"
+                class="block px-4 py-2.5 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold text-sm flex items-center gap-2">
+                <i class="fa-solid fa-brain"></i> AI Diagnostic & Agent
+            </a>
+            <a href="price-list.html"
+                class="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-slate-200 text-sm font-semibold">Daftar Harga
+                (Price List)</a>
+            <a href="hubungi-kami.html"
+                class="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-slate-200 text-sm font-semibold">Portofolio &
+                Kontak</a>
+            <a href="index.html#reservasi"
+                class="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-slate-200 text-sm font-semibold">Form
+                Reservasi Cepat</a>
+
+                <a href="https://wa.me/6287888619552" target="_blank"
+                    class="px-4 py-2.5 rounded-xl bg-emerald-600 text-xs font-bold text-white flex items-center gap-1.5">
+                    <i class="fa-brands fa-whatsapp"></i> Chat Admin
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 px-4 relative z-10 max-w-7xl mx-auto">
+        <div class="cyber-grid"></div>
+
+        <!-- ================= HERO HEADER ================= -->
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <div
+                class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-cyan-950/50 border border-cyan-400/40 text-cyan-300 text-xs font-semibold mb-4 shadow-[0_0_20px_rgba(0,240,255,0.25)]">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                <span class="font-code uppercase tracking-wider">AI DIAGNOSTIC ENGINE v2.5 ACTIVE</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 font-heading leading-tight">
+                Smart AI Diagnostic & <br>
+                <span class="text-holo">Firmware Lab Assistant</span>
+            </h1>
+            <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+                Diagnosa instan kerusakan smartphone, estimasi biaya transparan, serta konsultasi interaktif bersama
+                asisten teknisi AI Nica Flasher Distrik Mojoroto.
+            </p>
+
+            <!-- Mode Selector Switcher Pills -->
+            <div class="flex items-center justify-center gap-3 mt-8">
+                <button id="tabBtnCalc" onclick="switchTab('calc')"
+                    class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs sm:text-sm font-heading shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>Kalkulator & Estimator Cepat</span>
+                </button>
+                <button id="tabBtnChat" onclick="switchTab('chat')"
+                    class="px-5 py-2.5 rounded-2xl bg-slate-900/80 border border-white/10 hover:border-cyan-400/50 text-slate-300 font-bold text-xs sm:text-sm font-heading transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-robot text-cyan-400"></i>
+                    <span>Asisten AI Chat Interaktif</span>
+                    <span
+                        class="px-1.5 py-0.2 text-[9px] rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">AI
+                        AGENT</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= WORKSPACE TAB 1: KALKULATOR & ESTIMATOR ================= -->
+        <section id="tabCalc" class="transition-all duration-300">
+            <div
+                class="glass-card p-6 md:p-10 border-cyan-500/30 bg-gradient-to-b from-[#09152b]/95 to-[#040915]/98 shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                    <!-- Left Form Inputs -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <!-- Step 1: Brand -->
+                        <div>
+                            <label
+                                class="block text-xs font-code font-bold text-cyan-300 uppercase tracking-wider mb-2.5 flex items-center justify-between">
+                                <span>1. PILIH MEREK SMARTPHONE</span>
+                                <span class="text-[11px] text-slate-400 font-normal">Klik untuk memilih</span>
+                            </label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="brandSelector">
+                                <button type="button" onclick="selectBrand('Samsung', this)"
+                                    class="brand-btn px-3 py-3 rounded-xl border text-xs font-semibold transition border-cyan-400 bg-cyan-950/40 text-cyan-300 flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-android text-sm"></i> Samsung
+                                </button>
+                                <button type="button" onclick="selectBrand('Xiaomi', this)"
+                                    class="brand-btn px-3 py-3 rounded-xl border border-white/10 bg-slate-900/80 hover:border-cyan-400 text-xs font-semibold text-slate-300 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-mobile-screen text-sm"></i> Xiaomi / Poco
+                                </button>
+                                <button type="button" onclick="selectBrand('iPhone', this)"
+                                    class="brand-btn px-3 py-3 rounded-xl border border-white/10 bg-slate-900/80 hover:border-cyan-400 text-xs font-semibold text-slate-300 transition flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-apple text-sm"></i> Apple iPhone
+                                </button>
+                                <button type="button" onclick="selectBrand('Oppo', this)"
+                                    class="brand-btn px-3 py-3 rounded-xl border border-white/10 bg-slate-900/80 hover:border-cyan-400 text-xs font-semibold text-slate-300 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-bolt text-sm"></i> Oppo / Realme
+                                </button>
+                                <button type="button" onclick="selectBrand('Vivo', this)"
+                                    class="brand-btn px-3 py-3 rounded-xl border border-white/10 bg-slate-900/80 hover:border-cyan-400 text-xs font-semibold text-slate-300 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-microchip text-sm"></i> Vivo / iQOO
+                                </button>
+                                <button type="button" onclick="selectBrand('Infinix', this)"
+                                    class="brand-btn px-3 py-3 rounded-xl border border-white/10 bg-slate-900/80 hover:border-cyan-400 text-xs font-semibold text-slate-300 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-signal text-sm"></i> Infinix / Tecno
+                                </button>
+                                <button type="button" onclick="selectBrand('Google', this)"
+                                    class="brand-btn px-3 py-3 rounded-xl border border-white/10 bg-slate-900/80 hover:border-cyan-400 text-xs font-semibold text-slate-300 transition flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-google text-sm"></i> Google Pixel
+                                </button>
+                                <button type="button" onclick="selectBrand('Lainnya', this)"
+                                    class="brand-btn px-3 py-3 rounded-xl border border-white/10 bg-slate-900/80 hover:border-cyan-400 text-xs font-semibold text-slate-300 transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-ellipsis text-sm"></i> Merek Lainnya
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Issue Type -->
+                        <div>
+                            <label
+                                class="block text-xs font-code font-bold text-cyan-300 uppercase tracking-wider mb-2.5">
+                                2. JENIS KENDALA / KERUSAKAN
+                            </label>
+                            <select id="issueSelector" onchange="updateEstimation()"
+                                class="w-full rounded-xl bg-slate-900/90 border border-slate-700/80 px-4 py-3.5 text-white text-sm focus:border-cyan-400 outline-none transition font-sans">
+                                <option value="frp">Bypass Akun Google (FRP) Nyangkut Sehabis Reset</option>
+                                <option value="micloud">Mi Cloud Terkunci / Lock Micloud Clean (Xiaomi/POCO)</option>
+                                <option value="bootloop">Bootloop / Stuck Logo / Restart Terus-Menerus</option>
+                                <option value="iphone">iPhone Passcode / Hello Screen / iCloud Bypass</option>
+                                <option value="pattern">Lupa Sandi / Pola / PIN Layar Kunci</option>
+                                <option value="hardbrick">Mati Total / EDL 9008 Testpoint / Hardbrick</option>
+                                <option value="custom">UBL (Unlock Bootloader), Root, Custom ROM, Fix Sinyal</option>
+                            </select>
+                        </div>
+
+                        <!-- Step 3: Service Method -->
+                        <div>
+                            <label
+                                class="block text-xs font-code font-bold text-cyan-300 uppercase tracking-wider mb-2.5">
+                                3. METODE PENGERJAAN
+                            </label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <label
+                                    class="cursor-pointer flex items-center gap-3 p-3.5 rounded-xl border border-cyan-400/50 bg-cyan-950/30 text-white text-xs font-semibold transition"
+                                    id="methodRemoteLabel">
+                                    <input type="radio" name="method" value="remote" checked
+                                        onchange="updateEstimation()" class="text-cyan-400 accent-cyan-400">
+                                    <div>
+                                        <div class="text-cyan-300 font-bold flex items-center gap-1.5"><i
+                                                class="fa-solid fa-wifi"></i> Remote Jarak Jauh</div>
+                                        <div class="text-[11px] text-slate-400">Via PC Anda (UltraViewer / AnyDesk)
+                                        </div>
+                                    </div>
+                                </label>
+                                <label
+                                    class="cursor-pointer flex items-center gap-3 p-3.5 rounded-xl border border-white/10 bg-slate-900/60 text-slate-300 text-xs font-semibold transition hover:border-slate-600"
+                                    id="methodOfflineLabel">
+                                    <input type="radio" name="method" value="offline" onchange="updateEstimation()"
+                                        class="text-cyan-400 accent-cyan-400">
+                                    <div>
+                                        <div class="text-white font-bold flex items-center gap-1.5"><i
+                                                class="fa-solid fa-location-dot text-rose-400"></i> Datang ke Workshop
+                                        </div>
+                                        <div class="text-[11px] text-slate-400">Kediri, Jawa Timur (Bisa Ditunggu)</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Detail Tambahan / Serial -->
+                        <div>
+                            <label
+                                class="block text-xs font-code font-bold text-cyan-300 uppercase tracking-wider mb-2.5">
+                                4. SERI SPESIFIK SMARTPHONE (OPSIONAL)
+                            </label>
+                            <input type="text" id="deviceSeriesInput"
+                                placeholder="Contoh: Samsung A54 5G / Redmi Note 12 / iPhone 11"
+                                class="w-full rounded-xl bg-slate-900/90 border border-slate-700/80 px-4 py-3 text-white text-xs focus:border-cyan-400 outline-none transition font-sans placeholder-slate-500">
+                        </div>
+                    </div>
+
+                    <!-- Right Live Estimation Card -->
+                    <div class="lg:col-span-5">
+                        <div class="rounded-2xl p-6 bg-slate-950/90 border border-cyan-400/40 shadow-2xl relative">
+                            <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                                    <span
+                                        class="text-xs font-code text-cyan-400 uppercase tracking-widest font-bold">LIVE
+                                        ESTIMATION</span>
+                                </div>
+                                <span
+                                    class="text-[10px] font-code px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-bold">
+                                    READY NOW
+                                </span>
+                            </div>
+
+                            <div class="space-y-4 text-xs font-code">
+                                <div class="flex justify-between items-center py-1 border-b border-white/5">
+                                    <span class="text-slate-400">Merek Smartphone:</span>
+                                    <span class="text-white font-bold" id="estBrandDisplay">Samsung</span>
+                                </div>
+                                <div class="flex justify-between items-center py-1 border-b border-white/5">
+                                    <span class="text-slate-400">Kendala Dipilih:</span>
+                                    <span class="text-cyan-300 font-bold text-right" id="estIssueDisplay">Bypass FRP
+                                        Google</span>
+                                </div>
+                                <div class="flex justify-between items-center py-1 border-b border-white/5">
+                                    <span class="text-slate-400">Metode Pengerjaan:</span>
+                                    <span class="text-slate-200 font-bold" id="estMethodDisplay">Remote via PC</span>
+                                </div>
+                                <div class="flex justify-between items-center py-1 border-b border-white/5">
+                                    <span class="text-slate-400">Estimasi Durasi:</span>
+                                    <span class="text-emerald-400 font-bold" id="estTimeDisplay">15 - 25 Menit</span>
+                                </div>
+                                <div class="flex justify-between items-center py-1">
+                                    <span class="text-slate-400">Garansi Pengerjaan:</span>
+                                    <span class="text-emerald-400 font-bold">100% Bergaransi Uang Kembali</span>
+                                </div>
+                            </div>
+
+                            <!-- Cost Box -->
+                            <div class="mt-6 p-4 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-center">
+                                <span
+                                    class="text-[11px] font-code text-slate-400 uppercase tracking-wider block mb-1">Kisaran
+                                    Biaya Estimasi</span>
+                                <div class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-400 to-emerald-400 font-heading"
+                                    id="estPriceDisplay">
+                                    Rp150.000 - Rp200.000
+                                </div>
+                                <span class="text-[10px] text-slate-500 mt-1 block">*Konsultasi gratis, pembayaran
+                                    setelah pengerjaan beres</span>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="space-y-2.5 mt-6">
+                                <button type="button" onclick="sendEstimationToWhatsApp()"
+                                    class="w-full btn-cyber-primary py-3.5 text-xs sm:text-sm flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                                    <span>Kirim Diagnosa ini ke WhatsApp</span>
+                                </button>
+                                <button type="button" onclick="transferToAIChat()"
+                                    class="w-full py-2.5 rounded-xl border border-purple-500/30 bg-purple-950/20 hover:bg-purple-950/40 text-purple-300 text-xs font-semibold flex items-center justify-center gap-2 transition">
+                                    <i class="fa-solid fa-robot"></i>
+                                    <span>Lanjut Konsultasi Detail ke AI Agent</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= WORKSPACE TAB 2: AI AGENT CHAT ================= -->
+        <section id="tabChat" class="hidden transition-all duration-300">
+            <div
+                class="glass-card border-cyan-500/30 bg-gradient-to-b from-[#071123]/95 to-[#030816]/98 shadow-2xl rounded-3xl overflow-hidden">
+
+                <!-- Chat Agent Header Bar -->
+                <div
+                    class="p-4 sm:p-5 bg-slate-950/80 border-b border-white/10 flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-600 p-0.5 shadow-[0_0_20px_rgba(0,240,255,0.3)]">
+                            <div
+                                class="w-full h-full bg-[#030712] rounded-[14px] flex items-center justify-center text-cyan-400 text-lg">
+                                <i class="fa-solid fa-microchip animate-pulse"></i>
+                            </div>
+                            <span
+                                class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#030712]"></span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-heading font-bold text-white text-base">NicaAI Firmware
+                                    Specialist</span>
+                                <span
+                                    class="text-[9px] font-code px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-bold"
+                                    id="aiEngineBadge">
+                                    ● ONLINE • SMART LAB
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-400 flex items-center gap-2 font-code">
+                                <span>Distrik Mojoroto Firmware DB</span>
+                                <span>•</span>
+                                <span class="text-cyan-400">Latency: 12ms</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button onclick="clearChat()"
+                            class="px-3 py-1.5 rounded-xl border border-slate-700 hover:border-slate-500 text-slate-400 hover:text-white text-xs font-code transition flex items-center gap-1.5"
+                            title="Bersihkan Percakapan">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            <span class="hidden sm:inline">Reset Chat</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Messages Body -->
+                <div id="chatMessages"
+                    class="p-4 sm:p-6 space-y-4 max-h-[500px] min-h-[380px] overflow-y-auto chat-scroll font-sans text-sm">
+                    <!-- Welcome Message from AI -->
+                    <div class="flex items-start gap-3">
+                        <div
+                            class="w-8 h-8 rounded-xl bg-cyan-950 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shrink-0 text-xs">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div
+                            class="bg-slate-900/90 border border-cyan-500/20 rounded-2xl rounded-tl-none p-4 max-w-2xl text-slate-200 space-y-3 shadow-md">
+                            <p class="font-semibold text-cyan-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-sparkles text-xs"></i> Halo! Saya Asisten AI Teknisi Nica Flasher
+                                Mojoroto.
+                            </p>
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                                Ceritakan masalah smartphone Anda (misal: merek, tipe, kondisi layar, atau penyebab
+                                kerusakan seperti sehabis update / reset). Saya akan menganalisis penyebab, langkah
+                                perbaikan, estimasi biaya, dan kesiapan pengerjaan remote jarak jauh.
+                            </p>
+                            <div
+                                class="p-2.5 rounded-xl bg-slate-950/80 border border-white/5 text-xs font-code text-slate-400">
+                                💡 Tip: Anda juga dapat mengklik salah satu prompt cepat di bawah.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Prompt Chips -->
+                <div
+                    class="p-3 bg-slate-950/90 border-t border-white/5 flex items-center gap-2 overflow-x-auto no-scrollbar text-xs">
+                    <span class="text-slate-500 font-code shrink-0 text-[11px] ml-2">PROMPT CEPAT:</span>
+                    <button
+                        onclick="sendQuickPrompt('HP Samsung saya bootloop stuck di logo setelah gagal update software')"
+                        class="shrink-0 px-3 py-1.5 rounded-full bg-slate-800/80 border border-white/5 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 transition text-xs font-sans">
+                        🔄 Samsung Bootloop Stuck Logo
+                    </button>
+                    <button
+                        onclick="sendQuickPrompt('Lupa akun Google (FRP Lock) setelah reset pabrik, butuh bypass remote')"
+                        class="shrink-0 px-3 py-1.5 rounded-full bg-slate-800/80 border border-white/5 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 transition text-xs font-sans">
+                        🔒 Bypass FRP Akun Google
+                    </button>
+                    <button onclick="sendQuickPrompt('Xiaomi Redmi saya terkunci Mi Cloud / This device is locked')"
+                        class="shrink-0 px-3 py-1.5 rounded-full bg-slate-800/80 border border-white/5 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 transition text-xs font-sans">
+                        ☁️ Unlock Mi Cloud Xiaomi
+                    </button>
+                    <button onclick="sendQuickPrompt('iPhone terlock Passcode / Hello Screen, apakah bisa di-bypass?')"
+                        class="shrink-0 px-3 py-1.5 rounded-full bg-slate-800/80 border border-white/5 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 transition text-xs font-sans">
+                        🍏 iPhone iCloud Hello Screen
+                    </button>
+                </div>
+
+                <!-- Chat Input Box -->
+                <div class="p-4 bg-slate-950 border-t border-white/10">
+                    <form id="chatForm" onsubmit="handleUserChat(event)" class="flex items-center gap-2 sm:gap-3">
+                        <div class="relative flex-1">
+                            <input type="text" id="chatInput"
+                                placeholder="Ketik keluhan atau tipe HP Anda (contoh: Poco X3 mati total saat dicas)..."
+                                class="w-full rounded-2xl bg-slate-900 border border-slate-700/80 px-4 sm:px-5 py-3.5 text-white text-xs sm:text-sm focus:border-cyan-400 outline-none transition font-sans pr-10">
+                        </div>
+                        <button type="submit" id="btnSendChat"
+                            class="btn-cyber-primary px-5 sm:px-6 py-3.5 text-xs sm:text-sm flex items-center gap-2 font-bold shrink-0">
+                            <span>Kirim</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-[#02050f] border-t border-white/5 py-12 text-slate-400 text-xs relative z-10">
+        <div
+            class="container mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+            <div>
+                <p class="text-white font-bold font-heading text-sm mb-1">Nica Flasher Distrik Mojoroto</p>
+                <p>&copy; 2026 <span class="text-cyan-400 font-bold">Nica Flasher Distrik Mojoroto</span>. All rights
+                    reserved.</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="hover:text-white transition">Beranda</a>
+                <a href="ai-diagnostic.html" class="text-cyan-400 font-bold">AI Diagnostic</a>
+                <a href="price-list.html" class="hover:text-white transition">Price List</a>
+                <a href="hubungi-kami.html" class="hover:text-white transition">Portofolio & Kontak</a>
+                <a href="admin-ai.html" class="text-slate-600 hover:text-cyan-400 text-[10px] transition font-code" title="Login Khusus Pemilik Website"><i class="fa-solid fa-lock text-[9px]"></i> Kelola AI</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT ENGINE ================= -->
+    <script>
+        // 1. TAB SWITCHER
+        function switchTab(mode) {
+            const tabCalc = document.getElementById('tabCalc');
+            const tabChat = document.getElementById('tabChat');
+            const btnCalc = document.getElementById('tabBtnCalc');
+            const btnChat = document.getElementById('tabBtnChat');
+
+            if (mode === 'calc') {
+                tabCalc.classList.remove('hidden');
+                tabChat.classList.add('hidden');
+                btnCalc.className = "px-5 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs sm:text-sm font-heading shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all flex items-center gap-2";
+                btnChat.className = "px-5 py-2.5 rounded-2xl bg-slate-900/80 border border-white/10 hover:border-cyan-400/50 text-slate-300 font-bold text-xs sm:text-sm font-heading transition-all flex items-center gap-2";
+            } else {
+                tabChat.classList.remove('hidden');
+                tabCalc.classList.add('hidden');
+                btnChat.className = "px-5 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs sm:text-sm font-heading shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all flex items-center gap-2";
+                btnCalc.className = "px-5 py-2.5 rounded-2xl bg-slate-900/80 border border-white/10 hover:border-cyan-400/50 text-slate-300 font-bold text-xs sm:text-sm font-heading transition-all flex items-center gap-2";
+                setTimeout(() => document.getElementById('chatInput').focus(), 100);
+            }
+        }
+
+        function toggleMobileNav() {
+            const drawer = document.getElementById('mobileDrawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        // 2. DIAGNOSTIC ESTIMATOR LOGIC
+        let currentSelectedBrand = 'Samsung';
+
+        function selectBrand(brand, btnElement) {
+            currentSelectedBrand = brand;
+            document.querySelectorAll('.brand-btn').forEach(btn => {
+                btn.className = "brand-btn px-3 py-3 rounded-xl border border-white/10 bg-slate-900/80 hover:border-cyan-400 text-xs font-semibold text-slate-300 transition flex items-center justify-center gap-2";
+            });
+            btnElement.className = "brand-btn px-3 py-3 rounded-xl border border-cyan-400 bg-cyan-950/40 text-cyan-300 font-semibold transition flex items-center justify-center gap-2";
+            updateEstimation();
+        }
+
+        function updateEstimation() {
+            const issueKey = document.getElementById('issueSelector').value;
+            const method = document.querySelector('input[name="method"]:checked').value;
+
+            const estBrand = document.getElementById('estBrandDisplay');
+            const estIssue = document.getElementById('estIssueDisplay');
+            const estMethod = document.getElementById('estMethodDisplay');
+            const estTime = document.getElementById('estTimeDisplay');
+            const estPrice = document.getElementById('estPriceDisplay');
+
+            estBrand.textContent = currentSelectedBrand;
+            estMethod.textContent = method === 'remote' ? 'Remote via PC' : 'Datang ke Workshop Kediri';
+
+            const remoteLabel = document.getElementById('methodRemoteLabel');
+            const offlineLabel = document.getElementById('methodOfflineLabel');
+            if (method === 'remote') {
+                remoteLabel.classList.add('border-cyan-400/50', 'bg-cyan-950/30');
+                offlineLabel.classList.remove('border-cyan-400/50', 'bg-cyan-950/30');
+            } else {
+                offlineLabel.classList.add('border-cyan-400/50', 'bg-cyan-950/30');
+                remoteLabel.classList.remove('border-cyan-400/50', 'bg-cyan-950/30');
+            }
+
+            const dataMatrix = {
+                frp: { name: 'Bypass FRP Google', time: '15 - 25 Menit', price: 'Rp150.000 - Rp200.000' },
+                micloud: { name: 'Mi Cloud Unlock', time: '20 - 35 Menit', price: 'Rp150.000 - Rp250.000' },
+                bootloop: { name: 'Flashing & Unbrick', time: '20 - 45 Menit', price: 'Rp150.000 - Rp200.000' },
+                iphone: { name: 'Bypass iPhone All Condition', time: '30 - 60 Menit', price: 'Rp200.000 - Rp450.000' },
+                pattern: { name: 'Buka Pola / Sandi Layar', time: '15 - 25 Menit', price: 'Rp150.000' },
+                hardbrick: { name: 'Mati Total EDL 9008', time: '30 - 60 Menit', price: 'Rp200.000 - Rp300.000' },
+                custom: { name: 'UBL / Root / Fix Sinyal', time: '25 - 45 Menit', price: 'Rp150.000 - Rp250.000' }
+            };
+
+            const selectedData = dataMatrix[issueKey] || dataMatrix.frp;
+            estIssue.textContent = selectedData.name;
+            estTime.textContent = selectedData.time;
+            estPrice.textContent = selectedData.price;
+        }
+
+        function sendEstimationToWhatsApp() {
+            const brand = currentSelectedBrand;
+            const series = document.getElementById('deviceSeriesInput').value.trim();
+            const issueText = document.getElementById('estIssueDisplay').textContent;
+            const methodText = document.getElementById('estMethodDisplay').textContent;
+            const priceText = document.getElementById('estPriceDisplay').textContent;
+
+            const targetDevice = series ? `${brand} (${series})` : brand;
+
+            const text = `Halo Admin Nica Flasher Distrik Mojoroto, saya ingin konsultasi hasil AI Diagnostic website:\n- Perangkat: ${targetDevice}\n- Kerusakan: ${issueText}\n- Metode: ${methodText}\n- Estimasi Biaya: ${priceText}\n\nMohon info slot pengerjaannya. Terima kasih!`;
+            const waUrl = `https://wa.me/6287888619552?text=${encodeURIComponent(text)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        function transferToAIChat() {
+            switchTab('chat');
+            const series = document.getElementById('deviceSeriesInput').value.trim();
+            const brand = currentSelectedBrand;
+            const issue = document.getElementById('issueSelector').options[document.getElementById('issueSelector').selectedIndex].text;
+            const target = series ? `${brand} (${series})` : brand;
+            sendQuickPrompt(`Saya memiliki smartphone ${target} dengan kendala "${issue}". Mohon analisa penyebab teknisnya dan solusi perbaikannya.`);
+        }
+
+        // 3. AI AGENT CHAT SYSTEM & PRODUCTION EXTENSIBILITY
+        const SYSTEM_PROMPT = `Anda adalah NicaAI Specialist, asisten virtual teknisi software smartphone di Nica Flasher Distrik Mojoroto, Kediri. Anda ahli dalam:
+1. Flashing firmware & unbrick (EDL Qualcomm 9008, MediaTek Brom, Samsung Odin/DL, iPhone DFU/Recovery).
+2. Bypass FRP Google Account, Mi Cloud Lock Clean, dan iPhone Bypass.
+3. Menjelaskan perkiraan biaya secara transparan, waktu pengerjaan (15-60 menit), dan opsi remote via UltraViewer/AnyDesk atau langsung ke workshop Mojoroto.
+Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggunakan poin-poin.`;
+
+        function sendQuickPrompt(promptText) {
+            document.getElementById('chatInput').value = promptText;
+            handleUserChat(new Event('submit'));
+        }
+
+        async function handleUserChat(e) {
+            if (e) e.preventDefault();
+            const input = document.getElementById('chatInput');
+            const userText = input.value.trim();
+            if (!userText) return;
+
+            input.value = '';
+            appendMessage('user', userText);
+
+            // Tampilkan typing indicator
+            const typingId = appendTypingIndicator();
+
+            try {
+                // Call AI Engine (Modular: Heuristic Simulator or Real API)
+                const aiResponse = await executeAIEngine(userText);
+                removeTypingIndicator(typingId);
+                appendMessage('ai', aiResponse);
+            } catch (err) {
+                removeTypingIndicator(typingId);
+                appendMessage('ai', `⚠️ Maaf, terjadi gangguan saat memproses jawaban: ${err.message}. Anda dapat langsung menghubungi teknisi kami via WhatsApp di +6287888619552.`);
+            }
+        }
+
+        function appendMessage(sender, text) {
+            const container = document.getElementById('chatMessages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = sender === 'user' ? 'flex items-start justify-end gap-3' : 'flex items-start gap-3';
+
+            if (sender === 'user') {
+                msgDiv.innerHTML = `
+                    <div class="bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-2xl rounded-tr-none p-4 max-w-xl shadow-md text-xs sm:text-sm">
+                        ${escapeHtml(text)}
+                    </div>
+                    <div class="w-8 h-8 rounded-xl bg-slate-800 border border-white/10 flex items-center justify-center text-slate-300 shrink-0 text-xs">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                `;
+            } else {
+                msgDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-xl bg-cyan-950 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shrink-0 text-xs">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-slate-900/90 border border-cyan-500/20 rounded-2xl rounded-tl-none p-4 max-w-2xl text-slate-200 space-y-2.5 shadow-md text-xs sm:text-sm leading-relaxed">
+                        ${formatAIResponse(text)}
+                        <div class="pt-3 border-t border-white/5 flex flex-wrap items-center justify-between gap-2">
+                            <span class="text-[10px] text-slate-500 font-code">Konsultasi Nica Flasher Distrik Mojoroto</span>
+                            <button onclick="forwardAIToWA(this)" class="px-3 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/30 text-[11px] font-bold transition flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function appendTypingIndicator() {
+            const id = 'typing-' + Date.now();
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = 'flex items-start gap-3';
+            div.innerHTML = `
+                <div class="w-8 h-8 rounded-xl bg-cyan-950 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shrink-0 text-xs">
+                    <i class="fa-solid fa-robot animate-spin"></i>
+                </div>
+                <div class="bg-slate-900/80 border border-cyan-500/20 rounded-2xl rounded-tl-none px-4 py-3 text-slate-400 flex items-center gap-1.5 text-xs">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 typing-dot"></span>
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 typing-dot"></span>
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 typing-dot"></span>
+                    <span class="ml-2 font-code text-[11px] text-cyan-300">NicaAI sedang menganalisa firmware & diagnosa...</span>
+                </div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+            return id;
+        }
+
+        function removeTypingIndicator(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function escapeHtml(string) {
+            return String(string).replace(/[&<>"']/g, function (s) {
+                return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[s];
+            });
+        }
+
+        function formatAIResponse(text) {
+            // Ubah newline ke break dan bold tags
+            return text
+                .replace(/\n\n/g, '<br><br>')
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong class="text-cyan-300 font-bold">$1</strong>')
+                .replace(/\[ANALISIS\]/g, '<span class="inline-block px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 text-[10px] font-code font-bold mr-1">ANALISIS</span>')
+                .replace(/\[METODE\]/g, '<span class="inline-block px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-400/30 text-[10px] font-code font-bold mr-1">METODE</span>')
+                .replace(/\[BIAYA\]/g, '<span class="inline-block px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-code font-bold mr-1">BIAYA</span>');
+        }
+
+        function forwardAIToWA(btn) {
+            const card = btn.closest('.bg-slate-900\\/90');
+            const textContent = card.innerText.replace('Chat WhatsApp', '').replace('Konsultasi Nica Flasher Distrik Mojoroto', '').trim();
+            const message = `Halo Admin Nica Flasher Distrik Mojoroto, saya ingin melanjutkan konsultasi AI Diagnostic:\n\n${textContent.substring(0, 500)}...\n\nMohon info ketersediaan slot pengerjaannya. Terima kasih!`;
+            window.open(`https://wa.me/6287888619552?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        function clearChat() {
+            const container = document.getElementById('chatMessages');
+            container.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-cyan-950 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shrink-0 text-xs">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-slate-900/90 border border-cyan-500/20 rounded-2xl rounded-tl-none p-4 max-w-2xl text-slate-200 space-y-2 text-xs sm:text-sm">
+                        <p class="font-semibold text-cyan-300">Percakapan telah di-reset.</p>
+                        <p class="text-slate-400">Silakan tanyakan perbaikan smartphone Anda kembali.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 4. MODULAR AI BACKEND / API HOOK (CLOUDFLARE PAGES READY + HEURISTIC FALLBACK)
+        async function executeAIEngine(prompt) {
+            // 1. Cek Serverless Endpoint Cloudflare Pages (/api/chat) jika berjalan di hosting Cloudflare
+            try {
+                const cfRes = await fetch('./api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+                if (cfRes.ok) {
+                    const cfData = await cfRes.json();
+                    if (cfData.reply) return cfData.reply;
+                }
+            } catch (cfErr) {
+                // Berjalan di localhost atau server statis biasa, lanjut ke pengecekan lokal
+            }
+
+            const engine = localStorage.getItem('nica_ai_engine') || 'heuristic';
+            const apiKey = localStorage.getItem('nica_ai_apikey') || '';
+            const endpoint = localStorage.getItem('nica_ai_endpoint') || '';
+
+            // JIKA MENGGUNAKAN GOOGLE GEMINI API
+            if (engine === 'gemini' && apiKey) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [
+                                { role: 'user', parts: [{ text: `${SYSTEM_PROMPT}\n\nPertanyaan Klien: ${prompt}` }] }
+                            ]
+                        })
+                    });
+                    const data = await response.json();
+                    return data.candidates[0].content.parts[0].text;
+                } catch (e) {
+                    console.warn('Gemini API call failed, falling back to internal heuristic:', e);
+                }
+            }
+
+            // JIKA MENGGUNAKAN OPENAI API
+            if (engine === 'openai' && apiKey) {
+                try {
+                    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        body: JSON.stringify({
+                            model: 'gpt-4o-mini',
+                            messages: [
+                                { role: 'system', content: SYSTEM_PROMPT },
+                                { role: 'user', content: prompt }
+                            ]
+                        })
+                    });
+                    const data = await response.json();
+                    return data.choices[0].message.content;
+                } catch (e) {
+                    console.warn('OpenAI API call failed, falling back to internal heuristic:', e);
+                }
+            }
+
+            // JIKA MENGGUNAKAN CUSTOM WEBHOOK
+            if (engine === 'custom_webhook' && endpoint) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt, system: SYSTEM_PROMPT })
+                    });
+                    const data = await response.json();
+                    return data.reply || data.response || JSON.stringify(data);
+                } catch (e) {
+                    console.warn('Webhook call failed, falling back to internal heuristic:', e);
+                }
+            }
+
+            // DEFAULT: INTELLIGENT HEURISTIC SPECIALIST ENGINE (SIMULATOR INTERNAL)
+            await new Promise(r => setTimeout(r, 650)); // Synthetic processing latency
+            return heuristicAnalyzer(prompt);
+        }
+
+        // HEURISTIC ENGINE (SPECIALIZED SMARTPHONE FIRMWARE KNOWLEDGE BASE)
+        function heuristicAnalyzer(query) {
+            const q = query.toLowerCase();
+
+            if (q.includes('samsung') && (q.includes('bootloop') || q.includes('stuck') || q.includes('logo'))) {
+                return `[ANALISIS] Kendala bootloop pada Samsung umumnya diakibatkan oleh corrupt partition system, kegagalan update One UI OTA, atau memory internal yang kepenuhan.\n\n[METODE] **Full Flashing 4 File (BL, AP, CP, CSC)** menggunakan Odin Official dengan firmware region Indonesia (XID). Jika data ingin diselamatkan, teknisi kami dapat mencoba metode HOME_CSC terlebih dahulu.\n\n[BIAYA] **Rp150.000 - Rp200.000** (Durasi: 20-30 menit via Remote UltraViewer atau workshop Mojoroto).`;
+            }
+
+            if (q.includes('frp') || q.includes('akun google') || q.includes('reset pabrik')) {
+                return `[ANALISIS] Perangkat Anda terkunci Factory Reset Protection (FRP) karena di-hard reset tanpa menghapus akun Google terlebih dahulu.\n\n[METODE] **Direct Handshake Exploit / Server Authorized Token**. Bypass dilakukan tanpa bongkar mesin (menggunakan ADB, Test Mode *#0*#, atau MTP exploit). Akun Google lama terhapus total dan Anda bisa login akun baru.\n\n[BIAYA] **Rp150.000 - Rp200.000** (Durasi: 15-25 menit, 100% aman via remote jarak jauh).`;
+            }
+
+            if (q.includes('mi cloud') || q.includes('xiaomi') || q.includes('poco') || q.includes('locked')) {
+                return `[ANALISIS] Xiaomi/POCO Anda mendeteksi lock status "This device is locked". Kami perlu mengecek status nomor lock apakah Clean atau Lost.\n\n[METODE] Untuk status **Clean**, kami melayani Server Unlock Resmi (bisa login Mi Account baru & bebas update) atau metode Bypass Micloud semi-permanent/permanent via EDL 9008 / Auth Server.\n\n[BIAYA] **Rp150.000 - Rp250.000** (Tergantung chipset Snapdragon/MediaTek dan status server).`;
+            }
+
+            if (q.includes('iphone') || q.includes('icloud') || q.includes('passcode') || q.includes('hello')) {
+                return `[ANALISIS] iPhone terkunci pada layar Passcode atau Hello Screen iCloud activation.\n\n[METODE] Untuk iPhone 6s hingga seri iPhone X (Checkm8 exploit), bypass bisa full sinyal dan semua fitur aktif. Untuk iPhone XR ke atas, pengerjaan melalui Server Unlock Resmi atau bypass sesuai status IMEI.\n\n[BIAYA] **Rp200.000 - Rp450.000** tergantung seri iPhone dan status aktivasi. Hubungi kami untuk cek IMEI gratis.`;
+            }
+
+            if (q.includes('mati total') || q.includes('edl') || q.includes('9008') || q.includes('brick')) {
+                return `[ANALISIS] Kondisi mati total (Hardbrick / No Power) di mana perangkat hanya terdeteksi sebagai port Qualcomm HS-USB QDLoader 9008 di device manager.\n\n[METODE] **Emergency Download (EDL) Unbrick Protocol**. Teknisi kami akan inject Firehose Programmer ELF dan flash rawpartition table untuk membangunkan bootloader yang korup.\n\n[BIAYA] **Rp200.000 - Rp300.000** (Garansi pengerjaan, jika hardware eMMC/UFS rusak tidak dikenakan biaya).`;
+            }
+
+            // General smart fallback
+            return `[ANALISIS] Kami telah merekam informasi kendala Anda: "${query}". Kendala ini termasuk dalam kategori perbaikan software smartphone yang ditangani oleh tim teknisi Nica Flasher Distrik Mojoroto.\n\n[METODE] Penanganan dilakukan menggunakan software tools berlisensi resmi (UnlockTool, Chimera, Pandora, EMT, AMT) yang menjamin keamanan data dan hardware perangkat Anda.\n\n[BIAYA] Estimasi biaya perbaikan berkisar antara **Rp150.000 - Rp250.000** dengan garansi pengerjaan. Layanan bisa dilakukan secara **Remote jarak jauh** ke seluruh Indonesia atau datang langsung ke workshop kami di Mojoroto, Kediri.`;
+        }
+
+        // Engine is automatically managed via admin-ai.html by website owner
+        window.addEventListener('DOMContentLoaded', () => {
+            const engine = localStorage.getItem('nica_ai_engine') || 'heuristic';
+            const badge = document.getElementById('aiEngineBadge');
+            if (badge) {
+                if (engine === 'gemini') badge.textContent = '● AI ONLINE • GEMINI CORE';
+                else if (engine === 'openai') badge.textContent = '● AI ONLINE • GPT CORE';
+                else if (engine === 'custom_webhook') badge.textContent = '● AI ONLINE • CUSTOM CORE';
+                else badge.textContent = '● AI ONLINE • SMART LAB';
+            }
+        });
+    </script>
+</body>
+
+</html>

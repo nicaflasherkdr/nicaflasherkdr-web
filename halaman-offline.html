@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030712">
+    <meta name="description" content="Nica Flasher Distrik Mojoroto sedang offline atau koneksi internet Anda terputus.">
+    <title>Offline System - Nica Flasher Distrik Mojoroto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg-void: #030712;
+            --cyan: #00f0ff;
+            --emerald: #10b981;
+            --panel: rgba(13, 24, 41, 0.75);
+            --line: rgba(255, 255, 255, 0.1);
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-head: 'Space Grotesk', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            font-family: var(--font-sans);
+            color: #f1f5f9;
+            background: var(--bg-void);
+            position: relative;
+            overflow-x: hidden;
+        }
+        .aurora {
+            position: fixed;
+            width: 45vw;
+            height: 45vw;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, transparent 70%);
+            top: -10%;
+            left: -10%;
+        }
+        .cyber-grid {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 36px 36px;
+        }
+        main {
+            position: relative;
+            z-index: 10;
+            width: min(100%, 520px);
+            text-align: center;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            padding: 40px 28px;
+            backdrop-filter: blur(24px);
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(0, 240, 255, 0.15);
+        }
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-code);
+            font-size: 0.78rem;
+            color: var(--cyan);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .signal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 24px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            display: grid;
+            place-items: center;
+            font-size: 32px;
+            color: #f87171;
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.2);
+            animation: pulseSignal 2s infinite alternate;
+        }
+        @keyframes pulseSignal {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.06); }
+        }
+        h1 {
+            font-family: var(--font-head);
+            font-size: clamp(1.8rem, 5vw, 2.4rem);
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+        p {
+            color: #94a3b8;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #fbbf24;
+            font-size: 0.78rem;
+            font-family: var(--font-code);
+            margin-bottom: 28px;
+        }
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #fbbf24;
+            animation: ping 1.5s infinite;
+        }
+        /* Mini Game */
+        .game-box {
+            background: rgba(3, 7, 18, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 28px;
+        }
+        .game-title {
+            font-size: 0.72rem;
+            font-family: var(--font-code);
+            color: var(--cyan);
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+        .score-val {
+            font-family: var(--font-head);
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+        .tap-btn {
+            background: linear-gradient(135deg, #0284c7 0%, #00f0ff 100%);
+            color: #030712;
+            border: none;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+        }
+        .tap-btn:active {
+            transform: scale(0.9);
+        }
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-retry {
+            flex: 1;
+            min-width: 160px;
+            padding: 14px 20px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #0284c7 0%, #00f0ff 100%);
+            color: #030712;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .btn-retry:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.5);
+        }
+        .btn-call {
+            flex: 1;
+            min-width: 160px;
+            padding: 14px 20px;
+            border-radius: 14px;
+            background: rgba(15, 27, 48, 0.8);
+            border: 1px solid var(--line);
+            color: #ffffff;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+        .btn-call:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            transform: translateY(-2px);
+        }
+        footer {
+            margin-top: 24px;
+            color: #64748b;
+            font-size: 0.75rem;
+            font-family: var(--font-code);
+        }
+    </style>
+</head>
+<body>
+    <div class="aurora"></div>
+    <div class="cyber-grid"></div>
+
+    <main>
+        <div class="brand">
+            <span>NICA FLASHER DISTRIK MOJOROTO • SYSTEM OFFLINE</span>
+        </div>
+
+        <div class="signal-icon">
+            ⚡
+        </div>
+
+        <h1>Koneksi Terputus</h1>
+        <p>Anda sedang tidak terhubung ke jaringan internet. Halaman otomatis dimuat ulang begitu sinyal kembali stabil.</p>
+
+        <div class="status-pill">
+            <span class="status-dot"></span>
+            <span id="statusText">Mendeteksi Koneksi...</span>
+        </div>
+
+        <div class="game-box">
+            <div class="game-title">MINI GAME REFLEKS KETUK</div>
+            <div class="score-val" id="scoreDisplay">0</div>
+            <button class="tap-btn" onclick="addScore()">👆</button>
+            <div style="font-size: 0.68rem; color: #64748b; margin-top: 10px;">Ketuk tombol untuk menguji respon Anda</div>
+        </div>
+
+        <div class="actions">
+            <button class="btn-retry" id="retryButton" onclick="retryPage()">Coba Muat Ulang</button>
+            <a class="btn-call" href="tel:+6287888619552">Hubungi Teknisi</a>
+        </div>
+
+        <footer>&copy; 2026 Nica Flasher Distrik Mojoroto</footer>
+    </main>
+
+    <script>
+        let score = 0;
+        function addScore() {
+            score++;
+            document.getElementById('scoreDisplay').textContent = score;
+        }
+
+        const statusText = document.getElementById('statusText');
+        function retryPage() {
+            if (navigator.onLine) {
+                statusText.textContent = 'Koneksi kembali! Mengalihkan...';
+                window.location.replace('index.html');
+            } else {
+                statusText.textContent = 'Belum terhubung ke internet';
+            }
+        }
+
+        window.addEventListener('online', retryPage);
+        setInterval(() => {
+            if (navigator.onLine) retryPage();
+        }, 4000);
+    </script>
+</body>
+</html>

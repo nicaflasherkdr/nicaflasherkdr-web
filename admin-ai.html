@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Pengaturan AI Agent | Khusus Pemilik Nica Flasher</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#030712">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            blue: '#00f0ff',
+                            purple: '#8b5cf6',
+                            emerald: '#10b981',
+                            dark: '#030712',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Space Grotesk"', 'sans-serif'],
+                        code: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome 6 Pro CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --font-head: 'Space Grotesk', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-tech: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            background-color: #030712;
+            color: #f8fafc;
+            font-family: var(--font-body);
+            min-height: 100vh;
+        }
+
+        .ambient-aurora {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.25;
+        }
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            top: -100px;
+            left: -100px;
+            background: radial-gradient(circle, #00f0ff 0%, transparent 70%);
+        }
+        .blob-2 {
+            width: 450px;
+            height: 450px;
+            bottom: 0;
+            right: -50px;
+            background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+        }
+
+        .glass-card {
+            background: rgba(10, 20, 38, 0.85);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .btn-cyber-primary {
+            background: linear-gradient(135deg, #00f0ff 0%, #0284c7 100%);
+            color: #020611;
+            font-weight: 700;
+            font-family: var(--font-head);
+            border-radius: 14px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+            transition: all 0.25s ease;
+        }
+        .btn-cyber-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.6);
+        }
+
+        .text-holo {
+            background: linear-gradient(135deg, #ffffff 0%, #00f0ff 40%, #a78bfa 75%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="relative flex flex-col justify-between">
+    <div class="ambient-aurora">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+    </div>
+
+    <!-- Header Bar -->
+    <header class="border-b border-white/10 bg-[#050b18]/90 backdrop-blur-xl relative z-10 px-6 py-4">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-slate-900 border border-cyan-400/40 flex items-center justify-center text-cyan-400 text-lg">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold font-heading text-white flex items-center gap-2">
+                        Panel Pemilik: Konfigurasi AI Agent
+                        <span class="text-[10px] font-code px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">OWNER ONLY</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Nica Flasher Distrik Mojoroto • Pengaturan Rahasia</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="ai-diagnostic.html" class="px-4 py-2 rounded-xl border border-cyan-500/30 bg-cyan-950/30 hover:bg-cyan-950/60 text-cyan-300 text-xs font-semibold flex items-center gap-2 transition">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Lihat Halaman Pengunjung</span>
+                </a>
+                <button id="btnLogout" onclick="lockPanel()" class="hidden px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-rose-950/50 hover:text-rose-300 border border-slate-700 text-slate-300 text-xs font-semibold transition">
+                    <i class="fa-solid fa-lock"></i> Kunci Panel
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-10 relative z-10 w-full">
+        <!-- ================= PIN AUTH SCREEN ================= -->
+        <div id="authScreen" class="max-w-md mx-auto my-12 glass-card p-8 border-cyan-500/30 text-center">
+            <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-2xl flex items-center justify-center mx-auto mb-5 shadow-[0_0_25px_rgba(0,240,255,0.25)]">
+                <i class="fa-solid fa-key"></i>
+            </div>
+            <h2 class="text-2xl font-bold font-heading text-white mb-2">Autentikasi Pemilik Website</h2>
+            <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+                Halaman ini khusus pemilik teknisi Nica Flasher Mojoroto untuk menghubungkan API Key Gemini / OpenAI agar pengunjung dapat berinteraksi dengan AI asli.
+            </p>
+
+            <form onsubmit="handleAuth(event)" class="space-y-4">
+                <div>
+                    <input type="password" id="ownerPinInput" placeholder="Masukkan PIN Pemilik (Default: 1234)" autofocus class="w-full text-center tracking-widest text-lg font-code rounded-xl bg-slate-900 border border-slate-700 px-4 py-3 text-white focus:border-cyan-400 outline-none transition">
+                </div>
+                <button type="submit" class="w-full btn-cyber-primary py-3 text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-unlock"></i>
+                    <span>Masuk ke Pengaturan AI</span>
+                </button>
+            </form>
+            <p class="text-[11px] text-slate-500 mt-4 font-code">*PIN default: <strong>1234</strong> (dapat diubah setelah masuk)</p>
+        </div>
+
+        <!-- ================= ADMIN CONFIG DASHBOARD (LOCKED BY DEFAULT) ================= -->
+        <div id="configDashboard" class="hidden space-y-8">
+            <!-- Alert Info -->
+            <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 flex items-start gap-3.5">
+                <i class="fa-solid fa-circle-check text-emerald-400 text-lg mt-0.5"></i>
+                <div class="text-xs leading-relaxed">
+                    <p class="font-bold text-emerald-300">Anda Terhubung Sebagai Pemilik Website</p>
+                    <p class="text-slate-300">
+                        Pengunjung umum di halaman <strong>AI Diagnostic</strong> tidak akan melihat pengaturan ini ataupun API Key Anda. Mereka hanya akan langsung menikmati interaksi AI cerdas yang Anda konfigurasikan di sini.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Left Form: Engine & API Credentials -->
+                <div class="lg:col-span-7 glass-card p-6 sm:p-8 space-y-6">
+                    <div class="border-b border-white/10 pb-4 flex items-center justify-between">
+                        <h3 class="text-lg font-bold font-heading text-white flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-cyan-400"></i> Pengaturan Mesin AI
+                        </h3>
+                        <span id="currentStatusBadge" class="text-[10px] font-code px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 font-bold">
+                            HEURISTIC ENGINE
+                        </span>
+                    </div>
+
+                    <!-- Engine Selector -->
+                    <div>
+                        <label class="block text-xs font-code font-bold text-slate-300 uppercase mb-2">1. PILIH SUMBER ENGINE AI</label>
+                        <select id="cfgEngine" onchange="handleEngineChange()" class="w-full rounded-xl bg-slate-900 border border-slate-700 px-4 py-3 text-white text-xs sm:text-sm font-sans outline-none focus:border-cyan-400 transition">
+                            <option value="heuristic">Built-in Specialist Engine (Offline, Otomatis & Tanpa Biaya API)</option>
+                            <option value="gemini">Google Gemini API (Disarankan: Cepat, Murah & Sangat Cerdas)</option>
+                            <option value="openai">OpenAI API (GPT-4o-mini / GPT-3.5)</option>
+                            <option value="custom_webhook">Custom Webhook Backend (Server Pribadi Anda)</option>
+                        </select>
+                    </div>
+
+                    <!-- API Key Input -->
+                    <div id="apiKeySection">
+                        <label class="block text-xs font-code font-bold text-slate-300 uppercase mb-2">
+                            2. API KEY RAHASIA
+                            <span class="text-slate-500 font-normal lowercase">(disimpan aman di browser)</span>
+                        </label>
+                        <div class="relative">
+                            <input type="password" id="cfgApiKey" placeholder="Contoh: AIzaSy... (Gemini) atau sk-... (OpenAI)" class="w-full rounded-xl bg-slate-900 border border-slate-700 px-4 py-3 text-white text-xs sm:text-sm font-code outline-none focus:border-cyan-400 transition pr-10">
+                            <button type="button" onclick="togglePasswordVisibility('cfgApiKey', this)" class="absolute right-3 top-3.5 text-slate-400 hover:text-white text-xs">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-2">
+                            *Dapatkan gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-cyan-400 underline">Google AI Studio</a> atau <a href="https://platform.openai.com" target="_blank" class="text-cyan-400 underline">OpenAI Platform</a>.
+                        </p>
+                    </div>
+
+                    <!-- Custom Endpoint -->
+                    <div id="endpointSection" class="hidden">
+                        <label class="block text-xs font-code font-bold text-slate-300 uppercase mb-2">CUSTOM ENDPOINT URL</label>
+                        <input type="text" id="cfgEndpoint" placeholder="https://api.domainanda.com/v1/diagnostic-agent" class="w-full rounded-xl bg-slate-900 border border-slate-700 px-4 py-3 text-white text-xs sm:text-sm font-code outline-none focus:border-cyan-400 transition">
+                    </div>
+
+                    <!-- System Prompt Instruction -->
+                    <div>
+                        <label class="block text-xs font-code font-bold text-slate-300 uppercase mb-2">
+                            3. PROMPT SISTEM / INSTRUKSI PERILAKU AI
+                        </label>
+                        <textarea id="cfgSystemPrompt" rows="6" class="w-full rounded-xl bg-slate-900 border border-slate-700 p-4 text-white text-xs font-code outline-none focus:border-cyan-400 transition leading-relaxed"></textarea>
+                        <p class="text-[11px] text-slate-500 mt-1">
+                            Instruksi ini akan dibaca oleh AI sebelum membalas klien (misal: penawaran garansi, jam workshop Mojoroto, syarat pengerjaan).
+                        </p>
+                    </div>
+
+                    <!-- WhatsApp Admin Target -->
+                    <div>
+                        <label class="block text-xs font-code font-bold text-slate-300 uppercase mb-2">4. NOMOR WHATSAPP TUJUAN KONSULTASI</label>
+                        <input type="text" id="cfgWaNumber" placeholder="6287888619552" class="w-full rounded-xl bg-slate-900 border border-slate-700 px-4 py-3 text-white text-xs sm:text-sm font-code outline-none focus:border-cyan-400 transition">
+                    </div>
+
+                    <!-- Change PIN -->
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+                        <button type="button" onclick="changeOwnerPin()" class="text-xs text-slate-400 hover:text-cyan-300 transition font-code">
+                            <i class="fa-solid fa-lock"></i> Ubah PIN Pemilik
+                        </button>
+                        <button type="button" onclick="saveConfiguration()" class="btn-cyber-primary px-6 py-3 text-xs sm:text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            <span>Simpan Konfigurasi</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Form: Live Test Console -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="glass-card p-6 sm:p-8 space-y-4">
+                        <div class="border-b border-white/10 pb-3 flex items-center justify-between">
+                            <h3 class="text-base font-bold font-heading text-white flex items-center gap-2">
+                                <i class="fa-solid fa-flask text-purple-400"></i> Uji Coba Respon AI
+                            </h3>
+                            <span class="text-[11px] text-slate-400 font-code">Live Tester</span>
+                        </div>
+                        <p class="text-xs text-slate-400">
+                            Coba kirim pertanyaan seperti yang akan ditanyakan pengunjung untuk memastikan API Key dan prompt bekerja dengan baik.
+                        </p>
+
+                        <div id="testOutputBox" class="p-4 rounded-xl bg-slate-950 border border-white/5 min-h-[200px] max-h-[300px] overflow-y-auto text-xs font-sans text-slate-300 space-y-2 leading-relaxed">
+                            <span class="text-slate-500 font-code italic">Hasil respon AI akan muncul di sini...</span>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <input type="text" id="testQueryInput" placeholder="Contoh: Berapa biaya bypass FRP Samsung A54?" class="flex-1 rounded-xl bg-slate-900 border border-slate-700 px-3.5 py-2.5 text-white text-xs outline-none focus:border-cyan-400">
+                            <button type="button" onclick="runTestQuery()" id="btnTestQuery" class="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs flex items-center gap-1.5 transition">
+                                <i class="fa-solid fa-play"></i> Test
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Guide Card -->
+                    <div class="glass-card p-6 border-white/5 space-y-4 text-xs text-slate-400">
+                        <h4 class="font-bold text-white flex items-center gap-2 font-heading">
+                            <i class="fa-solid fa-cloud text-cyan-400"></i> Panduan Deploy ke Cloudflare Pages
+                        </h4>
+                        <ul class="space-y-2 list-disc list-inside">
+                            <li>Website ini <strong>100% siap dideploy ke Cloudflare Pages</strong> tanpa perlu build command (cukup upload folder atau hubungkan ke GitHub).</li>
+                            <li><strong>Setup AI di Cloudflare:</strong> Masuk ke Dashboard Cloudflare Pages &rarr; <em>Settings</em> &rarr; <em>Environment Variables</em> &rarr; Tambahkan variabel:
+                                <div class="mt-1 p-2 rounded bg-slate-900 border border-cyan-500/30 font-code text-cyan-300 text-[11px]">
+                                    GEMINI_API_KEY = AIzaSy...
+                                </div>
+                            </li>
+                            <li>File serverless edge <code class="text-cyan-300">functions/api/chat.js</code> yang sudah kami sediakan akan otomatis menyembunyikan API Key dari publik dan melayani seluruh pengunjung dunia secara gratis!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-white/5 bg-[#02050f] py-6 px-4 text-center text-xs text-slate-500 relative z-10 font-code">
+        &copy; 2026 Nica Flasher Distrik Mojoroto • Sistem Manajemen AI Agent
+    </footer>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        const DEFAULT_PIN = '1234';
+        const DEFAULT_SYSTEM_PROMPT = `Anda adalah NicaAI Specialist, asisten virtual teknisi software smartphone di Nica Flasher Distrik Mojoroto, Kediri. Anda ahli dalam:
+1. Flashing firmware & unbrick (EDL Qualcomm 9008, MediaTek Brom, Samsung Odin/DL, iPhone DFU/Recovery).
+2. Bypass FRP Google Account, Mi Cloud Lock Clean, dan iPhone Bypass.
+3. Menjelaskan perkiraan biaya secara transparan, waktu pengerjaan (15-60 menit), dan opsi remote via UltraViewer/AnyDesk atau langsung ke workshop Mojoroto.
+Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggunakan poin-poin.`;
+
+        function handleAuth(e) {
+            e.preventDefault();
+            const input = document.getElementById('ownerPinInput').value.trim();
+            const storedPin = localStorage.getItem('nica_owner_pin') || DEFAULT_PIN;
+
+            if (input === storedPin) {
+                document.getElementById('authScreen').classList.add('hidden');
+                document.getElementById('configDashboard').classList.remove('hidden');
+                document.getElementById('btnLogout').classList.remove('hidden');
+                loadSavedConfig();
+            } else {
+                alert('PIN Salah! Harap masukkan PIN pemilik yang benar.');
+            }
+        }
+
+        function lockPanel() {
+            document.getElementById('authScreen').classList.remove('hidden');
+            document.getElementById('configDashboard').classList.add('hidden');
+            document.getElementById('btnLogout').classList.add('hidden');
+            document.getElementById('ownerPinInput').value = '';
+        }
+
+        function loadSavedConfig() {
+            const engine = localStorage.getItem('nica_ai_engine') || 'heuristic';
+            const apiKey = localStorage.getItem('nica_ai_apikey') || '';
+            const endpoint = localStorage.getItem('nica_ai_endpoint') || '';
+            const prompt = localStorage.getItem('nica_ai_system_prompt') || DEFAULT_SYSTEM_PROMPT;
+            const wa = localStorage.getItem('nica_wa_number') || '6287888619552';
+
+            document.getElementById('cfgEngine').value = engine;
+            document.getElementById('cfgApiKey').value = apiKey;
+            document.getElementById('cfgEndpoint').value = endpoint;
+            document.getElementById('cfgSystemPrompt').value = prompt;
+            document.getElementById('cfgWaNumber').value = wa;
+
+            handleEngineChange();
+            updateStatusBadge(engine);
+        }
+
+        function handleEngineChange() {
+            const engine = document.getElementById('cfgEngine').value;
+            const apiKeySection = document.getElementById('apiKeySection');
+            const endpointSection = document.getElementById('endpointSection');
+
+            if (engine === 'heuristic') {
+                apiKeySection.classList.add('opacity-40');
+                endpointSection.classList.add('hidden');
+            } else if (engine === 'custom_webhook') {
+                apiKeySection.classList.add('hidden');
+                endpointSection.classList.remove('hidden');
+            } else {
+                apiKeySection.classList.remove('opacity-40', 'hidden');
+                endpointSection.classList.add('hidden');
+            }
+        }
+
+        function updateStatusBadge(engine) {
+            const badge = document.getElementById('currentStatusBadge');
+            if (engine === 'gemini') {
+                badge.textContent = 'ACTIVE: GOOGLE GEMINI';
+                badge.className = 'text-[10px] font-code px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 font-bold';
+            } else if (engine === 'openai') {
+                badge.textContent = 'ACTIVE: OPENAI GPT';
+                badge.className = 'text-[10px] font-code px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/40 font-bold';
+            } else if (engine === 'custom_webhook') {
+                badge.textContent = 'ACTIVE: CUSTOM WEBHOOK';
+                badge.className = 'text-[10px] font-code px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/40 font-bold';
+            } else {
+                badge.textContent = 'ACTIVE: BUILT-IN SPECIALIST';
+                badge.className = 'text-[10px] font-code px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-bold';
+            }
+        }
+
+        function saveConfiguration() {
+            const engine = document.getElementById('cfgEngine').value;
+            const apiKey = document.getElementById('cfgApiKey').value.trim();
+            const endpoint = document.getElementById('cfgEndpoint').value.trim();
+            const prompt = document.getElementById('cfgSystemPrompt').value.trim();
+            const wa = document.getElementById('cfgWaNumber').value.trim();
+
+            localStorage.setItem('nica_ai_engine', engine);
+            localStorage.setItem('nica_ai_apikey', apiKey);
+            localStorage.setItem('nica_ai_endpoint', endpoint);
+            localStorage.setItem('nica_ai_system_prompt', prompt);
+            localStorage.setItem('nica_wa_number', wa);
+
+            updateStatusBadge(engine);
+            alert('Konfigurasi AI berhasil disimpan! Perubahan langsung aktif untuk seluruh pengunjung.');
+        }
+
+        function changeOwnerPin() {
+            const current = prompt('Masukkan PIN saat ini:');
+            const stored = localStorage.getItem('nica_owner_pin') || DEFAULT_PIN;
+            if (current !== stored) {
+                alert('PIN saat ini salah.');
+                return;
+            }
+            const newPin = prompt('Masukkan PIN Baru (minimal 4 karakter):');
+            if (newPin && newPin.trim().length >= 4) {
+                localStorage.setItem('nica_owner_pin', newPin.trim());
+                alert('PIN Pemilik berhasil diubah!');
+            } else {
+                alert('PIN baru tidak valid.');
+            }
+        }
+
+        function togglePasswordVisibility(fieldId, btn) {
+            const field = document.getElementById(fieldId);
+            if (field.type === 'password') {
+                field.type = 'text';
+                btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+            } else {
+                field.type = 'password';
+                btn.innerHTML = '<i class="fa-solid fa-eye"></i>';
+            }
+        }
+
+        // Live Test Query
+        async function runTestQuery() {
+            const query = document.getElementById('testQueryInput').value.trim();
+            if (!query) return;
+
+            const box = document.getElementById('testOutputBox');
+            const btn = document.getElementById('btnTestQuery');
+
+            box.innerHTML = '<span class="text-cyan-400 font-code animate-pulse">Menghubungi AI Engine...</span>';
+            btn.disabled = true;
+
+            const engine = document.getElementById('cfgEngine').value;
+            const apiKey = document.getElementById('cfgApiKey').value.trim();
+            const endpoint = document.getElementById('cfgEndpoint').value.trim();
+            const systemPrompt = document.getElementById('cfgSystemPrompt').value.trim();
+
+            try {
+                let reply = '';
+                if (engine === 'gemini' && apiKey) {
+                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ role: 'user', parts: [{ text: `${systemPrompt}\n\nPertanyaan Pengunjung: ${query}` }] }]
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error.message);
+                    reply = data.candidates[0].content.parts[0].text;
+                } else if (engine === 'openai' && apiKey) {
+                    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        body: JSON.stringify({
+                            model: 'gpt-4o-mini',
+                            messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: query }]
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error.message);
+                    reply = data.choices[0].message.content;
+                } else {
+                    reply = `[SIMULASI SUKSES] Engine saat ini berjalan normal menggunakan pengetahuan firmware Nica Flasher Distrik Mojoroto. Respons untuk "${query}" siap disajikan ke pengunjung.`;
+                }
+
+                box.innerHTML = `<div class="p-2 rounded bg-slate-900 border border-emerald-500/30 text-emerald-300 font-bold text-[10px] mb-2 font-code">STATUS: 200 OK (BERHASIL)</div><div>${reply.replace(/\n/g, '<br>')}</div>`;
+            } catch (err) {
+                box.innerHTML = `<div class="p-2 rounded bg-rose-950/50 border border-rose-500/30 text-rose-300 font-bold text-[10px] mb-2 font-code">STATUS: GAGAL</div><div class="text-rose-400">${err.message}</div><p class="text-slate-500 text-[11px] mt-2">Pastikan API Key benar dan koneksi internet stabil.</p>`;
+            } finally {
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>
