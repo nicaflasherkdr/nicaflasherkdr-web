@@ -57,7 +57,6 @@
     }
     </script>
 
-    <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="img/icon-192.svg">
 
     <!-- Offline fallback script -->
@@ -1472,13 +1471,6 @@
 
     <!-- ================= FLOATING ACTION HUB ================= -->
     <div class="floating-action-island">
-        <!-- Install App PWA Trigger -->
-        <button id="installApp" onclick="installPWA(); playSound('click');"
-            class="hidden w-12 h-12 rounded-full bg-slate-900/90 border border-cyan-400/40 text-cyan-300 hover:text-white shadow-xl flex items-center justify-center text-sm transition"
-            title="Install App">
-            <i class="fa-solid fa-download"></i>
-        </button>
-
         <!-- Quick Payment Trigger -->
         <button onclick="openPaymentModal(); playSound('click');"
             class="w-12 h-12 rounded-full bg-slate-900/90 border border-cyan-400/40 text-cyan-300 hover:text-white shadow-xl flex items-center justify-center text-sm transition"
@@ -1736,56 +1728,10 @@
             });
         }
 
-        // 11. PWA INSTALL HANDLER
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            const btn = document.getElementById('installApp');
-            if (btn) btn.classList.remove('hidden');
-        });
-
-        function installPWA() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(() => {
-                    deferredPrompt = null;
-                });
-            }
-        }
-
-        // 12. OFFLINE DETECTOR & HEALTH MONITOR
-        let clickScore = 0;
-        function addScore() {
-            clickScore++;
-            document.getElementById('scoreDisplay').innerText = clickScore;
-        }
-
-        function toggleMaintenance(show) {
-            const m = document.getElementById('maintenanceScreen');
-            if (m) m.classList.toggle('hidden', !show);
-        }
-
-        function checkDeviceConnection() {
-            if (!navigator.onLine) {
-                window.location.replace('./halaman-offline.html');
-            } else {
-                toggleMaintenance(false);
-            }
-        }
-
-        window.addEventListener('offline', checkDeviceConnection);
-        window.addEventListener('online', checkDeviceConnection);
-
-        function checkConnectionAndServer() {
-            checkDeviceConnection();
-        }
-
-        // 13. SERVICE WORKER REGISTRATION
+        // Unregister service workers if previously registered (Pure Web Experience)
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js', { scope: './', updateViaCache: 'none' })
-                    .catch(err => console.error('SW register failed:', err));
+            navigator.serviceWorker.getRegistrations().then(regs => {
+                for (let r of regs) r.unregister();
             });
         }
 

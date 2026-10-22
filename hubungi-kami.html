@@ -48,7 +48,6 @@
     }
     </script>
 
-    <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="img/icon-192.svg">
 
     <!-- Offline fallback script -->
@@ -740,7 +739,9 @@
         revealItems.forEach(el => revealObserver.observe(el));
 
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+            navigator.serviceWorker.getRegistrations().then(regs => {
+                for (let r of regs) r.unregister();
+            });
         }
     </script>
 </body>
