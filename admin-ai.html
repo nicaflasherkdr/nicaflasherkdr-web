@@ -213,13 +213,13 @@
                             <span class="text-slate-500 font-normal lowercase">(disimpan aman di browser)</span>
                         </label>
                         <div class="relative">
-                            <input type="password" id="cfgApiKey" placeholder="Contoh: AIzaSy... (Gemini) atau sk-... (OpenAI)" class="w-full rounded-xl bg-slate-900 border border-slate-700 px-4 py-3 text-white text-xs sm:text-sm font-code outline-none focus:border-cyan-400 transition pr-10">
+                            <input type="password" id="cfgApiKey" oninput="validateApiKeyFormat()" placeholder="Contoh: AIzaSy... (Gemini) atau sk-... (OpenAI)" class="w-full rounded-xl bg-slate-900 border border-slate-700 px-4 py-3 text-white text-xs sm:text-sm font-code outline-none focus:border-cyan-400 transition pr-10">
                             <button type="button" onclick="togglePasswordVisibility('cfgApiKey', this)" class="absolute right-3 top-3.5 text-slate-400 hover:text-white text-xs">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                         </div>
-                        <p class="text-[11px] text-slate-500 mt-2">
-                            *Dapatkan gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-cyan-400 underline">Google AI Studio</a> atau <a href="https://platform.openai.com" target="_blank" class="text-cyan-400 underline">OpenAI Platform</a>.
+                        <p id="apiKeyFormatHint" class="text-[11px] text-slate-500 mt-2 font-code">
+                            *Dapatkan gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-cyan-400 underline font-bold">Google AI Studio</a> (pastikan klik <em>"Get API key"</em>, kunci diawali <strong>AIzaSy...</strong>).
                         </p>
                     </div>
 
@@ -378,6 +378,7 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
 
             handleEngineChange();
             updateStatusBadge(engine);
+            validateApiKeyFormat();
         }
 
         function handleEngineChange() {
@@ -424,6 +425,32 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
             }
         }
 
+        function validateApiKeyFormat() {
+            const engine = document.getElementById('cfgEngine').value;
+            const key = document.getElementById('cfgApiKey').value.trim();
+            const hint = document.getElementById('apiKeyFormatHint');
+            if (!hint) return;
+
+            if (!key) {
+                hint.innerHTML = `*Dapatkan gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-cyan-400 underline font-bold">Google AI Studio</a> (pastikan klik <em>"Get API key"</em>, kunci diawali <strong>AIzaSy...</strong>).`;
+                return;
+            }
+
+            if (engine === 'gemini') {
+                if (key.startsWith('AIzaSy')) {
+                    hint.innerHTML = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle-check"></i> Format API Key Google Gemini Valid (diawali AIzaSy, ${key.length} karakter).</span>`;
+                } else {
+                    hint.innerHTML = `<span class="text-rose-400 font-bold"><i class="fa-solid fa-triangle-exclamation"></i> Kunci Salah Format! Google Gemini API Key resmi SELALU diawali 'AIzaSy...' (39 karakter). Kunci Anda saat ini diawali '${key.substring(0, Math.min(6, key.length))}...'. Silakan ambil kunci yang benar di <a href="https://aistudio.google.com/app/apikey" target="_blank" class="underline text-cyan-300">Google AI Studio (Get API key)</a>.</span>`;
+                }
+            } else if (engine === 'openai') {
+                if (key.startsWith('sk-')) {
+                    hint.innerHTML = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle-check"></i> Format API Key OpenAI Valid (diawali sk-).</span>`;
+                } else {
+                    hint.innerHTML = `<span class="text-rose-400 font-bold"><i class="fa-solid fa-triangle-exclamation"></i> Kunci OpenAI harus diawali 'sk-...'.</span>`;
+                }
+            }
+        }
+
         // Cek dan Deteksi Model Aktif secara langsung dari Google AI Studio API
         async function detectAvailableModels() {
             const engine = document.getElementById('cfgEngine').value;
@@ -439,6 +466,11 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
 
             if (!apiKey) {
                 statusEl.innerHTML = '<span class="text-rose-400">Silakan masukkan API Key Gemini terlebih dahulu di atas.</span>';
+                return;
+            }
+
+            if (!apiKey.startsWith('AIzaSy')) {
+                statusEl.innerHTML = `<span class="text-rose-400 font-bold"><i class="fa-solid fa-circle-xmark"></i> API Key tidak valid. Kunci Google Gemini resmi wajib berawalan 'AIzaSy...'. Kunci Anda diawali '${apiKey.substring(0, 5)}...'.</span>`;
                 return;
             }
 
@@ -472,8 +504,8 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
                     opt.textContent = `${cleanName} (${m.displayName || 'Tersedia'})`;
                     modelSelect.appendChild(opt);
 
-                    // Pilih otomatis 2.0-flash / 1.5-flash jika ada
-                    if (!defaultPick && (cleanName.includes('2.0-flash') || cleanName.includes('flash-latest') || cleanName.includes('flash') || cleanName.includes('pro'))) {
+                    // Pilih otomatis 2.0-flash / 2.5-flash / 1.5-flash jika ada
+                    if (!defaultPick && (cleanName.includes('2.0-flash') || cleanName.includes('flash-latest') || cleanName.includes('2.5-flash') || cleanName.includes('flash') || cleanName.includes('pro'))) {
                         defaultPick = cleanName;
                     }
                 });
@@ -485,7 +517,7 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
 
                 statusEl.innerHTML = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-check"></i> Berhasil mendeteksi ${chatModels.length} model aktif di akun Google AI Anda! Model terpilih: <u>${modelSelect.value}</u></span>`;
             } catch (err) {
-                statusEl.innerHTML = `<span class="text-rose-400"><i class="fa-solid fa-triangle-exclamation"></i> Gagal deteksi: ${err.message}. Sistem akan tetap menggunakan fallback otomatis saat pengujian.</span>`;
+                statusEl.innerHTML = `<span class="text-rose-400"><i class="fa-solid fa-triangle-exclamation"></i> Gagal deteksi: ${err.message}. Pastikan API Key valid dari Google AI Studio.</span>`;
             } finally {
                 btn.disabled = false;
             }
@@ -493,6 +525,10 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
 
         // Panggil Gemini dengan proteksi Multi-Candidate Fallback
         async function callGeminiSmart(apiKey, systemPrompt, query, chosenModel) {
+            if (!apiKey.startsWith('AIzaSy')) {
+                throw new Error(`API Key Google Gemini tidak valid! Kunci resmi Google AI Studio SELALU diawali dengan 'AIzaSy...' (39 karakter). Kunci yang dimasukkan saat ini diawali '${apiKey.substring(0, Math.min(6, apiKey.length))}...'. Silakan klik 'Get API key' di https://aistudio.google.com/app/apikey.`);
+            }
+
             const candidates = [
                 chosenModel,
                 'gemini-2.0-flash',
@@ -524,6 +560,9 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
                         const data = await res.json();
                         if (data.error) {
                             lastErr = data.error.message;
+                            if (data.error.code === 400 || data.error.code === 401 || data.error.status === 'UNAUTHENTICATED' || data.error.status === 'INVALID_ARGUMENT') {
+                                throw new Error(`Autentikasi API Key Gagal: ${data.error.message}`);
+                            }
                             if (data.error.message.includes('not found') || data.error.message.includes('not supported') || data.error.code === 404) {
                                 continue; // Coba kandidat berikutnya
                             }
