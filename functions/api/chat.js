@@ -32,23 +32,41 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
 
         // 1. Prioritaskan Google Gemini API jika disetel di Cloudflare Pages Env
         if (geminiApiKey) {
-            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [
-                        { role: 'user', parts: [{ text: `${systemPrompt}\n\nPertanyaan Klien: ${userPrompt}` }] }
-                    ]
-                })
-            });
+            const candidates = [env.GEMINI_MODEL || 'gemini-2.0-flash', 'gemini-2.5-flash', 'gemini-1.5-flash-latest', 'gemini-1.5-flash', 'gemini-pro'];
+            let lastErr = 'Gemini error';
 
-            const data = await res.json();
-            if (data.error) {
-                return new Response(JSON.stringify({ error: data.error.message }), { status: 502, headers });
+            for (const model of candidates) {
+                const cleanModel = model.replace(/^models\//, '');
+                for (const apiVer of ['v1beta', 'v1']) {
+                    try {
+                        const res = await fetch(`https://generativelanguage.googleapis.com/${apiVer}/models/${cleanModel}:generateContent?key=${geminiApiKey}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [
+                                    { role: 'user', parts: [{ text: `${systemPrompt}\n\nPertanyaan Klien: ${userPrompt}` }] }
+                                ]
+                            })
+                        });
+
+                        const data = await res.json();
+                        if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                            const reply = data.candidates[0].content.parts[0].text;
+                            return new Response(JSON.stringify({ reply, modelUsed: cleanModel }), { status: 200, headers });
+                        }
+                        if (data.error) {
+                            lastErr = data.error.message;
+                            if (data.error.message.includes('not found') || data.error.message.includes('not supported') || data.error.code === 404) {
+                                continue;
+                            }
+                        }
+                    } catch (e) {
+                        lastErr = e.message;
+                    }
+                }
             }
 
-            const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Tidak ada respon dari AI.';
-            return new Response(JSON.stringify({ reply }), { status: 200, headers });
+            return new Response(JSON.stringify({ error: lastErr }), { status: 502, headers });
         }
 
         // 2. Jika OpenAI API disetel

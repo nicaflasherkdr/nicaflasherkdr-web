@@ -223,6 +223,29 @@
                         </p>
                     </div>
 
+                    <!-- Model Selector & Auto Detection -->
+                    <div id="modelSection" class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <label class="block text-xs font-code font-bold text-slate-300 uppercase">
+                                2B. PILIH MODEL AI SPESIFIK
+                            </label>
+                            <button type="button" onclick="detectAvailableModels()" id="btnDetectModels" class="text-[11px] font-code text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 transition">
+                                <i class="fa-solid fa-arrows-rotate"></i> Cek & Deteksi Model API Key
+                            </button>
+                        </div>
+                        <select id="cfgModel" class="w-full rounded-xl bg-slate-900 border border-slate-700 px-4 py-3 text-white text-xs sm:text-sm font-code outline-none focus:border-cyan-400 transition">
+                            <option value="gemini-2.5-flash">gemini-2.5-flash (Next-Gen Terbaru)</option>
+                            <option value="gemini-2.0-flash" selected>gemini-2.0-flash (Sangat Cepat & Stabil)</option>
+                            <option value="gemini-1.5-flash-latest">gemini-1.5-flash-latest</option>
+                            <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                            <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+                            <option value="gemini-pro">gemini-pro</option>
+                        </select>
+                        <p id="detectStatusText" class="text-[11px] text-slate-500 font-code">
+                            *Sistem dilengkapi fitur <em>Auto-Fallback</em> cerdas (jika salah satu model tidak aktif di akun Anda, otomatis dialihkan ke model lain yang aktif).
+                        </p>
+                    </div>
+
                     <!-- Custom Endpoint -->
                     <div id="endpointSection" class="hidden">
                         <label class="block text-xs font-code font-bold text-slate-300 uppercase mb-2">CUSTOM ENDPOINT URL</label>
@@ -342,12 +365,14 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
             const engine = localStorage.getItem('nica_ai_engine') || 'heuristic';
             const apiKey = localStorage.getItem('nica_ai_apikey') || '';
             const endpoint = localStorage.getItem('nica_ai_endpoint') || '';
+            const model = localStorage.getItem('nica_ai_model') || 'gemini-2.0-flash';
             const prompt = localStorage.getItem('nica_ai_system_prompt') || DEFAULT_SYSTEM_PROMPT;
             const wa = localStorage.getItem('nica_wa_number') || '6287888619552';
 
             document.getElementById('cfgEngine').value = engine;
             document.getElementById('cfgApiKey').value = apiKey;
             document.getElementById('cfgEndpoint').value = endpoint;
+            document.getElementById('cfgModel').value = model;
             document.getElementById('cfgSystemPrompt').value = prompt;
             document.getElementById('cfgWaNumber').value = wa;
 
@@ -358,18 +383,197 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
         function handleEngineChange() {
             const engine = document.getElementById('cfgEngine').value;
             const apiKeySection = document.getElementById('apiKeySection');
+            const modelSection = document.getElementById('modelSection');
             const endpointSection = document.getElementById('endpointSection');
 
             if (engine === 'heuristic') {
                 apiKeySection.classList.add('opacity-40');
+                if (modelSection) modelSection.classList.add('hidden');
                 endpointSection.classList.add('hidden');
             } else if (engine === 'custom_webhook') {
                 apiKeySection.classList.add('hidden');
+                if (modelSection) modelSection.classList.add('hidden');
                 endpointSection.classList.remove('hidden');
             } else {
                 apiKeySection.classList.remove('opacity-40', 'hidden');
+                if (modelSection) modelSection.classList.remove('hidden');
                 endpointSection.classList.add('hidden');
+
+                // Sesuaikan opsi model jika OpenAI
+                const modelSelect = document.getElementById('cfgModel');
+                if (modelSelect) {
+                    if (engine === 'openai') {
+                        modelSelect.innerHTML = `
+                            <option value="gpt-4o-mini" selected>gpt-4o-mini (Cepat & Hemat)</option>
+                            <option value="gpt-4o">gpt-4o (Kemampuan Tertinggi)</option>
+                            <option value="gpt-3.5-turbo">gpt-3.5-turbo (Legacy)</option>
+                        `;
+                    } else if (engine === 'gemini') {
+                        const cur = localStorage.getItem('nica_ai_model') || 'gemini-2.0-flash';
+                        modelSelect.innerHTML = `
+                            <option value="gemini-2.5-flash">gemini-2.5-flash (Next-Gen Terbaru)</option>
+                            <option value="gemini-2.0-flash">gemini-2.0-flash (Sangat Cepat & Stabil - Rekomendasi)</option>
+                            <option value="gemini-1.5-flash-latest">gemini-1.5-flash-latest</option>
+                            <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                            <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+                            <option value="gemini-pro">gemini-pro</option>
+                        `;
+                        modelSelect.value = cur;
+                    }
+                }
             }
+        }
+
+        // Cek dan Deteksi Model Aktif secara langsung dari Google AI Studio API
+        async function detectAvailableModels() {
+            const engine = document.getElementById('cfgEngine').value;
+            const apiKey = document.getElementById('cfgApiKey').value.trim();
+            const statusEl = document.getElementById('detectStatusText');
+            const btn = document.getElementById('btnDetectModels');
+            const modelSelect = document.getElementById('cfgModel');
+
+            if (engine !== 'gemini') {
+                statusEl.innerHTML = '<span class="text-amber-400">Deteksi otomatis khusus untuk Google Gemini API.</span>';
+                return;
+            }
+
+            if (!apiKey) {
+                statusEl.innerHTML = '<span class="text-rose-400">Silakan masukkan API Key Gemini terlebih dahulu di atas.</span>';
+                return;
+            }
+
+            btn.disabled = true;
+            statusEl.innerHTML = '<span class="text-cyan-400 animate-pulse"><i class="fa-solid fa-spinner fa-spin"></i> Menghubungi Google AI Studio untuk membaca daftar model akun Anda...</span>';
+
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+                const data = await res.json();
+
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+
+                if (!data.models || !Array.isArray(data.models)) {
+                    throw new Error('Tidak ada model yang ditemukan untuk akun ini.');
+                }
+
+                // Filter model yang mendukung generateContent
+                const chatModels = data.models.filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent'));
+                if (chatModels.length === 0) {
+                    throw new Error('Tidak ada model yang mendukung generateContent di API Key ini.');
+                }
+
+                modelSelect.innerHTML = '';
+                let defaultPick = '';
+                chatModels.forEach(m => {
+                    const cleanName = m.name.replace(/^models\//, '');
+                    const opt = document.createElement('option');
+                    opt.value = cleanName;
+                    opt.textContent = `${cleanName} (${m.displayName || 'Tersedia'})`;
+                    modelSelect.appendChild(opt);
+
+                    // Pilih otomatis 2.0-flash / 1.5-flash jika ada
+                    if (!defaultPick && (cleanName.includes('2.0-flash') || cleanName.includes('flash-latest') || cleanName.includes('flash') || cleanName.includes('pro'))) {
+                        defaultPick = cleanName;
+                    }
+                });
+
+                if (defaultPick) {
+                    modelSelect.value = defaultPick;
+                    localStorage.setItem('nica_ai_model', defaultPick);
+                }
+
+                statusEl.innerHTML = `<span class="text-emerald-400 font-bold"><i class="fa-solid fa-check"></i> Berhasil mendeteksi ${chatModels.length} model aktif di akun Google AI Anda! Model terpilih: <u>${modelSelect.value}</u></span>`;
+            } catch (err) {
+                statusEl.innerHTML = `<span class="text-rose-400"><i class="fa-solid fa-triangle-exclamation"></i> Gagal deteksi: ${err.message}. Sistem akan tetap menggunakan fallback otomatis saat pengujian.</span>`;
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // Panggil Gemini dengan proteksi Multi-Candidate Fallback
+        async function callGeminiSmart(apiKey, systemPrompt, query, chosenModel) {
+            const candidates = [
+                chosenModel,
+                'gemini-2.0-flash',
+                'gemini-2.5-flash',
+                'gemini-1.5-flash-latest',
+                'gemini-1.5-flash',
+                'gemini-1.5-pro',
+                'gemini-pro'
+            ].filter((v, i, a) => v && a.indexOf(v) === i);
+
+            let lastErr = '';
+
+            for (const model of candidates) {
+                const cleanModel = model.replace(/^models\//, '');
+                for (const apiVer of ['v1beta', 'v1']) {
+                    try {
+                        const url = `https://generativelanguage.googleapis.com/${apiVer}/models/${cleanModel}:generateContent?key=${apiKey}`;
+                        const res = await fetch(url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [{
+                                    role: 'user',
+                                    parts: [{ text: `${systemPrompt}\n\nPertanyaan Pengunjung: ${query}` }]
+                                }]
+                            })
+                        });
+
+                        const data = await res.json();
+                        if (data.error) {
+                            lastErr = data.error.message;
+                            if (data.error.message.includes('not found') || data.error.message.includes('not supported') || data.error.code === 404) {
+                                continue; // Coba kandidat berikutnya
+                            }
+                            throw new Error(data.error.message);
+                        }
+
+                        if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                            localStorage.setItem('nica_ai_model', cleanModel);
+                            const selectEl = document.getElementById('cfgModel');
+                            if (selectEl) selectEl.value = cleanModel;
+                            return {
+                                text: data.candidates[0].content.parts[0].text,
+                                modelUsed: cleanModel,
+                                apiVer: apiVer
+                            };
+                        }
+                    } catch (err) {
+                        lastErr = err.message;
+                        if (!err.message.includes('not found') && !err.message.includes('not supported')) {
+                            throw err;
+                        }
+                    }
+                }
+            }
+
+            // Jika semua kandidat gagal, coba listModels dinamis
+            try {
+                const listRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+                const listData = await listRes.json();
+                if (listData.models && Array.isArray(listData.models)) {
+                    const supported = listData.models.filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent'));
+                    if (supported.length > 0) {
+                        const autoModel = supported[0].name.replace(/^models\//, '');
+                        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${autoModel}:generateContent?key=${apiKey}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [{ role: 'user', parts: [{ text: `${systemPrompt}\n\nPertanyaan: ${query}` }] }]
+                            })
+                        });
+                        const data = await res.json();
+                        if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                            localStorage.setItem('nica_ai_model', autoModel);
+                            return { text: data.candidates[0].content.parts[0].text, modelUsed: autoModel, apiVer: 'v1beta' };
+                        }
+                    }
+                }
+            } catch (e) {}
+
+            throw new Error(lastErr || 'Semua kandidat model Gemini gagal dihubungi. Pastikan API Key valid.');
         }
 
         function updateStatusBadge(engine) {
@@ -393,12 +597,14 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
             const engine = document.getElementById('cfgEngine').value;
             const apiKey = document.getElementById('cfgApiKey').value.trim();
             const endpoint = document.getElementById('cfgEndpoint').value.trim();
+            const model = document.getElementById('cfgModel') ? document.getElementById('cfgModel').value : '';
             const prompt = document.getElementById('cfgSystemPrompt').value.trim();
             const wa = document.getElementById('cfgWaNumber').value.trim();
 
             localStorage.setItem('nica_ai_engine', engine);
             localStorage.setItem('nica_ai_apikey', apiKey);
             localStorage.setItem('nica_ai_endpoint', endpoint);
+            if (model) localStorage.setItem('nica_ai_model', model);
             localStorage.setItem('nica_ai_system_prompt', prompt);
             localStorage.setItem('nica_wa_number', wa);
 
@@ -441,28 +647,25 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
             const box = document.getElementById('testOutputBox');
             const btn = document.getElementById('btnTestQuery');
 
-            box.innerHTML = '<span class="text-cyan-400 font-code animate-pulse">Menghubungi AI Engine...</span>';
+            box.innerHTML = '<span class="text-cyan-400 font-code animate-pulse"><i class="fa-solid fa-circle-notch fa-spin"></i> Menghubungi AI Engine & Memverifikasi Model...</span>';
             btn.disabled = true;
 
             const engine = document.getElementById('cfgEngine').value;
             const apiKey = document.getElementById('cfgApiKey').value.trim();
+            const chosenModel = document.getElementById('cfgModel') ? document.getElementById('cfgModel').value : 'gemini-2.0-flash';
             const endpoint = document.getElementById('cfgEndpoint').value.trim();
             const systemPrompt = document.getElementById('cfgSystemPrompt').value.trim();
 
             try {
                 let reply = '';
+                let modelBadgeInfo = '';
+
                 if (engine === 'gemini' && apiKey) {
-                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ role: 'user', parts: [{ text: `${systemPrompt}\n\nPertanyaan Pengunjung: ${query}` }] }]
-                        })
-                    });
-                    const data = await res.json();
-                    if (data.error) throw new Error(data.error.message);
-                    reply = data.candidates[0].content.parts[0].text;
+                    const result = await callGeminiSmart(apiKey, systemPrompt, query, chosenModel);
+                    reply = result.text;
+                    modelBadgeInfo = `Model: ${result.modelUsed} (${result.apiVer})`;
                 } else if (engine === 'openai' && apiKey) {
+                    const modelToUse = chosenModel || 'gpt-4o-mini';
                     const res = await fetch('https://api.openai.com/v1/chat/completions', {
                         method: 'POST',
                         headers: {
@@ -470,20 +673,31 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
                             'Authorization': `Bearer ${apiKey}`
                         },
                         body: JSON.stringify({
-                            model: 'gpt-4o-mini',
+                            model: modelToUse,
                             messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: query }]
                         })
                     });
                     const data = await res.json();
                     if (data.error) throw new Error(data.error.message);
                     reply = data.choices[0].message.content;
+                    modelBadgeInfo = `Model: ${modelToUse}`;
                 } else {
                     reply = `[SIMULASI SUKSES] Engine saat ini berjalan normal menggunakan pengetahuan firmware Nica Flasher Distrik Mojoroto. Respons untuk "${query}" siap disajikan ke pengunjung.`;
+                    modelBadgeInfo = 'Engine: Heuristic Built-in';
                 }
 
-                box.innerHTML = `<div class="p-2 rounded bg-slate-900 border border-emerald-500/30 text-emerald-300 font-bold text-[10px] mb-2 font-code">STATUS: 200 OK (BERHASIL)</div><div>${reply.replace(/\n/g, '<br>')}</div>`;
+                box.innerHTML = `<div class="p-2 rounded bg-slate-900 border border-emerald-500/40 text-emerald-300 font-bold text-[10px] mb-2 font-code flex items-center justify-between">
+                    <span><i class="fa-solid fa-circle-check"></i> STATUS: 200 OK (BERHASIL)</span>
+                    <span class="text-cyan-300 font-normal">${modelBadgeInfo}</span>
+                </div><div class="text-xs text-slate-200 leading-relaxed font-sans">${reply.replace(/\n/g, '<br>')}</div>`;
             } catch (err) {
-                box.innerHTML = `<div class="p-2 rounded bg-rose-950/50 border border-rose-500/30 text-rose-300 font-bold text-[10px] mb-2 font-code">STATUS: GAGAL</div><div class="text-rose-400">${err.message}</div><p class="text-slate-500 text-[11px] mt-2">Pastikan API Key benar dan koneksi internet stabil.</p>`;
+                box.innerHTML = `<div class="p-2 rounded bg-rose-950/50 border border-rose-500/30 text-rose-300 font-bold text-[10px] mb-2 font-code"><i class="fa-solid fa-circle-xmark"></i> STATUS: GAGAL</div>
+                <div class="text-rose-400 font-mono text-xs mb-2">${err.message}</div>
+                <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5 text-[11px] text-slate-400 space-y-1">
+                    <p class="font-bold text-amber-300"><i class="fa-solid fa-lightbulb"></i> Solusi Cepat:</p>
+                    <p>1. Klik tombol <strong>"Cek & Deteksi Model API Key"</strong> di sebelah atas untuk memilih otomatis model yang dibuka oleh Google untuk akun Anda.</p>
+                    <p>2. Pastikan API Key di-generate dari <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-cyan-400 underline">Google AI Studio</a>.</p>
+                </div>`;
             } finally {
                 btn.disabled = false;
             }
