@@ -32,7 +32,7 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
 
         // 1. Prioritaskan Google Gemini API jika disetel di Cloudflare Pages Env
         if (geminiApiKey) {
-            const candidates = [env.GEMINI_MODEL || 'gemini-2.0-flash', 'gemini-2.5-flash', 'gemini-1.5-flash-latest', 'gemini-1.5-flash', 'gemini-pro'];
+            const candidates = [env.GEMINI_MODEL || 'gemini-3.5-flash', 'gemini-3.5-flash', 'gemini-3.1-flash-lite', 'gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-flash-latest', 'gemini-2.5-flash'];
             let lastErr = 'Gemini error';
 
             for (const model of candidates) {
@@ -41,7 +41,10 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
                     try {
                         const res = await fetch(`https://generativelanguage.googleapis.com/${apiVer}/models/${cleanModel}:generateContent?key=${geminiApiKey}`, {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'x-goog-api-key': geminiApiKey
+                            },
                             body: JSON.stringify({
                                 contents: [
                                     { role: 'user', parts: [{ text: `${systemPrompt}\n\nPertanyaan Klien: ${userPrompt}` }] }
@@ -56,7 +59,7 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
                         }
                         if (data.error) {
                             lastErr = data.error.message;
-                            if (data.error.message.includes('not found') || data.error.message.includes('not supported') || data.error.code === 404) {
+                            if (data.error.code === 503 || data.error.code === 404 || data.error.message.includes('not found') || data.error.message.includes('high demand') || data.error.message.includes('no longer available')) {
                                 continue;
                             }
                         }
