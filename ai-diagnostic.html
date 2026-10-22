@@ -732,7 +732,7 @@
             class="container mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
             <div>
                 <p class="text-white font-bold font-heading text-sm mb-1">Nica Flasher Distrik Mojoroto</p>
-                <p>&copy; 2026 <span class="text-cyan-400 font-bold">Nica Flasher Distrik Mojoroto</span>. All rights
+                <p id="secretAdminTrigger" class="select-none cursor-default" title="">&copy; 2026 <span class="text-cyan-400 font-bold">Nica Flasher Distrik Mojoroto</span>. All rights
                     reserved.</p>
             </div>
             <div class="flex items-center gap-4">
@@ -740,7 +740,6 @@
                 <a href="ai-diagnostic.html" class="text-cyan-400 font-bold">AI Diagnostic</a>
                 <a href="price-list.html" class="hover:text-white transition">Price List</a>
                 <a href="hubungi-kami.html" class="hover:text-white transition">Portofolio & Kontak</a>
-                <a href="admin-ai.html" class="text-slate-600 hover:text-cyan-400 text-[10px] transition font-code" title="Login Khusus Pemilik Website"><i class="fa-solid fa-lock text-[9px]"></i> Kelola AI</a>
             </div>
         </div>
     </footer>
@@ -1105,6 +1104,30 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
                 else if (engine === 'custom_webhook') badge.textContent = '● AI ONLINE • CUSTOM CORE';
                 else badge.textContent = '● AI ONLINE • SMART LAB';
             }
+
+            // Secret Admin Trigger (Triple-click copyright or Ctrl+Shift+A)
+            let adminClicks = 0;
+            let adminTimer = null;
+            const secretEl = document.getElementById('secretAdminTrigger');
+            if (secretEl) {
+                secretEl.addEventListener('click', () => {
+                    adminClicks++;
+                    clearTimeout(adminTimer);
+                    if (adminClicks >= 3) {
+                        adminClicks = 0;
+                        window.location.href = 'admin-ai.html';
+                    } else {
+                        adminTimer = setTimeout(() => { adminClicks = 0; }, 800);
+                    }
+                });
+            }
+
+            window.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) || (e.altKey && (e.key === 'A' || e.key === 'a'))) {
+                    e.preventDefault();
+                    window.location.href = 'admin-ai.html';
+                }
+            });
         });
     </script>
 </body>

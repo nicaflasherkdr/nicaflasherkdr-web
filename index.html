@@ -1456,7 +1456,7 @@
 
             <!-- Subfooter -->
             <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-                <p>&copy; 2026 <span class="text-cyan-400 font-bold">Nica Flasher Distrik Mojoroto</span>. All rights
+                <p id="secretAdminTriggerIndex" class="select-none cursor-default">&copy; 2026 <span class="text-cyan-400 font-bold">Nica Flasher Distrik Mojoroto</span>. All rights
                     reserved.</p>
                 <div class="flex items-center gap-4 text-slate-400">
                     <a href="https://www.tiktok.com/@nicaflasherdistrikkediri" target="_blank"
@@ -1788,6 +1788,27 @@
                     .catch(err => console.error('SW register failed:', err));
             });
         }
+
+        // Secret Admin Access (Triple-click copyright or Ctrl+Shift+A)
+        let adminClicksIdx = 0;
+        let adminTimerIdx = null;
+        document.getElementById('secretAdminTriggerIndex')?.addEventListener('click', () => {
+            adminClicksIdx++;
+            clearTimeout(adminTimerIdx);
+            if (adminClicksIdx >= 3) {
+                adminClicksIdx = 0;
+                window.location.href = 'admin-ai.html';
+            } else {
+                adminTimerIdx = setTimeout(() => { adminClicksIdx = 0; }, 800);
+            }
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) || (e.altKey && (e.key === 'A' || e.key === 'a'))) {
+                e.preventDefault();
+                window.location.href = 'admin-ai.html';
+            }
+        });
     </script>
 </body>
 
