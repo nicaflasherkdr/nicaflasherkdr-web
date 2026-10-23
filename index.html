@@ -57,10 +57,25 @@
     }
     </script>
 
+    <!-- Cache Control & Anti-Stale Headers -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <link rel="apple-touch-icon" href="img/icon-192.svg">
 
-    <!-- Offline fallback script -->
+    <!-- Immediate Cache & Service Worker Cleanup -->
     <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(regs) {
+                for (var i = 0; i < regs.length; i++) regs[i].unregister();
+            });
+        }
+        if ('caches' in window) {
+            caches.keys().then(function(keys) {
+                for (var i = 0; i < keys.length; i++) caches.delete(keys[i]);
+            });
+        }
         if (!navigator.onLine) {
             window.location.replace('./halaman-offline.html');
         }
@@ -1299,7 +1314,7 @@
         </section>
 
         <!-- ================= RESERVASI CEPAT FORM ================= -->
-        <section id="reservasi" class="py-24 px-4 relative z-10">
+        <section id="reservasi-cepat" class="py-24 px-4 relative z-10">
             <div class="container mx-auto max-w-4xl">
                 <div
                     class="glass-card p-8 md:p-12 border-cyan-500/30 bg-gradient-to-b from-slate-900/90 to-[#030816]/95 spotlight-wrap reveal">
@@ -1308,13 +1323,17 @@
                             LANGSUNG</span>
                         <h2 class="text-3xl md:text-4xl font-black text-white mb-3 font-heading">Pesan Layanan Cepat
                         </h2>
-                        <p class="text-slate-400 text-sm mb-3">Isi form singkat ini dan pesan Anda akan langsung diteruskan
-                            ke WhatsApp teknisi kami.</p>
-                        <a href="reservasi.html" class="inline-flex items-center gap-1.5 text-xs text-cyan-300 hover:text-white font-semibold px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 hover:border-cyan-400 transition">
-                            <i class="fa-solid fa-expand text-[10px] text-cyan-400"></i>
-                            <span>Buka Halaman Khusus Reservasi Cepat</span>
-                            <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                        <p class="text-slate-400 text-sm mb-5">Ingin memilih metode pengerjaan (Remote / Datang ke Workshop), memilih prioritas antrean, atau mendapatkan Kode Tiket Servis resmi?</p>
+                        <a href="reservasi.html" class="btn-cyber-primary px-6 py-3 text-xs md:text-sm font-bold inline-flex items-center gap-2.5 shadow-[0_0_25px_rgba(0,240,255,0.4)]">
+                            <i class="fa-solid fa-ticket-simple text-base"></i>
+                            <span>Buka Portal Khusus Reservasi & Tiket Prioritas</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
                         </a>
+                        <div class="flex items-center justify-center gap-3 mt-6 text-xs text-slate-500 font-code">
+                            <span class="h-px w-12 bg-white/10"></span>
+                            <span>ATAU ISI FORMULIR CEPAT DI BAWAH</span>
+                            <span class="h-px w-12 bg-white/10"></span>
+                        </div>
                     </div>
 
                     <form id="reservationForm" class="space-y-6">
@@ -1680,6 +1699,29 @@
         // Estimator widget moved to dedicated page: ai-diagnostic.html
 
 
+
+        // ================= REDIRECT / INTERCEPT RESERVASI =================
+        // Jika hash #reservasi diakses (misal dari bookmark atau browser cache), otomatis alihkan ke reservasi.html
+        if (window.location.hash === '#reservasi') {
+            window.location.replace('reservasi.html');
+        }
+        window.addEventListener('hashchange', function () {
+            if (window.location.hash === '#reservasi') {
+                window.location.replace('reservasi.html');
+            }
+        });
+
+        // Intercept semua klik elemen link yang masih mengarah ke #reservasi (mencegah macet di halaman yang sama)
+        document.addEventListener('click', function (e) {
+            const anchor = e.target.closest('a');
+            if (anchor) {
+                const href = anchor.getAttribute('href');
+                if (href === '#reservasi' || href === 'index.html#reservasi' || href === './#reservasi') {
+                    e.preventDefault();
+                    window.location.href = 'reservasi.html';
+                }
+            }
+        });
 
         // 9. RESERVATION FORM
         document.getElementById('reservationForm').addEventListener('submit', function (e) {

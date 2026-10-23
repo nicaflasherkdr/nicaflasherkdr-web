@@ -49,6 +49,11 @@
     <link rel="apple-touch-icon" href="img/icon-192.svg">
     <link rel="icon" type="image/svg+xml" href="img/icon-192.svg">
 
+    <!-- Cache Control & Anti-Stale Headers -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <!-- Offline fallback script -->
     <script>
         if (!navigator.onLine) {
@@ -1198,6 +1203,30 @@ Mohon dicek estimasi dan panduan pengerjaannya. Terima kasih!`;
         // Initialize on load
         document.addEventListener('DOMContentLoaded', () => {
             generateTicketId();
+
+            // Parse URL parameters if passed from index.html or other pages
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('device')) {
+                    const dev = urlParams.get('device');
+                    if (dev) document.getElementById('deviceInput').value = dev;
+                }
+                if (urlParams.has('damage')) {
+                    const dam = urlParams.get('damage');
+                    if (dam) {
+                        const sel = document.getElementById('damageSelect');
+                        for (let i = 0; i < sel.options.length; i++) {
+                            if (sel.options[i].value.toLowerCase().includes(dam.toLowerCase()) || dam.toLowerCase().includes(sel.options[i].value.toLowerCase())) {
+                                sel.selectedIndex = i;
+                                break;
+                            }
+                        }
+                    }
+                }
+            } catch (err) {
+                console.warn('URL params parsing error:', err);
+            }
+
             syncPreview();
 
             // Reveal animations
