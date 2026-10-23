@@ -1413,7 +1413,7 @@
                 <p id="secretAdminTriggerIndex" class="select-none cursor-default">&copy; 2026 <span
                         class="text-cyan-400 font-bold">Nica Flasher Distrik Mojoroto</span>. All rights
                     reserved.
-                    <a href="admin-tools.html" class="opacity-0 hover:opacity-100 text-slate-700 text-[10px] ml-2" title="Staff Tool Panel" aria-label="Staff Tool Panel"><i class="fa-solid fa-lock"></i></a>
+                    <a href="admin.html" class="opacity-0 hover:opacity-100 text-slate-700 text-[10px] ml-2" title="Portal Admin Satu Pintu" aria-label="Portal Admin Satu Pintu"><i class="fa-solid fa-lock"></i></a>
                 </p>
                 <div class="flex items-center gap-4 text-slate-400">
                     <a href="https://www.tiktok.com/@nicaflasherdistrikkediri" target="_blank"
@@ -1724,20 +1724,18 @@
             clearTimeout(adminTimerIdx);
             if (adminClicksIdx >= 3) {
                 adminClicksIdx = 0;
-                window.location.href = 'admin-ai.html';
+                window.location.href = 'admin.html';
             } else {
                 adminTimerIdx = setTimeout(() => { adminClicksIdx = 0; }, 800);
             }
         });
 
         window.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) || (e.altKey && (e.key === 'A' || e.key === 'a'))) {
+            if ((e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'T' || e.key === 't')) || 
+                (e.altKey && (e.key === 'A' || e.key === 'a'))) {
                 e.preventDefault();
-                window.location.href = 'admin-ai.html';
-            }
-            if ((e.ctrlKey && e.shiftKey && (e.key === 'T' || e.key === 't')) || (e.altKey && (e.key === 'T' || e.key === 't'))) {
-                e.preventDefault();
-                window.location.href = 'admin-tools.html';
+                window.location.href = 'admin.html';
             }
         });
     </script>

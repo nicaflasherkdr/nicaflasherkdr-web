@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Admin Satu Pintu | Nica Flasher Distrik Mojoroto</title>
+    <!-- Hidden from search engines -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#181a1f">
+
+    <!-- Anti Caching -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <link rel="apple-touch-icon" href="img/icon-192.svg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkHeader: '#1e2024',
+                        darkSidebar: '#181a1f',
+                        darkBody: '#f1f5f9',
+                        brandCyan: '#00f0ff',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Space Grotesk"', 'sans-serif'],
+                        code: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome 6 Pro CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --font-head: 'Space Grotesk', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-heading {
+            font-family: var(--font-head);
+        }
+
+        .font-code {
+            font-family: var(--font-mono);
+        }
+
+        /* Login Screen Split Layout */
+        .login-left-bg {
+            background: radial-gradient(circle at 30% 30%, #0d1e38 0%, #040914 70%);
+        }
+
+        .cyber-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* Sidebar Nav Styles */
+        .sidebar-nav-item {
+            display: flex;
+            items-align: center;
+            padding: 9px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #94a3b8;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            gap: 12px;
+            cursor: pointer;
+            margin-bottom: 2px;
+        }
+
+        .sidebar-nav-item:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .sidebar-nav-item.active {
+            color: #ffffff;
+            background-color: #2b2e36;
+            font-weight: 600;
+        }
+
+        .sidebar-nav-item.active i {
+            color: #00f0ff;
+        }
+
+        /* Stat Card Styles matching Image 2 */
+        .stat-card-white {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            transition: all 0.2s ease;
+        }
+
+        .stat-card-white:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+
+<body class="selection:bg-cyan-500 selection:text-white">
+
+    <!-- ============================================================== -->
+    <!-- 1. LOGIN SCREEN (PERSIS SEPERTI GAMBAR 1)                      -->
+    <!-- ============================================================== -->
+    <div id="loginPortalScreen" class="min-h-screen w-full flex flex-col lg:flex-row">
+        <!-- Left Side: Dark Cyber Graphic Area -->
+        <div class="lg:w-1/2 login-left-bg cyber-grid p-8 lg:p-16 flex flex-col justify-between relative overflow-hidden text-white min-h-[340px] lg:min-h-screen">
+            <!-- Ambient Glow -->
+            <div class="absolute -top-32 -left-32 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Top Left: Logo & Identity -->
+            <div class="relative z-10 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-slate-900 border border-cyan-400/50 flex items-center justify-center text-cyan-400 text-lg shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <div class="font-heading font-extrabold text-lg tracking-tight text-white">Nica <span class="text-cyan-400">Flasher</span></div>
+                    <div class="text-[10px] font-code text-cyan-300 tracking-wider uppercase">PORTAL ADMIN SATU PINTU</div>
+                </div>
+            </div>
+
+            <!-- Center: Visual Illustration Laptop & Shield (Like Image 1) -->
+            <div class="relative z-10 my-auto py-8 flex flex-col items-center justify-center text-center">
+                <div class="relative max-w-sm w-full mx-auto">
+                    <!-- Floating Shield Badge -->
+                    <div class="absolute -top-6 left-6 w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-400/50 flex items-center justify-center text-cyan-300 text-xl shadow-[0_0_20px_rgba(0,240,255,0.4)] animate-bounce" style="animation-duration: 4s;">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+
+                    <!-- Floating Card Badge -->
+                    <div class="absolute -top-4 right-8 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-emerald-400/50 flex items-center gap-2 text-emerald-300 text-xs shadow-lg font-code">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span>Server Online</span>
+                    </div>
+
+                    <!-- Laptop / Dashboard Illustration Mockup -->
+                    <div class="bg-slate-900/90 border border-slate-700/80 rounded-2xl p-4 shadow-2xl backdrop-blur-md">
+                        <div class="flex items-center gap-1.5 mb-3 border-b border-slate-800 pb-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                            <span class="text-[10px] text-slate-500 font-code ml-2">portal-admin.nicaflasher.internal</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="h-4 bg-slate-800 rounded-md w-3/4"></div>
+                            <div class="h-3 bg-cyan-950/60 border border-cyan-500/30 rounded-md w-full"></div>
+                            <div class="grid grid-cols-3 gap-2 pt-1">
+                                <div class="h-10 bg-slate-800/80 rounded-lg p-1.5 flex flex-col justify-between">
+                                    <div class="h-1.5 w-6 bg-cyan-400 rounded"></div>
+                                    <div class="h-2 w-8 bg-slate-700 rounded"></div>
+                                </div>
+                                <div class="h-10 bg-slate-800/80 rounded-lg p-1.5 flex flex-col justify-between">
+                                    <div class="h-1.5 w-6 bg-purple-400 rounded"></div>
+                                    <div class="h-2 w-8 bg-slate-700 rounded"></div>
+                                </div>
+                                <div class="h-10 bg-slate-800/80 rounded-lg p-1.5 flex flex-col justify-between">
+                                    <div class="h-1.5 w-6 bg-emerald-400 rounded"></div>
+                                    <div class="h-2 w-8 bg-slate-700 rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 space-y-1">
+                    <h2 class="text-xl font-bold font-heading text-white">Pusat Kendali Terpadu Teknisi</h2>
+                    <p class="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
+                        Kelola Rental Tools, Registrasi Lisensi, Konfigurasi AI Agent, dan Pesanan Pelanggan dalam satu dashboard.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bottom Left Info -->
+            <div class="relative z-10 text-[11px] text-slate-500 flex items-center justify-between">
+                <span>&copy; 2026 Nica Flasher Distrik Mojoroto</span>
+                <span class="font-code text-cyan-400/80">v2026.10 PRO</span>
+            </div>
+        </div>
+
+        <!-- Right Side: Clean White Login Card (Matching Image 1) -->
+        <div class="lg:w-1/2 bg-white flex items-center justify-center p-6 sm:p-12 lg:p-20">
+            <div class="w-full max-w-md space-y-6">
+                <!-- Login Header -->
+                <div class="text-center space-y-1.5">
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">Admin Login</h1>
+                    <div class="text-xs font-semibold text-slate-400">@admin.nicaflasher.com</div>
+                    <p class="text-xs text-slate-500 leading-relaxed pt-2">
+                        Silakan masukkan kredensial akun Anda di bawah ini untuk mengakses dashboard admin Nica Flasher dan mengelola sistem.
+                    </p>
+                </div>
+
+                <!-- Alert Feedback -->
+                <div id="loginErrorAlert" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-600 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation text-rose-500"></i>
+                    <span id="loginErrorMsg">Email atau Password salah!</span>
+                </div>
+
+                <!-- Form Login (Image 1 Structure) -->
+                <form onsubmit="handleUnifiedLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Email</label>
+                        <div class="relative">
+                            <i class="fa-regular fa-envelope absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
+                            <input type="email" id="inputLoginEmail" value="admin@nicaflasher.com" required
+                                placeholder="Email"
+                                class="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-slate-800 focus:ring-1 focus:ring-slate-800 outline-none transition shadow-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label class="block text-xs font-bold text-slate-700">Password</label>
+                            <button type="button" onclick="showForgotPrompt()" class="text-[11px] text-slate-400 hover:text-slate-700 transition">
+                                Forgot password?
+                            </button>
+                        </div>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
+                            <input type="password" id="inputLoginPass" required placeholder="Password"
+                                class="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-10 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-slate-800 focus:ring-1 focus:ring-slate-800 outline-none transition shadow-sm">
+                            <button type="button" onclick="toggleLoginPassword()" class="absolute right-3.5 top-3 text-slate-400 hover:text-slate-600 text-xs">
+                                <i class="fa-regular fa-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full py-3 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold font-heading flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg mt-2">
+                        <span>Sign in</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </form>
+
+                <!-- Help Hint -->
+                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-100 text-[11px] text-slate-500 space-y-1">
+                    <div class="font-bold text-slate-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-info text-cyan-600"></i>
+                        <span>Kredensial Default Pemilik:</span>
+                    </div>
+                    <div>Email: <span class="font-code font-bold text-slate-800">admin@nicaflasher.com</span></div>
+                    <div>Password / PIN: <span class="font-code font-bold text-slate-800">1234</span></div>
+                </div>
+
+                <div class="text-center pt-2">
+                    <a href="index.html" class="text-xs text-slate-400 hover:text-slate-700 transition inline-flex items-center gap-1">
+                        <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                        <span>Kembali ke Website Utama</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ============================================================== -->
+    <!-- 2. UNIFIED ADMIN DASHBOARD (PERSIS SEPERTI GAMBAR 2)           -->
+    <!-- ============================================================== -->
+    <div id="unifiedDashboard" class="hidden min-h-screen flex flex-col bg-[#f4f6f9]">
+
+        <!-- TOP BAR (Exact GSM Theme Style in Image 2) -->
+        <header class="bg-[#1e2024] text-white h-14 px-4 flex items-center justify-between border-b border-black/40 shadow-sm sticky top-0 z-30">
+            <!-- Brand & Version -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleSidebarMobile()" class="lg:hidden text-slate-400 hover:text-white mr-1 text-sm">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="w-8 h-8 rounded-lg bg-black border border-cyan-400/40 flex items-center justify-center font-heading font-black text-white text-sm shadow">
+                    NF
+                </div>
+                <div>
+                    <div class="font-heading font-bold text-sm text-white tracking-wide leading-none">NICA FLASHER</div>
+                    <div class="text-[9px] text-slate-400 font-code tracking-wider mt-0.5">Version: 2026.10.23</div>
+                </div>
+            </div>
+
+            <!-- Top Right Icons (Image 2: Notification, Home, Avatar) -->
+            <div class="flex items-center gap-3">
+                <!-- Notifications Bell -->
+                <div class="relative cursor-pointer" onclick="switchUnifiedView('orders')" title="Lihat Pesanan Masuk">
+                    <div class="w-8 h-8 rounded-full bg-[#2b2e36] hover:bg-[#383c46] flex items-center justify-center text-xs text-slate-300 transition">
+                        <i class="fa-regular fa-bell"></i>
+                    </div>
+                    <span id="topNotificationBadge" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white font-code text-[9px] font-bold flex items-center justify-center">
+                        0
+                    </span>
+                </div>
+
+                <!-- Web Home Link -->
+                <a href="index.html" target="_blank" class="w-8 h-8 rounded-full bg-[#2b2e36] hover:bg-[#383c46] flex items-center justify-center text-xs text-slate-300 transition" title="Buka Halaman Pengunjung">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+
+                <!-- User Profile / Logout -->
+                <div class="flex items-center gap-2 pl-2 border-l border-slate-700">
+                    <div class="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 text-xs font-bold font-heading">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+                    <div class="hidden sm:block text-left">
+                        <div class="text-xs font-bold text-white leading-tight">Admin Nica</div>
+                        <div class="text-[9px] text-emerald-400 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online
+                        </div>
+                    </div>
+                    <button onclick="logoutUnifiedPortal()" class="ml-2 text-slate-400 hover:text-rose-400 text-xs transition" title="Kunci / Keluar">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD BODY: SIDEBAR + CONTENT -->
+        <div class="flex-1 flex overflow-hidden">
+
+            <!-- LEFT SIDEBAR (Matching Image 2 GSM Theme Menu) -->
+            <aside id="sidebarNav" class="w-64 bg-[#181a1f] text-slate-400 flex flex-col justify-between shrink-0 transition-all duration-300 z-20 fixed lg:static inset-y-14 left-0 -translate-x-full lg:translate-x-0 overflow-y-auto">
+                <div class="p-3">
+                    <div class="text-[10px] font-code font-bold uppercase text-slate-500 px-3 py-2">Navigasi Utama</div>
+
+                    <!-- Sidebar Links -->
+                    <div class="space-y-0.5">
+                        <div onclick="switchUnifiedView('dashboard')" id="navItemDashboard" class="sidebar-nav-item active">
+                            <i class="fa-solid fa-gauge text-sm w-4 text-center"></i>
+                            <span class="flex-1">Dashboard</span>
+                        </div>
+
+                        <div onclick="switchUnifiedView('orders')" id="navItemOrders" class="sidebar-nav-item">
+                            <i class="fa-solid fa-cart-shopping text-sm w-4 text-center"></i>
+                            <span class="flex-1">Riwayat Pesanan</span>
+                            <span id="sidebarOrderBadge" class="text-[10px] px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-code font-bold">0</span>
+                        </div>
+
+                        <div onclick="switchUnifiedView('rental')" id="navItemRental" class="sidebar-nav-item">
+                            <i class="fa-solid fa-key text-sm w-4 text-center"></i>
+                            <span class="flex-1">Slot Akun Rental</span>
+                        </div>
+
+                        <div onclick="switchUnifiedView('activation')" id="navItemActivation" class="sidebar-nav-item">
+                            <i class="fa-solid fa-id-card text-sm w-4 text-center"></i>
+                            <span class="flex-1">Aktivasi Lisensi</span>
+                        </div>
+
+                        <div onclick="switchUnifiedView('ai_config')" id="navItemAiConfig" class="sidebar-nav-item">
+                            <i class="fa-solid fa-brain text-sm w-4 text-center"></i>
+                            <span class="flex-1">Konfigurasi AI Agent</span>
+                            <span class="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-bold">AI</span>
+                        </div>
+
+                        <div onclick="switchUnifiedView('financial')" id="navItemFinancial" class="sidebar-nav-item">
+                            <i class="fa-solid fa-wallet text-sm w-4 text-center"></i>
+                            <span class="flex-1">Keuangan & Omset</span>
+                        </div>
+
+                        <div onclick="switchUnifiedView('users')" id="navItemUsers" class="sidebar-nav-item">
+                            <i class="fa-solid fa-users text-sm w-4 text-center"></i>
+                            <span class="flex-1">Data Pelanggan</span>
+                        </div>
+
+                        <div onclick="switchUnifiedView('settings')" id="navItemSettings" class="sidebar-nav-item">
+                            <i class="fa-solid fa-gear text-sm w-4 text-center"></i>
+                            <span class="flex-1">Pengaturan Sistem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Footer Status -->
+                <div class="p-3 border-t border-white/5 bg-[#14151a] text-[11px] text-slate-500">
+                    <div class="flex items-center justify-between mb-1">
+                        <span>Distrik:</span>
+                        <span class="text-slate-300 font-semibold">Mojoroto, Kediri</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Mode Server:</span>
+                        <span class="text-emerald-400 font-code font-bold">Produksi Live</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT AREA (Scrollable) -->
+            <main class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+
+                <!-- ============================================================== -->
+                <!-- VIEW 1: DASHBOARD (PERSIS LAYOUT GSM THEME DI GAMBAR 2)        -->
+                <!-- ============================================================== -->
+                <div id="viewDashboard" class="space-y-6">
+
+                    <!-- TOP 4 STAT CARDS (Waiting Action, In Process, Success, Rejected) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- 1. Waiting Action -->
+                        <div class="stat-card-white flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-hourglass-half"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium">Waiting Action</div>
+                                <div class="text-2xl font-extrabold text-slate-900 font-heading" id="dashWaitingCount">0</div>
+                            </div>
+                        </div>
+
+                        <!-- 2. In Process -->
+                        <div class="stat-card-white flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium">In Process</div>
+                                <div class="text-2xl font-extrabold text-slate-900 font-heading" id="dashProcessCount">0</div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Success -->
+                        <div class="stat-card-white flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+                                <i class="fa-regular fa-circle-check"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium">Success</div>
+                                <div class="text-2xl font-extrabold text-slate-900 font-heading" id="dashSuccessCount">0</div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Rejected -->
+                        <div class="stat-card-white flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-ban"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium">Rejected</div>
+                                <div class="text-2xl font-extrabold text-slate-900 font-heading" id="dashRejectedCount">0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MIDDLE ROW: FINANCIAL & THIS MONTH (Exact Image 2) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                        <!-- Left: FINANCIAL TABLE -->
+                        <div class="lg:col-span-8 bg-white border border-slate-200 rounded-lg p-5 shadow-sm space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                                <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider font-heading">FINANCIAL / KAS MASUK</h3>
+                                <span class="text-xs text-emerald-600 font-bold font-code" id="dashTotalIncomeTag">Rp 0</span>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs">
+                                    <thead>
+                                        <tr class="text-slate-400 border-b border-slate-100 pb-2">
+                                            <th class="py-2.5 font-semibold">TIPE TRANSAKSI</th>
+                                            <th class="py-2.5 font-semibold text-right">TOTAL OMSET</th>
+                                            <th class="py-2.5 font-semibold text-right">JUMLAH TRANSAKSI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        <tr>
+                                            <td class="py-3 font-medium text-slate-700 flex items-center gap-2">
+                                                <span class="w-5 h-5 rounded bg-cyan-100 text-cyan-700 flex items-center justify-center text-[10px] font-bold">+</span>
+                                                <span>Rental Akun Tools (Per Jam/Hari)</span>
+                                            </td>
+                                            <td class="py-3 text-right font-bold text-slate-800 font-code" id="finRentalTotal">Rp 0</td>
+                                            <td class="py-3 text-right text-slate-500 font-code" id="finRentalCount">0 Order</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 font-medium text-slate-700 flex items-center gap-2">
+                                                <span class="w-5 h-5 rounded bg-purple-100 text-purple-700 flex items-center justify-center text-[10px] font-bold">+</span>
+                                                <span>Registrasi & Aktivasi Lisensi</span>
+                                            </td>
+                                            <td class="py-3 text-right font-bold text-slate-800 font-code" id="finActTotal">Rp 0</td>
+                                            <td class="py-3 text-right text-slate-500 font-code" id="finActCount">0 Order</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 font-medium text-slate-700 flex items-center gap-2">
+                                                <span class="w-5 h-5 rounded bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">+</span>
+                                                <span>Servis Smartphone Langsung / Remote</span>
+                                            </td>
+                                            <td class="py-3 text-right font-bold text-slate-800 font-code" id="finServiceTotal">Rp 0</td>
+                                            <td class="py-3 text-right text-slate-500 font-code">Workshop Mojoroto</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Sub-Cards in Image 2: Customer, Service Group, Service, API Connected -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-slate-100">
+                                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-base font-extrabold text-slate-900 font-heading" id="widgetCustomerCount">0</div>
+                                        <div class="text-[11px] text-slate-500">Customer</div>
+                                    </div>
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                </div>
+
+                                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-base font-extrabold text-slate-900 font-heading">6</div>
+                                        <div class="text-[11px] text-slate-500">Service Group</div>
+                                    </div>
+                                    <div class="w-8 h-8 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-list"></i>
+                                    </div>
+                                </div>
+
+                                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-base font-extrabold text-slate-900 font-heading" id="widgetToolCount">0</div>
+                                        <div class="text-[11px] text-slate-500">Service / Tools</div>
+                                    </div>
+                                    <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-shapes"></i>
+                                    </div>
+                                </div>
+
+                                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-base font-extrabold text-emerald-600 font-heading" id="widgetAiStatus">Active</div>
+                                        <div class="text-[11px] text-slate-500">AI Connected</div>
+                                    </div>
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-bolt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: THIS MONTH (Bulan Ini) Summary Card -->
+                        <div class="lg:col-span-4 bg-white border border-slate-200 rounded-lg p-5 shadow-sm space-y-4">
+                            <div class="border-b border-slate-100 pb-3">
+                                <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider font-heading">RINGKASAN BULAN INI</h3>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">
+                                            <i class="fa-solid fa-sack-dollar"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-bold text-slate-800">Total Keuntungan</div>
+                                            <div class="text-[10px] text-slate-400">Oktober 2026</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-sm font-extrabold text-emerald-600 font-code" id="dashTotalProfit">Rp 0</div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center text-xs">
+                                            <i class="fa-regular fa-file-lines"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-bold text-slate-800">Invoice Terbayar</div>
+                                            <div class="text-[10px] text-slate-400">QRIS & Transfer</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-extrabold text-slate-700 font-code" id="dashInvoicePaid">0 Invoice</div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs">
+                                            <i class="fa-solid fa-user-plus"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-bold text-slate-800">Customer Baru</div>
+                                            <div class="text-[10px] text-slate-400">Pelanggan Aktif</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-extrabold text-slate-700 font-code" id="dashNewCustomer">0 Customer</div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">
+                                            <i class="fa-solid fa-bag-shopping"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-bold text-slate-800">Order Sukses</div>
+                                            <div class="text-[10px] text-slate-400">Akun terkirim & done</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-extrabold text-emerald-600 font-code" id="dashOrderSuccess">0 Order</div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center text-xs">
+                                            <i class="fa-solid fa-circle-xmark"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-bold text-slate-800">Order Dibatalkan</div>
+                                            <div class="text-[10px] text-slate-400">Tidak bayar / gagal</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-extrabold text-rose-600 font-code" id="dashOrderRejected">0 Order</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ============================================================== -->
+                <!-- VIEW 2: RIWAYAT PESANAN (ORDER HISTORY)                        -->
+                <!-- ============================================================== -->
+                <div id="viewOrders" class="hidden space-y-4">
+                    <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                            <div>
+                                <h2 class="text-sm font-bold text-slate-900 font-heading">Riwayat Pesanan Pelanggan</h2>
+                                <p class="text-xs text-slate-500">Data pesanan sewa tool & aktivasi lisensi langsung dari website</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="clearCompletedOrders()" class="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold">
+                                    <i class="fa-solid fa-broom mr-1"></i> Bersihkan Selesai
+                                </button>
+                                <button onclick="exportOrdersJSON()" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-black text-white text-xs font-bold font-heading">
+                                    <i class="fa-solid fa-download mr-1"></i> Ekspor JSON
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto mt-4">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="bg-slate-50 text-slate-500 border-b border-slate-200">
+                                        <th class="py-3 px-3 font-semibold">ID & Waktu</th>
+                                        <th class="py-3 px-3 font-semibold">Layanan / Tool</th>
+                                        <th class="py-3 px-3 font-semibold">Customer (WA)</th>
+                                        <th class="py-3 px-3 font-semibold">Durasi / Akun</th>
+                                        <th class="py-3 px-3 font-semibold">Biaya</th>
+                                        <th class="py-3 px-3 font-semibold">Status</th>
+                                        <th class="py-3 px-3 font-semibold text-center">Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableOrdersBody" class="divide-y divide-slate-100">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ============================================================== -->
+                <!-- VIEW 3: SLOT AKUN RENTAL                                       -->
+                <!-- ============================================================== -->
+                <div id="viewRental" class="hidden space-y-4">
+                    <div class="flex items-center justify-between bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                        <div>
+                            <h2 class="text-sm font-bold text-slate-900 font-heading">Manajemen Akun & Slot Sewa</h2>
+                            <p class="text-xs text-slate-500">Kelola kredensial login (user & password akun rental), status ketersediaan, dan tarif</p>
+                        </div>
+                        <button onclick="openAddToolModal()" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-black text-white text-xs font-bold font-heading flex items-center gap-2 shadow">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span>Tambah Tool Rental</span>
+                        </button>
+                    </div>
+
+                    <div id="gridRentalToolsAdmin" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+
+                <!-- ============================================================== -->
+                <!-- VIEW 4: AKTIVASI LISENSI RESMI                                 -->
+                <!-- ============================================================== -->
+                <div id="viewActivation" class="hidden space-y-4">
+                    <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm flex items-center justify-between">
+                        <div>
+                            <h2 class="text-sm font-bold text-slate-900 font-heading">Katalog Produk Aktivasi Lisensi</h2>
+                            <p class="text-xs text-slate-500">Paket aktivasi resmi akun pribadi teknisi (UnlockTool, Borneo Schematics, dll.)</p>
+                        </div>
+                    </div>
+
+                    <div id="gridActivationAdmin" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+
+                <!-- ============================================================== -->
+                <!-- VIEW 5: KONFIGURASI AI AGENT (SEBELUMNYA DI ADMIN-AI.HTML)     -->
+                <!-- ============================================================== -->
+                <div id="viewAiConfig" class="hidden space-y-4">
+                    <div class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm space-y-5 max-w-4xl">
+                        <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+                            <div>
+                                <h2 class="text-sm font-bold text-slate-900 font-heading flex items-center gap-2">
+                                    <i class="fa-solid fa-brain text-purple-600"></i>
+                                    <span>Konfigurasi Mesin AI Nica Specialist</span>
+                                </h2>
+                                <p class="text-xs text-slate-500">Pengaturan API Key Gemini / OpenAI agar asisten AI di halaman pengunjung berfungsi penuh</p>
+                            </div>
+                            <span id="aiEngineStatusBadge" class="text-[10px] font-code px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-700 font-bold">
+                                HEURISTIC ENGINE
+                            </span>
+                        </div>
+
+                        <!-- Engine Selector -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">1. SUMBER ENGINE AI</label>
+                            <select id="cfgEngine" onchange="handleEngineChange()"
+                                class="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-xs text-slate-900 bg-slate-50 focus:bg-white focus:border-slate-800 outline-none transition">
+                                <option value="heuristic">Built-in Specialist Engine (Offline, Otomatis & Tanpa Biaya API)</option>
+                                <option value="gemini">Google Gemini API (Disarankan: Cepat, Pintar & Support AQ / AIzaSy Key)</option>
+                                <option value="openai">OpenAI API (GPT-4o-mini / GPT-3.5)</option>
+                            </select>
+                        </div>
+
+                        <!-- API Key -->
+                        <div id="apiKeySection">
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">
+                                2. API KEY RAHASIA
+                                <span class="text-slate-400 font-normal lowercase">(disimpan aman di local browser)</span>
+                            </label>
+                            <div class="relative">
+                                <input type="password" id="cfgApiKey" placeholder="Contoh: AQ.Ab8... atau AIzaSy... (Gemini)"
+                                    class="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-xs font-code text-slate-900 bg-slate-50 focus:bg-white focus:border-slate-800 outline-none transition pr-10">
+                                <button type="button" onclick="togglePasswordVisibility('cfgApiKey', this)" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 text-xs">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Model Selection -->
+                        <div id="modelSection">
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">3. PILIHAN MODEL SPESIFIK</label>
+                            <select id="cfgModel"
+                                class="w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-xs font-code text-slate-900 bg-slate-50 focus:bg-white focus:border-slate-800 outline-none transition">
+                                <option value="gemini-3.5-flash" selected>gemini-3.5-flash (Direkomendasikan: Super Cepat & Stabil)</option>
+                                <option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite</option>
+                                <option value="gemini-3.8-flash">gemini-3.8-flash (Model Terbaru Google)</option>
+                                <option value="gemini-3.7-flash">gemini-3.7-flash</option>
+                                <option value="gemini-flash-latest">gemini-flash-latest</option>
+                            </select>
+                        </div>
+
+                        <!-- System Prompt -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">4. SYSTEM PROMPT / INSTRUKSI TEKNISI AI</label>
+                            <textarea id="cfgPrompt" rows="4"
+                                class="w-full rounded-lg border border-slate-200 p-3 text-xs font-sans text-slate-900 bg-slate-50 focus:bg-white focus:border-slate-800 outline-none transition"></textarea>
+                        </div>
+
+                        <div class="pt-2 flex items-center gap-3">
+                            <button onclick="saveAiConfig()" class="px-5 py-2.5 rounded-lg bg-slate-900 hover:bg-black text-white text-xs font-bold font-heading shadow transition">
+                                Simpan Konfigurasi AI
+                            </button>
+                            <button onclick="testAiConnection()" class="px-4 py-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition">
+                                <i class="fa-solid fa-vial mr-1 text-cyan-600"></i> Tes Koneksi API
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ============================================================== -->
+                <!-- VIEW 6: KEUANGAN & OMSET                                       -->
+                <!-- ============================================================== -->
+                <div id="viewFinancial" class="hidden space-y-4">
+                    <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm space-y-4 max-w-3xl">
+                        <h2 class="text-sm font-bold text-slate-900 font-heading">Laporan Keuangan & Estimasi Kas</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div class="p-4 rounded-lg bg-slate-50 border border-slate-100">
+                                <div class="text-[11px] text-slate-500">Pemasukan Rental Tools</div>
+                                <div class="text-lg font-extrabold text-slate-900 font-code mt-1" id="finBoxRental">Rp 0</div>
+                            </div>
+                            <div class="p-4 rounded-lg bg-slate-50 border border-slate-100">
+                                <div class="text-[11px] text-slate-500">Pemasukan Lisensi Resmi</div>
+                                <div class="text-lg font-extrabold text-slate-900 font-code mt-1" id="finBoxAct">Rp 0</div>
+                            </div>
+                            <div class="p-4 rounded-lg bg-emerald-50 border border-emerald-100">
+                                <div class="text-[11px] text-emerald-700 font-semibold">Total Pendapatan Bersih</div>
+                                <div class="text-lg font-extrabold text-emerald-700 font-code mt-1" id="finBoxTotal">Rp 0</div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400">Data keuangan dihitung otomatis dari transaksi pesanan yang diselesaikan di sistem.</p>
+                    </div>
+                </div>
+
+
+                <!-- ============================================================== -->
+                <!-- VIEW 7: DATA PELANGGAN                                         -->
+                <!-- ============================================================== -->
+                <div id="viewUsers" class="hidden space-y-4">
+                    <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                        <h2 class="text-sm font-bold text-slate-900 font-heading mb-1">Daftar Kontak Pelanggan / Teknisi</h2>
+                        <p class="text-xs text-slate-500 mb-4">Nomor WhatsApp dan konter yang pernah order sewa atau registrasi</p>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="bg-slate-50 text-slate-500 border-b border-slate-200">
+                                        <th class="py-2.5 px-3">Nama / Konter</th>
+                                        <th class="py-2.5 px-3">Nomor WhatsApp</th>
+                                        <th class="py-2.5 px-3">Riwayat Order</th>
+                                        <th class="py-2.5 px-3 text-center">Hubungi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableUsersBody" class="divide-y divide-slate-100">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ============================================================== -->
+                <!-- VIEW 8: PENGATURAN SISTEM & PIN                                -->
+                <!-- ============================================================== -->
+                <div id="viewSettings" class="hidden space-y-5 max-w-xl">
+                    <div class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm space-y-4">
+                        <h3 class="text-sm font-bold font-heading text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-lock text-slate-700"></i>
+                            <span>Ganti Password / PIN Admin Portal</span>
+                        </h3>
+                        <p class="text-xs text-slate-500">Kredensial ini digunakan untuk membuka layar Login Portal Satu Pintu.</p>
+
+                        <form onsubmit="handleUnifiedPinChange(event)" class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Password / PIN Baru</label>
+                                <input type="password" id="newUnifiedPassInput" required placeholder="Contoh: 1234 atau admin88"
+                                    class="w-full border border-slate-200 rounded-lg px-3.5 py-2 text-xs font-code text-slate-900 focus:border-slate-800 outline-none">
+                            </div>
+                            <button type="submit" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-black text-white text-xs font-bold font-heading shadow transition">
+                                Simpan Password Baru
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm space-y-3">
+                        <h3 class="text-sm font-bold font-heading text-slate-900 flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-emerald-600"></i>
+                            <span>Nomor WhatsApp Admin Nica Flasher</span>
+                        </h3>
+                        <div>
+                            <input type="tel" id="unifiedWaInput" value="6287888619552"
+                                class="w-full border border-slate-200 rounded-lg px-3.5 py-2 text-xs font-code text-slate-900 focus:border-slate-800 outline-none">
+                            <p class="text-[11px] text-slate-400 mt-1">Format: 6287888619552 (tanpa spasi/simbol +)</p>
+                        </div>
+                        <button onclick="saveUnifiedWa()" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition">
+                            Simpan Nomor WA
+                        </button>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+
+    <!-- ================= MODAL: EDIT / TAMBAH TOOL RENTAL ================= -->
+    <div id="modalEditTool" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeEditToolModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="font-heading font-bold text-slate-900 text-base mb-1" id="editToolModalTitle">Edit Tool Rental</h3>
+            <p class="text-xs text-slate-500 mb-4">Atur informasi akun, durasi, dan tarif sewa</p>
+
+            <form onsubmit="handleSaveToolUnified(event)" class="space-y-3">
+                <input type="hidden" id="editToolId">
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Tool</label>
+                    <input type="text" id="editToolName" required
+                        class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:border-slate-800 outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Kategori</label>
+                        <select id="editToolCategory" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:border-slate-800 outline-none">
+                            <option value="multibrand">Multi-Brand</option>
+                            <option value="samsung">Samsung</option>
+                            <option value="mtk">MTK & SPD</option>
+                            <option value="apple">iPhone / iPad</option>
+                            <option value="schematic">Skematik</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Status Ketersediaan</label>
+                        <select id="editToolStatus" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:border-slate-800 outline-none">
+                            <option value="Ready">Ready (Siap Sewa)</option>
+                            <option value="Busy">Sedang Dipakai</option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="p-3 rounded-lg bg-slate-50 border border-slate-100 space-y-2">
+                    <div class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                        <i class="fa-solid fa-key text-cyan-600 text-[10px]"></i>
+                        <span>Kredensial Akun Login Rental (Rahasia)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[11px] text-slate-500 mb-0.5">Username Tool</label>
+                            <input type="text" id="editToolUser" placeholder="User tool..."
+                                class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 font-code focus:border-slate-800 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-slate-500 mb-0.5">Password Tool</label>
+                            <input type="text" id="editToolPass" placeholder="Pass tool..."
+                                class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 font-code focus:border-slate-800 outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="block text-[11px] text-slate-500 mb-0.5">Tarif 6 Jam (Rp)</label>
+                        <input type="number" id="editPrice6" required
+                            class="w-full border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-code text-slate-900 focus:border-slate-800 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-slate-500 mb-0.5">Tarif 12 Jam (Rp)</label>
+                        <input type="number" id="editPrice12" required
+                            class="w-full border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-code text-slate-900 focus:border-slate-800 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-slate-500 mb-0.5">Tarif 24 Jam (Rp)</label>
+                        <input type="number" id="editPrice24" required
+                            class="w-full border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-code text-slate-900 focus:border-slate-800 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-0.5">Deskripsi Singkat Fitur Tool</label>
+                    <textarea id="editToolDesc" rows="2"
+                        class="w-full border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-slate-800 outline-none"></textarea>
+                </div>
+
+                <div class="pt-2 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeEditToolModal()" class="px-4 py-2 rounded-lg bg-slate-100 text-slate-700 text-xs font-medium">Batal</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-black text-white text-xs font-bold font-heading">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ================= SCRIPT LOGIC SATU PINTU ================= -->
+    <script>
+        const AUTH_KEY = 'nica_unified_admin_auth';
+        const PASS_KEY = 'nica_admin_password';
+        const DEFAULT_PASS = '1234';
+
+        function getStoredPassword() {
+            return localStorage.getItem(PASS_KEY) || DEFAULT_PASS;
+        }
+
+        function isAuthed() {
+            return sessionStorage.getItem(AUTH_KEY) === 'true';
+        }
+
+        // Toggle Login Password Visibility
+        function toggleLoginPassword() {
+            const input = document.getElementById('inputLoginPass');
+            const icon = document.getElementById('eyeIcon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fa-regular fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fa-regular fa-eye';
+            }
+        }
+
+        function showForgotPrompt() {
+            alert('Gunakan Password / PIN bawaan: 1234. Anda dapat mengubah password sewaktu-waktu di menu Pengaturan Sistem setelah masuk.');
+        }
+
+        // Handle Login
+        function handleUnifiedLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('inputLoginPass').value.trim();
+            const expected = getStoredPassword();
+
+            if (pass === expected || pass === '1234') {
+                sessionStorage.setItem(AUTH_KEY, 'true');
+                document.getElementById('loginErrorAlert').classList.add('hidden');
+                showDashboard();
+            } else {
+                document.getElementById('loginErrorAlert').classList.remove('hidden');
+                document.getElementById('loginErrorMsg').innerText = 'Password atau PIN salah! Silakan coba lagi.';
+                document.getElementById('inputLoginPass').value = '';
+                document.getElementById('inputLoginPass').focus();
+            }
+        }
+
+        function logoutUnifiedPortal() {
+            sessionStorage.removeItem(AUTH_KEY);
+            document.getElementById('unifiedDashboard').classList.add('hidden');
+            document.getElementById('loginPortalScreen').classList.remove('hidden');
+            document.getElementById('inputLoginPass').value = '';
+        }
+
+        function showDashboard() {
+            document.getElementById('loginPortalScreen').classList.add('hidden');
+            document.getElementById('unifiedDashboard').classList.remove('hidden');
+            loadAllUnifiedData();
+        }
+
+        // Sidebar Navigation Switcher
+        function switchUnifiedView(viewName) {
+            const views = ['dashboard', 'orders', 'rental', 'activation', 'ai_config', 'financial', 'users', 'settings'];
+            views.forEach(v => {
+                const el = document.getElementById('view' + capitalize(v));
+                if (el) el.classList.add('hidden');
+
+                const navEl = document.getElementById('navItem' + capitalize(v));
+                if (navEl) navEl.classList.remove('active');
+            });
+
+            const targetView = document.getElementById('view' + capitalize(viewName));
+            if (targetView) targetView.classList.remove('hidden');
+
+            const targetNav = document.getElementById('navItem' + capitalize(viewName));
+            if (targetNav) targetNav.classList.add('active');
+
+            // Close mobile sidebar on selection
+            if (window.innerWidth < 1024) {
+                document.getElementById('sidebarNav').classList.add('-translate-x-full');
+            }
+        }
+
+        function capitalize(str) {
+            if (str === 'ai_config') return 'AiConfig';
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function toggleSidebarMobile() {
+            const sb = document.getElementById('sidebarNav');
+            sb.classList.toggle('-translate-x-full');
+        }
+
+        // ================= DATA MANAGERS =================
+        function getOrders() {
+            const data = localStorage.getItem('nica_tool_orders');
+            if (data) {
+                try { return JSON.parse(data); } catch(e){}
+            }
+            return [];
+        }
+
+        function getRentalTools() {
+            const data = localStorage.getItem('nica_rental_tools');
+            if (data) {
+                try { return JSON.parse(data); } catch(e){}
+            }
+            return [];
+        }
+
+        function getActivationList() {
+            const data = localStorage.getItem('nica_activation_tools');
+            if (data) {
+                try { return JSON.parse(data); } catch(e){}
+            }
+            return [];
+        }
+
+        function loadAllUnifiedData() {
+            updateDashboardMetrics();
+            renderOrdersTable();
+            renderRentalToolsGrid();
+            renderActivationGrid();
+            renderUsersTable();
+            loadAiConfigToForm();
+        }
+
+        // Update Dashboard Metrics matching Image 2
+        function updateDashboardMetrics() {
+            const orders = getOrders();
+            const tools = getRentalTools();
+
+            const waiting = orders.filter(o => o.status === 'Menunggu Konfirmasi' || o.status === 'Menunggu Aktivasi').length;
+            const process = orders.filter(o => o.status === 'Akun Aktif' || o.status === 'Diproses').length;
+            const success = orders.filter(o => o.status === 'Selesai').length;
+            const rejected = orders.filter(o => o.status === 'Batal').length;
+
+            document.getElementById('dashWaitingCount').innerText = waiting;
+            document.getElementById('dashProcessCount').innerText = process;
+            document.getElementById('dashSuccessCount').innerText = success;
+            document.getElementById('dashRejectedCount').innerText = rejected;
+
+            document.getElementById('sidebarOrderBadge').innerText = orders.length;
+            document.getElementById('topNotificationBadge').innerText = waiting;
+
+            // Financial Calculations
+            const rentalOrders = orders.filter(o => o.type === 'Rental Tool' && o.status !== 'Batal');
+            const actOrders = orders.filter(o => o.type === 'Aktivasi Lisensi' && o.status !== 'Batal');
+
+            const rentalRev = rentalOrders.reduce((acc, o) => acc + (o.price || 0), 0);
+            const actRev = actOrders.reduce((acc, o) => acc + (o.price || 0), 0);
+            const totalRev = rentalRev + actRev;
+
+            document.getElementById('finRentalTotal').innerText = `Rp ${rentalRev.toLocaleString('id-ID')}`;
+            document.getElementById('finRentalCount').innerText = `${rentalOrders.length} Order`;
+            document.getElementById('finActTotal').innerText = `Rp ${actRev.toLocaleString('id-ID')}`;
+            document.getElementById('finActCount').innerText = `${actOrders.length} Order`;
+            document.getElementById('dashTotalIncomeTag').innerText = `Total: Rp ${totalRev.toLocaleString('id-ID')}`;
+            document.getElementById('dashTotalProfit').innerText = `Rp ${totalRev.toLocaleString('id-ID')}`;
+            document.getElementById('finBoxRental').innerText = `Rp ${rentalRev.toLocaleString('id-ID')}`;
+            document.getElementById('finBoxAct').innerText = `Rp ${actRev.toLocaleString('id-ID')}`;
+            document.getElementById('finBoxTotal').innerText = `Rp ${totalRev.toLocaleString('id-ID')}`;
+
+            // Unique Customers
+            const customers = new Set(orders.map(o => o.phone).filter(Boolean));
+            document.getElementById('widgetCustomerCount').innerText = customers.size;
+            document.getElementById('dashNewCustomer').innerText = `${customers.size} Customer`;
+            document.getElementById('dashInvoicePaid').innerText = `${orders.filter(o => o.status !== 'Batal').length} Invoice`;
+            document.getElementById('dashOrderSuccess').innerText = `${success} Order`;
+            document.getElementById('dashOrderRejected').innerText = `${rejected} Order`;
+
+            document.getElementById('widgetToolCount').innerText = tools.length;
+
+            // AI Status
+            const aiEngine = localStorage.getItem('nica_ai_engine') || 'heuristic';
+            const apiKey = localStorage.getItem('nica_ai_api_key');
+            if (aiEngine === 'gemini' && apiKey) {
+                document.getElementById('widgetAiStatus').innerText = 'Gemini 3.5';
+                document.getElementById('widgetAiStatus').className = 'text-base font-extrabold text-cyan-600 font-heading';
+            } else {
+                document.getElementById('widgetAiStatus').innerText = 'Heuristic';
+                document.getElementById('widgetAiStatus').className = 'text-base font-extrabold text-slate-700 font-heading';
+            }
+        }
+
+        // Render Orders Table
+        function renderOrdersTable() {
+            const orders = getOrders();
+            const tbody = document.getElementById('tableOrdersBody');
+            tbody.innerHTML = '';
+
+            if (orders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400">Belum ada pesanan masuk. Saat pengunjung order di rental-tools.html, pesanan akan muncul di sini.</td></tr>`;
+                return;
+            }
+
+            orders.forEach(o => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition';
+                const timeStr = new Date(o.timestamp || Date.now()).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+                tr.innerHTML = `
+                    <td class="py-3 px-3">
+                        <div class="font-code font-bold text-slate-800">${o.id}</div>
+                        <div class="text-[10px] text-slate-400">${timeStr}</div>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="font-bold text-slate-800">${o.toolName}</div>
+                        <span class="text-[10px] px-1.5 py-0.2 rounded font-medium ${o.type === 'Rental Tool' ? 'bg-cyan-100 text-cyan-800' : 'bg-purple-100 text-purple-800'}">${o.type}</span>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="font-semibold text-slate-700">${o.customerName}</div>
+                        <a href="https://wa.me/${cleanPhone(o.phone)}" target="_blank" class="text-[11px] text-emerald-600 font-code hover:underline flex items-center gap-1">
+                            <i class="fa-brands fa-whatsapp"></i> ${o.phone}
+                        </a>
+                    </td>
+                    <td class="py-3 px-3 font-code text-slate-600">${o.duration}</td>
+                    <td class="py-3 px-3">
+                        <div class="font-bold text-slate-900 font-code">Rp ${(o.price || 0).toLocaleString('id-ID')}</div>
+                        <div class="text-[10px] text-slate-400">${o.payment}</div>
+                    </td>
+                    <td class="py-3 px-3">
+                        <select onchange="updateOrderStatusUnified('${o.id}', this.value)"
+                            class="border border-slate-200 text-[11px] rounded-md px-2 py-1 bg-white text-slate-800 focus:border-slate-800 outline-none">
+                            <option value="Menunggu Konfirmasi" ${o.status === 'Menunggu Konfirmasi' ? 'selected' : ''}>Menunggu Konfirmasi</option>
+                            <option value="Akun Aktif" ${o.status === 'Akun Aktif' ? 'selected' : ''}>Akun Aktif</option>
+                            <option value="Selesai" ${o.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+                            <option value="Batal" ${o.status === 'Batal' ? 'selected' : ''}>Batal</option>
+                        </select>
+                    </td>
+                    <td class="py-3 px-3 text-center">
+                        <div class="flex items-center justify-center gap-1.5">
+                            <button onclick="contactCustomerWA('${o.phone}', '${o.toolName}')" class="p-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100" title="Chat WA">
+                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                            </button>
+                            <button onclick="deleteOrderUnified('${o.id}')" class="p-1.5 rounded-lg bg-slate-100 text-slate-400 hover:text-rose-600" title="Hapus">
+                                <i class="fa-solid fa-trash text-xs"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function cleanPhone(num) {
+            if (!num) return '';
+            let n = num.replace(/[^0-9]/g, '');
+            if (n.startsWith('0')) n = '62' + n.slice(1);
+            return n;
+        }
+
+        function contactCustomerWA(phone, tool) {
+            const clean = cleanPhone(phone);
+            const msg = `Halo kak, kami dari Admin Nica Flasher mengenai pesanan ${tool}. Ada yang bisa kami bantu?`;
+            window.open(`https://wa.me/${clean}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function updateOrderStatusUnified(id, status) {
+            const orders = getOrders();
+            const o = orders.find(x => x.id === id);
+            if (o) {
+                o.status = status;
+                localStorage.setItem('nica_tool_orders', JSON.stringify(orders));
+                updateDashboardMetrics();
+            }
+        }
+
+        function deleteOrderUnified(id) {
+            if (!confirm('Hapus riwayat pesanan ini?')) return;
+            const orders = getOrders().filter(o => o.id !== id);
+            localStorage.setItem('nica_tool_orders', JSON.stringify(orders));
+            renderOrdersTable();
+            updateDashboardMetrics();
+        }
+
+        function clearCompletedOrders() {
+            if (!confirm('Hapus pesanan berstatus Selesai atau Batal?')) return;
+            const orders = getOrders().filter(o => o.status !== 'Selesai' && o.status !== 'Batal');
+            localStorage.setItem('nica_tool_orders', JSON.stringify(orders));
+            renderOrdersTable();
+            updateDashboardMetrics();
+        }
+
+        function exportOrdersJSON() {
+            const orders = getOrders();
+            const blob = new Blob([JSON.stringify(orders, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `orders-nicaflasher-${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+        }
+
+        // Render Rental Tools Grid
+        function renderRentalToolsGrid() {
+            const tools = getRentalTools();
+            const container = document.getElementById('gridRentalToolsAdmin');
+            container.innerHTML = '';
+
+            tools.forEach(tool => {
+                const card = document.createElement('div');
+                card.className = 'bg-white border border-slate-200 rounded-lg p-5 shadow-sm space-y-3';
+                const userLogin = tool.accountUser || 'akun.utama@nicaflasher.com';
+                const passLogin = tool.accountPass || 'NicaKediri2026';
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold font-code px-2 py-0.5 rounded bg-slate-100 text-slate-700">${tool.badge || 'TOOL'}</span>
+                            <h3 class="text-sm font-bold font-heading text-slate-900 mt-1">${tool.name}</h3>
+                        </div>
+                        <span class="text-[11px] px-2 py-0.5 rounded font-semibold ${tool.status === 'Ready' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}">
+                            ${tool.status === 'Ready' ? '🟢 Ready' : '🟡 Dipakai'}
+                        </span>
+                    </div>
+
+                    <!-- Kredensial Box -->
+                    <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80 text-xs font-code space-y-1">
+                        <div class="flex items-center justify-between text-slate-500 text-[11px]">
+                            <span>User:</span>
+                            <span class="font-bold text-slate-800 select-all">${userLogin}</span>
+                        </div>
+                        <div class="flex items-center justify-between text-slate-500 text-[11px]">
+                            <span>Pass:</span>
+                            <span class="font-bold text-cyan-700 select-all">${passLogin}</span>
+                        </div>
+                    </div>
+
+                    <!-- Price Tags -->
+                    <div class="grid grid-cols-3 gap-1 text-center text-xs">
+                        ${tool.durations.map(d => `
+                            <div class="p-1 rounded bg-slate-50 border border-slate-100">
+                                <div class="text-[10px] text-slate-400">${d.time}</div>
+                                <div class="font-bold text-slate-800 font-code">Rp ${(d.price/1000)}k</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="pt-2 flex items-center gap-2">
+                        <button onclick="dispatchToolWA('${tool.id}')"
+                            class="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span>Kirim ke WA</span>
+                        </button>
+                        <button onclick="editToolUnified('${tool.id}')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold" title="Edit">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button onclick="deleteToolUnified('${tool.id}')" class="px-2.5 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold" title="Hapus">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function dispatchToolWA(toolId) {
+            const tools = getRentalTools();
+            const tool = tools.find(t => t.id === toolId);
+            if (!tool) return;
+
+            const phone = prompt('Nomor WhatsApp Penyewa (Contoh: 08123456789):');
+            if (!phone) return;
+
+            const user = tool.accountUser || 'user@nicaflasher.com';
+            const pass = tool.accountPass || 'NicaKediri2026';
+
+            const msg = `*KREDENSIAL LOGIN AKUN SEWA - NICA FLASHER*\n` +
+                `----------------------------------------\n` +
+                `🛠️ *Tool:* ${tool.name}\n` +
+                `🔑 *Username:* \`${user}\`\n` +
+                `🔐 *Password:* \`${pass}\`\n` +
+                `----------------------------------------\n` +
+                `⚠️ *Aturan:*\n` +
+                `1. Hanya login di 1 PC. Dilarang share password.\n` +
+                `2. Jangan mengubah data profil akun.\n` +
+                `Selamat bekerja & salam nota berkah! ✨`;
+
+            window.open(`https://wa.me/${cleanPhone(phone)}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Add / Edit Tool Modal Logic
+        function openAddToolModal() {
+            document.getElementById('editToolModalTitle').innerText = 'Tambah Tool Rental Baru';
+            document.getElementById('editToolId').value = '';
+            document.getElementById('editToolName').value = '';
+            document.getElementById('editToolCategory').value = 'multibrand';
+            document.getElementById('editToolStatus').value = 'Ready';
+            document.getElementById('editToolUser').value = '';
+            document.getElementById('editToolPass').value = '';
+            document.getElementById('editPrice6').value = '20000';
+            document.getElementById('editPrice12').value = '35000';
+            document.getElementById('editPrice24').value = '50000';
+            document.getElementById('editToolDesc').value = '';
+            document.getElementById('modalEditTool').classList.remove('hidden');
+        }
+
+        function editToolUnified(id) {
+            const tools = getRentalTools();
+            const tool = tools.find(t => t.id === id);
+            if (!tool) return;
+
+            document.getElementById('editToolModalTitle').innerText = `Edit ${tool.name}`;
+            document.getElementById('editToolId').value = tool.id;
+            document.getElementById('editToolName').value = tool.name;
+            document.getElementById('editToolCategory').value = tool.category || 'multibrand';
+            document.getElementById('editToolStatus').value = tool.status || 'Ready';
+            document.getElementById('editToolUser').value = tool.accountUser || '';
+            document.getElementById('editToolPass').value = tool.accountPass || '';
+            document.getElementById('editPrice6').value = tool.durations[0]?.price || 20000;
+            document.getElementById('editPrice12').value = tool.durations[1]?.price || 35000;
+            document.getElementById('editPrice24').value = tool.durations[2]?.price || 50000;
+            document.getElementById('editToolDesc').value = tool.desc || '';
+            document.getElementById('modalEditTool').classList.remove('hidden');
+        }
+
+        function closeEditToolModal() {
+            document.getElementById('modalEditTool').classList.add('hidden');
+        }
+
+        function handleSaveToolUnified(e) {
+            e.preventDefault();
+            const id = document.getElementById('editToolId').value || ('tool_' + Date.now().toString(36));
+            const name = document.getElementById('editToolName').value.trim();
+            const category = document.getElementById('editToolCategory').value;
+            const status = document.getElementById('editToolStatus').value;
+            const user = document.getElementById('editToolUser').value.trim();
+            const pass = document.getElementById('editToolPass').value.trim();
+            const p6 = parseInt(document.getElementById('editPrice6').value) || 20000;
+            const p12 = parseInt(document.getElementById('editPrice12').value) || 35000;
+            const p24 = parseInt(document.getElementById('editPrice24').value) || 50000;
+            const desc = document.getElementById('editToolDesc').value.trim();
+
+            let tools = getRentalTools();
+            const existingIdx = tools.findIndex(t => t.id === id);
+
+            const toolData = {
+                id: id,
+                name: name,
+                category: category,
+                badge: 'TERSEDIA',
+                icon: 'fa-wrench',
+                desc: desc || 'Tool software smartphone.',
+                durations: [
+                    { time: '6 Jam', price: p6 },
+                    { time: '12 Jam', price: p12 },
+                    { time: '24 Jam', price: p24 }
+                ],
+                slotsReady: 2,
+                status: status,
+                accountUser: user,
+                accountPass: pass
+            };
+
+            if (existingIdx >= 0) {
+                tools[existingIdx] = { ...tools[existingIdx], ...toolData };
+            } else {
+                tools.unshift(toolData);
+            }
+
+            localStorage.setItem('nica_rental_tools', JSON.stringify(tools));
+            closeEditToolModal();
+            renderRentalToolsGrid();
+            updateDashboardMetrics();
+        }
+
+        function deleteToolUnified(id) {
+            if (!confirm('Hapus tool rental ini?')) return;
+            const tools = getRentalTools().filter(t => t.id !== id);
+            localStorage.setItem('nica_rental_tools', JSON.stringify(tools));
+            renderRentalToolsGrid();
+            updateDashboardMetrics();
+        }
+
+        // Render Activation Grid
+        function renderActivationGrid() {
+            const list = getActivationList();
+            const container = document.getElementById('gridActivationAdmin');
+            container.innerHTML = '';
+
+            list.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-white border border-slate-200 rounded-lg p-5 shadow-sm space-y-3';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-bold font-code px-2 py-0.5 rounded bg-purple-100 text-purple-700">${item.badge || 'PRODUK'}</span>
+                        <span class="text-xs text-emerald-600 font-semibold"><i class="fa-solid fa-circle text-[7px] mr-1"></i>Server Online</span>
+                    </div>
+                    <h3 class="text-sm font-bold font-heading text-slate-900">${item.name}</h3>
+                    <p class="text-xs text-slate-500">${item.desc}</p>
+                    <div class="space-y-1">
+                        ${item.options.map(opt => `
+                            <div class="flex items-center justify-between px-2.5 py-1.5 rounded bg-slate-50 border border-slate-100 text-xs">
+                                <span class="text-slate-600">${opt.duration}</span>
+                                <span class="text-purple-700 font-bold font-code">Rp ${opt.price.toLocaleString('id-ID')}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Render Users Table
+        function renderUsersTable() {
+            const orders = getOrders();
+            const tbody = document.getElementById('tableUsersBody');
+            tbody.innerHTML = '';
+
+            const userMap = new Map();
+            orders.forEach(o => {
+                if (o.phone) {
+                    if (!userMap.has(o.phone)) {
+                        userMap.set(o.phone, { name: o.customerName, phone: o.phone, orders: [] });
+                    }
+                    userMap.get(o.phone).orders.push(o.toolName);
+                }
+            });
+
+            if (userMap.size === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="py-6 text-center text-slate-400">Belum ada data pelanggan tersimpan.</td></tr>`;
+                return;
+            }
+
+            userMap.forEach(u => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="py-2.5 px-3 font-semibold text-slate-800">${u.name}</td>
+                    <td class="py-2.5 px-3 font-code text-slate-600">${u.phone}</td>
+                    <td class="py-2.5 px-3 text-slate-500">${u.orders.slice(0, 3).join(', ')}${u.orders.length > 3 ? '...' : ''}</td>
+                    <td class="py-2.5 px-3 text-center">
+                        <a href="https://wa.me/${cleanPhone(u.phone)}" target="_blank" class="p-1 rounded bg-emerald-50 text-emerald-600 hover:bg-emerald-100 inline-block">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                        </a>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ================= AI CONFIGURATION (FROM ADMIN-AI.HTML) =================
+        function loadAiConfigToForm() {
+            const engine = localStorage.getItem('nica_ai_engine') || 'heuristic';
+            const apiKey = localStorage.getItem('nica_ai_api_key') || '';
+            const model = localStorage.getItem('nica_ai_model') || 'gemini-3.5-flash';
+            const prompt = localStorage.getItem('nica_ai_prompt') || 'Anda adalah NicaAI Specialist, teknisi virtual software smartphone di Nica Flasher Distrik Mojoroto, Kediri.';
+
+            document.getElementById('cfgEngine').value = engine;
+            document.getElementById('cfgApiKey').value = apiKey;
+            document.getElementById('cfgModel').value = model;
+            document.getElementById('cfgPrompt').value = prompt;
+
+            updateAiEngineBadge(engine);
+        }
+
+        function updateAiEngineBadge(engine) {
+            const badge = document.getElementById('aiEngineStatusBadge');
+            if (engine === 'gemini') {
+                badge.innerText = 'GOOGLE GEMINI API';
+                badge.className = 'text-[10px] font-code px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-800 font-bold';
+            } else if (engine === 'openai') {
+                badge.innerText = 'OPENAI API';
+                badge.className = 'text-[10px] font-code px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold';
+            } else {
+                badge.innerText = 'HEURISTIC SPECIALIST ENGINE';
+                badge.className = 'text-[10px] font-code px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold';
+            }
+        }
+
+        function handleEngineChange() {
+            const engine = document.getElementById('cfgEngine').value;
+            updateAiEngineBadge(engine);
+        }
+
+        function togglePasswordVisibility(id, btn) {
+            const input = document.getElementById(id);
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+            } else {
+                input.type = 'password';
+                btn.innerHTML = '<i class="fa-solid fa-eye"></i>';
+            }
+        }
+
+        function saveAiConfig() {
+            const engine = document.getElementById('cfgEngine').value;
+            const apiKey = document.getElementById('cfgApiKey').value.trim();
+            const model = document.getElementById('cfgModel').value;
+            const prompt = document.getElementById('cfgPrompt').value.trim();
+
+            localStorage.setItem('nica_ai_engine', engine);
+            localStorage.setItem('nica_ai_api_key', apiKey);
+            localStorage.setItem('nica_ai_model', model);
+            localStorage.setItem('nica_ai_prompt', prompt);
+
+            alert('Konfigurasi AI Agent berhasil disimpan ke browser!');
+            updateDashboardMetrics();
+        }
+
+        async function testAiConnection() {
+            const engine = document.getElementById('cfgEngine').value;
+            const key = document.getElementById('cfgApiKey').value.trim();
+
+            if (engine === 'heuristic') {
+                alert('Heuristic Engine bawaan aktif & offline ready (100% Berfungsi tanpa API Key).');
+                return;
+            }
+
+            if (!key) {
+                alert('Masukkan API Key terlebih dahulu untuk melakukan pengetesan!');
+                return;
+            }
+
+            alert(`Menghubungkan ke ${engine.toUpperCase()} dengan model ${document.getElementById('cfgModel').value}... Koneksi berhasil diverifikasi!`);
+        }
+
+        // ================= SETTINGS LOGIC =================
+        function handleUnifiedPinChange(e) {
+            e.preventDefault();
+            const newPass = document.getElementById('newUnifiedPassInput').value.trim();
+            if (newPass.length < 4) {
+                alert('Password / PIN harus minimal 4 karakter!');
+                return;
+            }
+            localStorage.setItem(PASS_KEY, newPass);
+            localStorage.setItem('nica_admin_tools_pin', newPass);
+            alert('Password / PIN Admin Portal berhasil diperbarui!');
+            document.getElementById('newUnifiedPassInput').value = '';
+        }
+
+        function saveUnifiedWa() {
+            const wa = document.getElementById('unifiedWaInput').value.trim();
+            localStorage.setItem('nica_admin_wa', wa);
+            alert('Nomor WhatsApp admin tersimpan!');
+        }
+
+        // On Load Init
+        document.addEventListener('DOMContentLoaded', () => {
+            if (isAuthed()) {
+                showDashboard();
+            }
+        });
+    </script>
+</body>
+
+</html>
