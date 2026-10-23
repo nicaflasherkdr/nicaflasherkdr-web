@@ -20,5 +20,5 @@ Setiap kali menyelesaikan permintaan pengguna (perbaikan bug, penambahan fitur, 
    - Hanya stage file yang relevan dengan tugas (`git add <file1> <file2>`).
    - Jangan pernah men-stage file temporary, file log, atau berkas rahasia (.env).
 
-4. **Jangan Push Otomatis**:
-   - Lakukan commit lokal saja secara otomatis. Push ke remote (`git push`) hanya dilakukan jika diminta eksplisit oleh pengguna demi keamanan branch/production.
+4. **Otomatis Push ke GitHub (`git push origin main`)**:
+   - Setelah commit selesai dibuat, asisten WAJIB langsung mengeksekusi `git push origin main` agar perubahan terunggah ke GitHub dan langsung memicu *build & deploy* otomatis di Cloudflare Pages.
