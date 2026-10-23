@@ -45,10 +45,8 @@
 	}
 	</script>
 
-	<!-- Cache Control & Anti-Stale Headers -->
-	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-	<meta http-equiv="Pragma" content="no-cache">
-	<meta http-equiv="Expires" content="0">
+	<!-- Cache Control -->
+	<meta http-equiv="Cache-Control" content="public, max-age=3600">
 
 	<link rel="apple-touch-icon" href="img/icon-192.svg">
 
@@ -146,8 +144,9 @@
 		.aurora-blob {
 			position: absolute;
 			border-radius: 50%;
-			filter: blur(130px);
+			filter: blur(55px);
 			opacity: 0.35;
+			transform: translateZ(0);
 		}
 
 		.blob-1 {
@@ -181,8 +180,9 @@
 			background: var(--bg-panel);
 			border: 1px solid var(--border-glass);
 			border-radius: 24px;
-			backdrop-filter: blur(24px);
-			-webkit-backdrop-filter: blur(24px);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			contain: content;
 			transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 		}
 
@@ -193,15 +193,16 @@
 		}
 
 		.navbar-island {
-			background: rgba(7, 14, 30, 0.78);
-			backdrop-filter: blur(24px);
+			background: rgba(7, 14, 30, 0.85);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
 			border: 1px solid rgba(255, 255, 255, 0.1);
 			border-radius: 9999px;
 			box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6);
 		}
 
 		.navbar-island.scrolled {
-			background: rgba(5, 10, 22, 0.92);
+			background: rgba(5, 10, 22, 0.95);
 			border-color: rgba(0, 240, 255, 0.3);
 		}
 

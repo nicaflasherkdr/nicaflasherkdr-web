@@ -57,25 +57,9 @@
     }
     </script>
 
-    <!-- Cache Control & Anti-Stale Headers -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-
     <link rel="apple-touch-icon" href="img/icon-192.svg">
 
-    <!-- Immediate Cache & Service Worker Cleanup -->
     <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(regs) {
-                for (var i = 0; i < regs.length; i++) regs[i].unregister();
-            });
-        }
-        if ('caches' in window) {
-            caches.keys().then(function(keys) {
-                for (var i = 0; i < keys.length; i++) caches.delete(keys[i]);
-            });
-        }
         if (!navigator.onLine) {
             window.location.replace('./halaman-offline.html');
         }
@@ -183,64 +167,46 @@
             font-family: var(--font-tech);
         }
 
-        /* Ambient Spatial Aurora Background */
+        /* Ambient Spatial Aurora Background (GPU Optimized) */
         .ambient-aurora {
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 0;
             overflow: hidden;
+            transform: translateZ(0);
         }
 
         .aurora-blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(130px);
-            opacity: 0.38;
-            will-change: transform;
-            animation: auroraDrift 24s ease-in-out infinite alternate;
+            filter: blur(60px);
+            opacity: 0.28;
+            transform: translateZ(0);
         }
 
         .blob-1 {
-            width: 50vw;
-            height: 50vw;
-            background: radial-gradient(circle, rgba(0, 240, 255, 0.28) 0%, rgba(56, 189, 248, 0.12) 50%, transparent 70%);
-            top: -15%;
-            left: -10%;
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.22) 0%, rgba(56, 189, 248, 0.08) 50%, transparent 70%);
+            top: -10%;
+            left: -5%;
         }
 
         .blob-2 {
-            width: 45vw;
-            height: 45vw;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.24) 0%, rgba(59, 130, 246, 0.08) 55%, transparent 70%);
-            top: 35%;
-            right: -10%;
-            animation-delay: -8s;
-            animation-duration: 28s;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, rgba(59, 130, 246, 0.06) 55%, transparent 70%);
+            top: 40%;
+            right: -5%;
         }
 
         .blob-3 {
-            width: 40vw;
-            height: 40vw;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.06) 60%, transparent 75%);
-            bottom: -10%;
-            left: 20%;
-            animation-delay: -14s;
-            animation-duration: 22s;
-        }
-
-        @keyframes auroraDrift {
-            0% {
-                transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-            }
-
-            50% {
-                transform: translate3d(30px, -40px, 0) scale(1.08) rotate(5deg);
-            }
-
-            100% {
-                transform: translate3d(-30px, 30px, 0) scale(0.95) rotate(-5deg);
-            }
+            width: 35vw;
+            height: 35vw;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, rgba(6, 182, 212, 0.05) 60%, transparent 75%);
+            bottom: -5%;
+            left: 25%;
         }
 
         /* Cyber Holographic Grid Scanlines */
@@ -249,29 +215,34 @@
             inset: 0;
             pointer-events: none;
             background-image:
-                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 40px 40px;
-            mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85) 20%, transparent 80%);
-            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85) 20%, transparent 80%);
         }
 
-        /* Next-Gen Glassmorphic Card with Dynamic Spotlight */
+        /* Next-Gen Glassmorphic Card (Optimized Compositor) */
         .glass-card {
             position: relative;
-            background: var(--bg-panel);
+            background: rgba(10, 20, 38, 0.85);
             border: 1px solid var(--border-glass);
             border-radius: 24px;
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
             overflow: hidden;
+            contain: content;
         }
 
         .glass-card:hover {
             border-color: rgba(0, 240, 255, 0.45);
-            transform: translateY(-5px);
-            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(0, 240, 255, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(0, 240, 255, 0.2);
+        }
+
+        /* Off-screen Content Performance */
+        section:not(#home) {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 500px;
         }
 
         /* Mouse Spotlight Follow Effect */
@@ -1582,15 +1553,18 @@
             }
         }
 
-        // 3. MOUSE SPOTLIGHT GLOW EFFECT
+        // 3. MOUSE SPOTLIGHT GLOW EFFECT (OPTIMIZED WITH RAF)
         document.querySelectorAll('.spotlight-wrap').forEach(card => {
+            let rafId = null;
             card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            });
+                if (rafId) return;
+                rafId = requestAnimationFrame(() => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                    rafId = null;
+                });
+            }, { passive: true });
         });
 
         // 4. NAVBAR SCROLL DYNAMICS

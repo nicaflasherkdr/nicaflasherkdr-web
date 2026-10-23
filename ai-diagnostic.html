@@ -49,11 +49,6 @@
     }
     </script>
 
-    <!-- Cache Control & Anti-Stale Headers -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-
     <link rel="apple-touch-icon" href="img/icon-192.svg">
 
     <!-- Offline fallback script -->
@@ -141,13 +136,15 @@
             overflow: hidden;
             pointer-events: none;
             z-index: 0;
+            transform: translateZ(0);
         }
 
         .aurora-blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(140px);
-            opacity: 0.35;
+            filter: blur(55px);
+            opacity: 0.25;
+            transform: translateZ(0);
         }
 
         .blob-1 {
@@ -199,13 +196,14 @@
         }
 
         .glass-card {
-            background: rgba(10, 20, 38, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 20, 38, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+            contain: content;
         }
 
         .text-holo {
