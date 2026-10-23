@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Manajemen Rental & Registrasi Tools | Nica Flasher</title>
+    <!-- Hidden from search engine indexing -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#030712">
+
+    <!-- Anti Caching -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <link rel="apple-touch-icon" href="img/icon-192.svg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#030712',
+                        cyanGlow: '#00f0ff',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome 6 Pro CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-void: #030712;
+            --bg-deep: #070e1e;
+            --bg-panel: rgba(13, 24, 41, 0.75);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --cyan: #00f0ff;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-head: 'Space Grotesk', sans-serif;
+            --font-tech: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-void);
+            color: #f1f5f9;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: var(--font-head);
+        }
+
+        .font-code {
+            font-family: var(--font-tech);
+        }
+
+        .ambient-aurora {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.22;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            top: -100px;
+            left: -100px;
+            background: radial-gradient(circle, #00f0ff 0%, transparent 70%);
+        }
+
+        .blob-2 {
+            width: 450px;
+            height: 450px;
+            bottom: 0;
+            right: -50px;
+            background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+        }
+
+        .glass-card {
+            background: rgba(10, 20, 38, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .text-holo {
+            background: linear-gradient(135deg, #ffffff 0%, #00f0ff 40%, #a78bfa 75%, #34d399 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-cyber-primary {
+            background: linear-gradient(135deg, #00f0ff 0%, #0284c7 100%);
+            color: #020611;
+            font-weight: 700;
+            font-family: var(--font-head);
+            border-radius: 14px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .btn-cyber-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.55);
+        }
+
+        .admin-tab-btn.active {
+            background: rgba(0, 240, 255, 0.15);
+            border-color: rgba(0, 240, 255, 0.4);
+            color: #00f0ff;
+        }
+    </style>
+</head>
+
+<body class="relative flex flex-col justify-between selection:bg-cyan-400 selection:text-black">
+
+    <div class="ambient-aurora">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+    </div>
+
+    <!-- Header Bar -->
+    <header class="border-b border-white/10 bg-[#050b18]/90 backdrop-blur-xl relative z-20 px-4 sm:px-6 py-4">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-slate-900 border border-amber-400/40 flex items-center justify-center text-amber-400 text-lg shadow-[0_0_15px_rgba(245,158,11,0.25)]">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <div>
+                    <h1 class="text-sm sm:text-base font-bold font-heading text-white flex items-center gap-2">
+                        Panel Kontrol Tools
+                        <span class="text-[10px] font-code px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">HIDDEN • OWNER</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Nica Flasher • Manajemen Sewa Akun & Registrasi</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+                <a href="rental-tools.html" target="_blank"
+                    class="px-3.5 py-2 rounded-xl border border-cyan-500/30 bg-cyan-950/30 hover:bg-cyan-950/60 text-cyan-300 text-xs font-semibold flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-eye text-xs"></i>
+                    <span class="hidden sm:inline">Lihat Web Rental</span>
+                </a>
+                <a href="admin-ai.html"
+                    class="px-3 py-2 rounded-xl border border-purple-500/30 bg-purple-950/30 hover:bg-purple-900/40 text-purple-300 text-xs font-semibold flex items-center gap-1.5 transition"
+                    title="Buka Panel AI">
+                    <i class="fa-solid fa-brain text-xs"></i>
+                    <span class="hidden md:inline">Panel AI</span>
+                </a>
+                <button id="btnLogout" onclick="lockPanel()"
+                    class="hidden px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-rose-950/60 hover:text-rose-300 border border-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-lock text-xs"></i>
+                    <span class="hidden sm:inline">Kunci Panel</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-6xl mx-auto px-4 py-8 relative z-10 w-full">
+
+        <!-- ================= PIN AUTH SCREEN ================= -->
+        <div id="authScreen" class="max-w-md mx-auto my-12 glass-card p-8 border-amber-500/30 text-center">
+            <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-amber-300 text-2xl flex items-center justify-center mx-auto mb-5 shadow-[0_0_25px_rgba(245,158,11,0.25)]">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h2 class="text-2xl font-bold font-heading text-white mb-2">Panel Rahasia Pemilik</h2>
+            <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+                Halaman ini khusus pemilik teknisi Nica Flasher untuk mengelola slot akun rental, kredensial password tools, dan memproses order registrasi lisensi.
+            </p>
+
+            <form onsubmit="handleAuth(event)" class="space-y-4">
+                <div>
+                    <input type="password" id="adminPinInput" placeholder="Masukkan PIN Pemilik (Default: 1234)" autofocus
+                        class="w-full text-center tracking-widest text-lg font-code rounded-xl bg-slate-900 border border-slate-700 px-4 py-3 text-white focus:border-amber-400 outline-none transition">
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-black font-heading font-bold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+                    <i class="fa-solid fa-unlock"></i>
+                    <span>Buka Panel Manajemen Tools</span>
+                </button>
+            </form>
+            <p class="text-[11px] text-slate-500 mt-4 font-code">*PIN default: <strong>1234</strong> (dapat diubah di dalam pengaturan panel)</p>
+        </div>
+
+        <!-- ================= MAIN ADMIN DASHBOARD (LOCKED BY DEFAULT) ================= -->
+        <div id="adminDashboard" class="hidden space-y-6">
+
+            <!-- Summary Stats -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="p-4 rounded-2xl bg-slate-900/80 border border-white/5 flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-400/20 text-cyan-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-wrench"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold font-heading text-white" id="statTotalTools">0</div>
+                        <div class="text-[11px] text-slate-400">Total Tool Terdaftar</div>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-900/80 border border-white/5 flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold font-heading text-white" id="statReadySlots">0</div>
+                        <div class="text-[11px] text-slate-400">Slot Akun Ready</div>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-900/80 border border-white/5 flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-400/20 text-amber-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-inbox"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold font-heading text-white" id="statTotalOrders">0</div>
+                        <div class="text-[11px] text-slate-400">Pesanan Masuk</div>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-900/80 border border-white/5 flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-purple-500/10 border border-purple-400/20 text-purple-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold font-heading text-white" id="statRevenue">Rp 0</div>
+                        <div class="text-[11px] text-slate-400">Omset Transaksi</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-slate-900/90 border border-white/5">
+                <button onclick="switchAdminTab('rental')" id="btnTabRental"
+                    class="admin-tab-btn active px-4 py-2.5 rounded-xl border border-transparent text-xs font-bold flex items-center gap-2 transition">
+                    <i class="fa-solid fa-key"></i>
+                    <span>Slot Akun Rental</span>
+                </button>
+                <button onclick="switchAdminTab('orders')" id="btnTabOrders"
+                    class="admin-tab-btn px-4 py-2.5 rounded-xl border border-transparent text-xs font-bold text-slate-300 flex items-center gap-2 hover:text-white transition">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Pesanan Masuk</span>
+                    <span id="badgeOrderCount" class="text-[10px] px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-code font-bold">0</span>
+                </button>
+                <button onclick="switchAdminTab('activation')" id="btnTabActivation"
+                    class="admin-tab-btn px-4 py-2.5 rounded-xl border border-transparent text-xs font-bold text-slate-300 flex items-center gap-2 hover:text-white transition">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span>Produk Lisensi</span>
+                </button>
+                <button onclick="switchAdminTab('settings')" id="btnTabSettings"
+                    class="admin-tab-btn px-4 py-2.5 rounded-xl border border-transparent text-xs font-bold text-slate-300 flex items-center gap-2 hover:text-white transition">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Pengaturan & PIN</span>
+                </button>
+            </div>
+
+            <!-- ================= TAB 1: MANAJEMEN SLOT SEWA TOOLS ================= -->
+            <div id="panelRental" class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-base font-bold font-heading text-white">Daftar Akun & Slot Sewa</h2>
+                        <p class="text-xs text-slate-400">Kelola akun login (username & password), tarif, serta slot siap pakai</p>
+                    </div>
+                    <button onclick="openAddToolModal()"
+                        class="px-4 py-2 rounded-xl btn-cyber-primary text-xs flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Tambah Tool Rental</span>
+                    </button>
+                </div>
+
+                <div id="adminToolsList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- ================= TAB 2: RIWAYAT PESANAN MASUK ================= -->
+            <div id="panelOrders" class="hidden space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <h2 class="text-base font-bold font-heading text-white">Log Pesanan Pelanggan</h2>
+                        <p class="text-xs text-slate-400">Pesanan sewa akun & permohonan registrasi lisensi dari formulir web</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="clearCompletedOrders()"
+                            class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold hover:text-white transition">
+                            <i class="fa-solid fa-broom mr-1"></i> Bersihkan Selesai
+                        </button>
+                        <button onclick="exportOrdersJSON()"
+                            class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold hover:text-white transition">
+                            <i class="fa-solid fa-download mr-1"></i> Ekspor JSON
+                        </button>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden border-white/5">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-900/80 border-b border-white/10 text-slate-400">
+                                <tr>
+                                    <th class="py-3 px-4">ID & Waktu</th>
+                                    <th class="py-3 px-4">Jenis & Tool</th>
+                                    <th class="py-3 px-4">Nama & WA</th>
+                                    <th class="py-3 px-4">Durasi / Akun</th>
+                                    <th class="py-3 px-4">Biaya & Bayar</th>
+                                    <th class="py-3 px-4">Status</th>
+                                    <th class="py-3 px-4 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody" class="divide-y divide-white/5">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= TAB 3: PRODUK LISENSI RESMI ================= -->
+            <div id="panelActivation" class="hidden space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-base font-bold font-heading text-white">Katalog Paket Aktivasi Lisensi</h2>
+                        <p class="text-xs text-slate-400">Produk registrasi akun pribadi (UnlockTool, Borneo, Chimera, dll.)</p>
+                    </div>
+                    <button onclick="openAddActivationModal()"
+                        class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-heading font-bold text-xs flex items-center gap-2 transition">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Tambah Paket Lisensi</span>
+                    </button>
+                </div>
+
+                <div id="adminActivationList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- ================= TAB 4: PENGATURAN PANEL ================= -->
+            <div id="panelSettings" class="hidden space-y-6 max-w-xl">
+                <div class="glass-card p-6 border-white/10 space-y-4">
+                    <h3 class="text-sm font-bold font-heading text-white flex items-center gap-2">
+                        <i class="fa-solid fa-shield-keyhole text-amber-400"></i>
+                        <span>Ganti PIN Masuk Panel</span>
+                    </h3>
+                    <p class="text-xs text-slate-400">PIN ini digunakan untuk mengunci akses panel admin agar tidak sembarang orang bisa masuk.</p>
+                    
+                    <form onsubmit="handlePinChange(event)" class="space-y-3">
+                        <div>
+                            <label class="block text-xs text-slate-300 mb-1">PIN Baru (Minimal 4 Digit)</label>
+                            <input type="password" id="newPinInput" required placeholder="Contoh: 8899"
+                                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white font-code focus:border-amber-400 outline-none transition">
+                        </div>
+                        <button type="submit"
+                            class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold font-heading transition">
+                            Simpan PIN Baru
+                        </button>
+                    </form>
+                </div>
+
+                <div class="glass-card p-6 border-white/10 space-y-4">
+                    <h3 class="text-sm font-bold font-heading text-white flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                        <span>Nomor WhatsApp Admin Penerima Pesanan</span>
+                    </h3>
+                    <div>
+                        <input type="tel" id="adminWaInput" value="6287888619552"
+                            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white font-code focus:border-cyan-400 outline-none transition">
+                        <p class="text-[11px] text-slate-500 mt-1.5">Gunakan format internasional tanpa tanda + (contoh: 6287888619552).</p>
+                    </div>
+                    <button onclick="saveAdminWa()"
+                        class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-xs font-bold transition">
+                        Simpan Nomor WA
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 border-rose-500/20 space-y-3">
+                    <h3 class="text-sm font-bold font-heading text-rose-300 flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Reset Data ke Pengaturan Default</span>
+                    </h3>
+                    <p class="text-xs text-slate-400">Mengembalikan katalog tool rental, produk aktivasi, dan PIN kembali ke setelan pabrik bawaan sistem.</p>
+                    <button onclick="resetAllData()"
+                        class="px-4 py-2 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 border border-rose-500/40 text-xs font-bold transition">
+                        Reset Semua Data
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ================= MODAL: EDIT / ADD TOOL RENTAL ================= -->
+    <div id="modalEditTool" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-cyan-500/40 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeEditToolModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="font-heading font-bold text-white text-base mb-1" id="editToolModalTitle">Edit Tool Rental</h3>
+            <p class="text-xs text-slate-400 mb-4">Atur informasi akun, durasi, dan tarif sewa</p>
+
+            <form onsubmit="handleSaveTool(event)" class="space-y-3.5">
+                <input type="hidden" id="editToolId">
+
+                <div>
+                    <label class="block text-xs text-slate-300 mb-1">Nama Tool</label>
+                    <input type="text" id="editToolName" required
+                        class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-cyan-400 outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs text-slate-300 mb-1">Kategori</label>
+                        <select id="editToolCategory" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-cyan-400 outline-none">
+                            <option value="multibrand">Multi-Brand</option>
+                            <option value="samsung">Samsung</option>
+                            <option value="mtk">MTK & SPD</option>
+                            <option value="apple">iPhone / iPad</option>
+                            <option value="schematic">Skematik</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-300 mb-1">Status Ketersediaan</label>
+                        <select id="editToolStatus" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-cyan-400 outline-none">
+                            <option value="Ready">Ready (Siap Sewa)</option>
+                            <option value="Busy">Sedang Dipakai</option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-slate-800/60 border border-white/5 space-y-2">
+                    <div class="text-xs font-semibold text-cyan-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-lock text-[10px]"></i>
+                        <span>Kredensial Akun Sewa (Rahasia Admin)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[11px] text-slate-400 mb-1">Username Akun</label>
+                            <input type="text" id="editToolUser" placeholder="User tool..."
+                                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-code focus:border-cyan-400 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-slate-400 mb-1">Password Akun</label>
+                            <input type="text" id="editToolPass" placeholder="Pass tool..."
+                                class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-code focus:border-cyan-400 outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="block text-[11px] text-slate-400 mb-1">Tarif 6 Jam (Rp)</label>
+                        <input type="number" id="editPrice6" required
+                            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-2 text-xs text-white font-code focus:border-cyan-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-slate-400 mb-1">Tarif 12 Jam (Rp)</label>
+                        <input type="number" id="editPrice12" required
+                            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-2 text-xs text-white font-code focus:border-cyan-400 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-slate-400 mb-1">Tarif 24 Jam (Rp)</label>
+                        <input type="number" id="editPrice24" required
+                            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-2 text-xs text-white font-code focus:border-cyan-400 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs text-slate-300 mb-1">Deskripsi Singkat Fitur Tool</label>
+                    <textarea id="editToolDesc" rows="2"
+                        class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-cyan-400 outline-none"></textarea>
+                </div>
+
+                <div class="pt-2 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeEditToolModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">Batal</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl btn-cyber-primary text-xs">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-[#02050e] py-6 px-4 text-center text-xs text-slate-500 relative z-10">
+        Panel Pemilik Nica Flasher Distrik Mojoroto • Rahasia & Terproteksi PIN
+    </footer>
+
+    <!-- Script Logic -->
+    <script>
+        const AUTH_STORAGE_KEY = 'nica_admin_tools_auth';
+        const PIN_STORAGE_KEY = 'nica_admin_tools_pin';
+        const DEFAULT_PIN = '1234';
+
+        function getStoredPin() {
+            return localStorage.getItem(PIN_STORAGE_KEY) || DEFAULT_PIN;
+        }
+
+        function isAuthed() {
+            return sessionStorage.getItem(AUTH_STORAGE_KEY) === 'true';
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            const input = document.getElementById('adminPinInput').value.trim();
+            if (input === getStoredPin()) {
+                sessionStorage.setItem(AUTH_STORAGE_KEY, 'true');
+                showDashboard();
+            } else {
+                alert('PIN Salah! Silakan periksa kembali atau gunakan PIN default: 1234.');
+                document.getElementById('adminPinInput').value = '';
+                document.getElementById('adminPinInput').focus();
+            }
+        }
+
+        function lockPanel() {
+            sessionStorage.removeItem(AUTH_STORAGE_KEY);
+            document.getElementById('adminDashboard').classList.add('hidden');
+            document.getElementById('btnLogout').classList.add('hidden');
+            document.getElementById('authScreen').classList.remove('hidden');
+            document.getElementById('adminPinInput').value = '';
+        }
+
+        function showDashboard() {
+            document.getElementById('authScreen').classList.add('hidden');
+            document.getElementById('adminDashboard').classList.remove('hidden');
+            document.getElementById('btnLogout').classList.remove('hidden');
+            loadAllData();
+        }
+
+        // Tab Switching
+        function switchAdminTab(tab) {
+            ['panelRental', 'panelOrders', 'panelActivation', 'panelSettings'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.className = 'admin-tab-btn px-4 py-2.5 rounded-xl border border-transparent text-xs font-bold text-slate-300 flex items-center gap-2 hover:text-white transition';
+            });
+
+            if (tab === 'rental') {
+                document.getElementById('panelRental').classList.remove('hidden');
+                document.getElementById('btnTabRental').className = 'admin-tab-btn active px-4 py-2.5 rounded-xl border border-transparent text-xs font-bold flex items-center gap-2 transition';
+            } else if (tab === 'orders') {
+                document.getElementById('panelOrders').classList.remove('hidden');
+                document.getElementById('btnTabOrders').className = 'admin-tab-btn active px-4 py-2.5 rounded-xl border border-transparent text-xs font-bold flex items-center gap-2 transition';
+            } else if (tab === 'activation') {
+                document.getElementById('panelActivation').classList.remove('hidden');
+                document.getElementById('btnTabActivation').className = 'admin-tab-btn active px-4 py-2.5 rounded-xl border border-transparent text-xs font-bold flex items-center gap-2 transition';
+            } else if (tab === 'settings') {
+                document.getElementById('panelSettings').classList.remove('hidden');
+                document.getElementById('btnTabSettings').className = 'admin-tab-btn active px-4 py-2.5 rounded-xl border border-transparent text-xs font-bold flex items-center gap-2 transition';
+            }
+        }
+
+        // Data Loader
+        function getTools() {
+            const data = localStorage.getItem('nica_rental_tools');
+            if (data) {
+                try { return JSON.parse(data); } catch(e){}
+            }
+            return [];
+        }
+
+        function getOrders() {
+            const data = localStorage.getItem('nica_tool_orders');
+            if (data) {
+                try { return JSON.parse(data); } catch(e){}
+            }
+            return [];
+        }
+
+        function getActivationList() {
+            const data = localStorage.getItem('nica_activation_tools');
+            if (data) {
+                try { return JSON.parse(data); } catch(e){}
+            }
+            return [];
+        }
+
+        function loadAllData() {
+            renderAdminTools();
+            renderAdminOrders();
+            renderAdminActivation();
+            updateStats();
+        }
+
+        function updateStats() {
+            const tools = getTools();
+            const orders = getOrders();
+            document.getElementById('statTotalTools').innerText = tools.length;
+            document.getElementById('statReadySlots').innerText = tools.filter(t => t.status === 'Ready').reduce((acc, t) => acc + (t.slotsReady || 1), 0);
+            document.getElementById('statTotalOrders').innerText = orders.length;
+            document.getElementById('badgeOrderCount').innerText = orders.length;
+
+            const totalRev = orders.filter(o => o.status !== 'Batal').reduce((acc, o) => acc + (o.price || 0), 0);
+            document.getElementById('statRevenue').innerText = `Rp ${totalRev.toLocaleString('id-ID')}`;
+        }
+
+        // Render Admin Tools
+        function renderAdminTools() {
+            const tools = getTools();
+            const container = document.getElementById('adminToolsList');
+            container.innerHTML = '';
+
+            if (tools.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-center text-slate-500 py-8">Belum ada tool rental tersimpan.</p>`;
+                return;
+            }
+
+            tools.forEach(tool => {
+                const card = document.createElement('div');
+                card.className = 'glass-card p-5 border-white/5 space-y-3';
+                const userLogin = tool.accountUser || 'akun.utama@nicaflasher.com';
+                const passLogin = tool.accountPass || 'NicaKediri2026';
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold font-code px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-400/20">${tool.badge || 'TOOL'}</span>
+                            <h3 class="text-base font-bold font-heading text-white mt-1">${tool.name}</h3>
+                        </div>
+                        <span class="text-xs px-2.5 py-0.5 rounded-full font-semibold ${tool.status === 'Ready' ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'}">
+                            ${tool.status === 'Ready' ? '🟢 Siap Sewa' : '🟡 Sedang Dipakai'}
+                        </span>
+                    </div>
+
+                    <!-- Kredensial Box -->
+                    <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-700/60 text-xs font-code space-y-1">
+                        <div class="flex items-center justify-between text-slate-400 text-[11px]">
+                            <span>Username:</span>
+                            <span class="text-white font-bold select-all">${userLogin}</span>
+                        </div>
+                        <div class="flex items-center justify-between text-slate-400 text-[11px]">
+                            <span>Password:</span>
+                            <span class="text-cyan-300 font-bold select-all">${passLogin}</span>
+                        </div>
+                    </div>
+
+                    <!-- Price Tags -->
+                    <div class="grid grid-cols-3 gap-1.5 text-center text-xs">
+                        ${tool.durations.map(d => `
+                            <div class="p-1.5 rounded-lg bg-slate-800/60 border border-white/5">
+                                <div class="text-[10px] text-slate-400">${d.time}</div>
+                                <div class="font-bold text-cyan-400 font-code">Rp ${(d.price/1000)}k</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="pt-2 flex items-center gap-2">
+                        <button onclick="dispatchToolWhatsApp('${tool.id}')"
+                            class="flex-1 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span>Kirim Akun ke WA</span>
+                        </button>
+                        <button onclick="editTool('${tool.id}')"
+                            class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold" title="Edit Tool">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button onclick="deleteTool('${tool.id}')"
+                            class="px-3 py-2 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 text-xs font-semibold" title="Hapus Tool">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Render Admin Orders
+        function renderAdminOrders() {
+            const orders = getOrders();
+            const tbody = document.getElementById('ordersTableBody');
+            tbody.innerHTML = '';
+
+            if (orders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">Belum ada pesanan masuk. Saat pengunjung order di rental-tools.html, pesanan akan muncul di sini.</td></tr>`;
+                return;
+            }
+
+            orders.forEach((o, index) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-white/[0.02] transition';
+                const timeStr = new Date(o.timestamp || Date.now()).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+                tr.innerHTML = `
+                    <td class="py-3 px-4">
+                        <div class="font-code font-bold text-cyan-300">${o.id}</div>
+                        <div class="text-[10px] text-slate-500">${timeStr}</div>
+                    </td>
+                    <td class="py-3 px-4">
+                        <div class="font-bold text-white">${o.toolName}</div>
+                        <span class="text-[10px] px-1.5 py-0.2 rounded ${o.type === 'Rental Tool' ? 'bg-cyan-500/20 text-cyan-300' : 'bg-purple-500/20 text-purple-300'}">${o.type}</span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <div class="font-semibold text-slate-200">${o.customerName}</div>
+                        <a href="https://wa.me/${cleanPhone(o.phone)}" target="_blank" class="text-[11px] text-emerald-400 font-code hover:underline flex items-center gap-1">
+                            <i class="fa-brands fa-whatsapp"></i> ${o.phone}
+                        </a>
+                    </td>
+                    <td class="py-3 px-4 font-code text-slate-300">${o.duration}</td>
+                    <td class="py-3 px-4">
+                        <div class="font-bold text-white font-code">Rp ${(o.price || 0).toLocaleString('id-ID')}</div>
+                        <div class="text-[10px] text-slate-400">${o.payment}</div>
+                    </td>
+                    <td class="py-3 px-4">
+                        <select onchange="updateOrderStatus('${o.id}', this.value)"
+                            class="bg-slate-900 border border-slate-700 text-[11px] rounded-lg px-2 py-1 text-white focus:border-cyan-400 outline-none">
+                            <option value="Menunggu Konfirmasi" ${o.status === 'Menunggu Konfirmasi' ? 'selected' : ''}>Menunggu Konfirmasi</option>
+                            <option value="Akun Aktif" ${o.status === 'Akun Aktif' ? 'selected' : ''}>Akun Aktif</option>
+                            <option value="Selesai" ${o.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+                            <option value="Batal" ${o.status === 'Batal' ? 'selected' : ''}>Batal</option>
+                        </select>
+                    </td>
+                    <td class="py-3 px-4 text-center">
+                        <div class="flex items-center justify-center gap-1.5">
+                            <button onclick="contactCustomer('${o.phone}', '${o.toolName}')" class="p-1.5 rounded-lg bg-emerald-950/60 text-emerald-300 hover:text-white" title="Chat WA">
+                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                            </button>
+                            <button onclick="deleteOrder('${o.id}')" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-rose-400" title="Hapus">
+                                <i class="fa-solid fa-trash text-xs"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Clean phone for wa.me
+        function cleanPhone(num) {
+            if (!num) return '';
+            let n = num.replace(/[^0-9]/g, '');
+            if (n.startsWith('0')) n = '62' + n.slice(1);
+            return n;
+        }
+
+        function contactCustomer(phone, tool) {
+            const clean = cleanPhone(phone);
+            const msg = `Halo kak, kami dari Admin Nica Flasher mengenai pesanan ${tool}. Apakah ada yang bisa kami bantu?`;
+            window.open(`https://wa.me/${clean}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function dispatchToolWhatsApp(toolId) {
+            const tools = getTools();
+            const tool = tools.find(t => t.id === toolId);
+            if (!tool) return;
+
+            const user = tool.accountUser || 'user.login@nicaflasher.com';
+            const pass = tool.accountPass || 'NicaKediri2026';
+
+            const phone = prompt('Masukkan Nomor WhatsApp Pelanggan/Penyewa (Contoh: 08123456789):');
+            if (!phone) return;
+
+            const msg = `*KREDENSIAL LOGIN AKUN SEWA - NICA FLASHER*\n` +
+                `----------------------------------------\n` +
+                `🛠️ *Tool:* ${tool.name}\n` +
+                `🔑 *Username:* \`${user}\`\n` +
+                `🔐 *Password:* \`${pass}\`\n` +
+                `----------------------------------------\n` +
+                `⚠️ *Aturan Pemakaian:*\n` +
+                `1. Hanya gunakan pada 1 PC. Dilarang share password.\n` +
+                `2. Jangan ubah profil / password akun.\n` +
+                `3. Jika butuh link download software resmi, silakan hubungi kami.\n` +
+                `Selamat bekerja & salam nota berkah! ✨`;
+
+            window.open(`https://wa.me/${cleanPhone(phone)}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function updateOrderStatus(id, newStatus) {
+            const orders = getOrders();
+            const o = orders.find(x => x.id === id);
+            if (o) {
+                o.status = newStatus;
+                localStorage.setItem('nica_tool_orders', JSON.stringify(orders));
+                updateStats();
+            }
+        }
+
+        function deleteOrder(id) {
+            if (!confirm('Hapus riwayat pesanan ini?')) return;
+            let orders = getOrders().filter(o => o.id !== id);
+            localStorage.setItem('nica_tool_orders', JSON.stringify(orders));
+            renderAdminOrders();
+            updateStats();
+        }
+
+        function clearCompletedOrders() {
+            if (!confirm('Hapus semua pesanan berstatus Selesai atau Batal?')) return;
+            let orders = getOrders().filter(o => o.status !== 'Selesai' && o.status !== 'Batal');
+            localStorage.setItem('nica_tool_orders', JSON.stringify(orders));
+            renderAdminOrders();
+            updateStats();
+        }
+
+        function exportOrdersJSON() {
+            const orders = getOrders();
+            const blob = new Blob([JSON.stringify(orders, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `orders-nicaflasher-${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+        }
+
+        // Render Activation List
+        function renderAdminActivation() {
+            const list = getActivationList();
+            const container = document.getElementById('adminActivationList');
+            container.innerHTML = '';
+
+            list.forEach((item, idx) => {
+                const card = document.createElement('div');
+                card.className = 'glass-card p-5 border-purple-500/20 space-y-3';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-bold font-code px-2 py-0.5 rounded bg-purple-500/20 text-purple-300">${item.badge || 'PRODUK'}</span>
+                        <span class="text-xs text-emerald-400 font-semibold"><i class="fa-solid fa-circle text-[7px] mr-1"></i>Server Online</span>
+                    </div>
+                    <h3 class="text-base font-bold font-heading text-white">${item.name}</h3>
+                    <p class="text-xs text-slate-400">${item.desc}</p>
+                    <div class="space-y-1.5">
+                        ${item.options.map(opt => `
+                            <div class="flex items-center justify-between px-3 py-1.5 rounded-xl bg-slate-900 border border-white/5 text-xs">
+                                <span class="text-slate-300">${opt.duration}</span>
+                                <span class="text-purple-300 font-bold font-code">Rp ${opt.price.toLocaleString('id-ID')}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // ================= EDIT / ADD TOOL MODAL =================
+        function openAddToolModal() {
+            document.getElementById('editToolModalTitle').innerText = 'Tambah Tool Rental Baru';
+            document.getElementById('editToolId').value = '';
+            document.getElementById('editToolName').value = '';
+            document.getElementById('editToolCategory').value = 'multibrand';
+            document.getElementById('editToolStatus').value = 'Ready';
+            document.getElementById('editToolUser').value = '';
+            document.getElementById('editToolPass').value = '';
+            document.getElementById('editPrice6').value = '20000';
+            document.getElementById('editPrice12').value = '35000';
+            document.getElementById('editPrice24').value = '50000';
+            document.getElementById('editToolDesc').value = '';
+            document.getElementById('modalEditTool').classList.remove('hidden');
+        }
+
+        function editTool(id) {
+            const tools = getTools();
+            const tool = tools.find(t => t.id === id);
+            if (!tool) return;
+
+            document.getElementById('editToolModalTitle').innerText = `Edit ${tool.name}`;
+            document.getElementById('editToolId').value = tool.id;
+            document.getElementById('editToolName').value = tool.name;
+            document.getElementById('editToolCategory').value = tool.category || 'multibrand';
+            document.getElementById('editToolStatus').value = tool.status || 'Ready';
+            document.getElementById('editToolUser').value = tool.accountUser || '';
+            document.getElementById('editToolPass').value = tool.accountPass || '';
+            document.getElementById('editPrice6').value = tool.durations[0]?.price || 20000;
+            document.getElementById('editPrice12').value = tool.durations[1]?.price || 35000;
+            document.getElementById('editPrice24').value = tool.durations[2]?.price || 50000;
+            document.getElementById('editToolDesc').value = tool.desc || '';
+            document.getElementById('modalEditTool').classList.remove('hidden');
+        }
+
+        function closeEditToolModal() {
+            document.getElementById('modalEditTool').classList.add('hidden');
+        }
+
+        function handleSaveTool(e) {
+            e.preventDefault();
+            const id = document.getElementById('editToolId').value || ('tool_' + Date.now().toString(36));
+            const name = document.getElementById('editToolName').value.trim();
+            const category = document.getElementById('editToolCategory').value;
+            const status = document.getElementById('editToolStatus').value;
+            const user = document.getElementById('editToolUser').value.trim();
+            const pass = document.getElementById('editToolPass').value.trim();
+            const p6 = parseInt(document.getElementById('editPrice6').value) || 20000;
+            const p12 = parseInt(document.getElementById('editPrice12').value) || 35000;
+            const p24 = parseInt(document.getElementById('editPrice24').value) || 50000;
+            const desc = document.getElementById('editToolDesc').value.trim();
+
+            let tools = getTools();
+            const existingIdx = tools.findIndex(t => t.id === id);
+
+            const toolData = {
+                id: id,
+                name: name,
+                category: category,
+                badge: 'TERSEDIA',
+                icon: 'fa-wrench',
+                desc: desc || 'Tool software smartphone profesional.',
+                durations: [
+                    { time: '6 Jam', price: p6 },
+                    { time: '12 Jam', price: p12 },
+                    { time: '24 Jam', price: p24 }
+                ],
+                slotsReady: 2,
+                status: status,
+                accountUser: user,
+                accountPass: pass
+            };
+
+            if (existingIdx >= 0) {
+                tools[existingIdx] = { ...tools[existingIdx], ...toolData };
+            } else {
+                tools.unshift(toolData);
+            }
+
+            localStorage.setItem('nica_rental_tools', JSON.stringify(tools));
+            closeEditToolModal();
+            loadAllData();
+        }
+
+        function deleteTool(id) {
+            if (!confirm('Hapus tool rental ini dari katalog?')) return;
+            let tools = getTools().filter(t => t.id !== id);
+            localStorage.setItem('nica_rental_tools', JSON.stringify(tools));
+            loadAllData();
+        }
+
+        // Settings Logic
+        function handlePinChange(e) {
+            e.preventDefault();
+            const newPin = document.getElementById('newPinInput').value.trim();
+            if (newPin.length < 4) {
+                alert('PIN harus minimal 4 karakter!');
+                return;
+            }
+            localStorage.setItem(PIN_STORAGE_KEY, newPin);
+            alert('PIN Pemilik berhasil diubah!');
+            document.getElementById('newPinInput').value = '';
+        }
+
+        function saveAdminWa() {
+            const wa = document.getElementById('adminWaInput').value.trim();
+            localStorage.setItem('nica_admin_wa', wa);
+            alert('Nomor WhatsApp admin berhasil disimpan!');
+        }
+
+        function resetAllData() {
+            if (!confirm('PERINGATAN: Semua katalog dan pesanan akan direset ke bawaan awal. Lanjutkan?')) return;
+            localStorage.removeItem('nica_rental_tools');
+            localStorage.removeItem('nica_activation_tools');
+            localStorage.removeItem('nica_tool_orders');
+            localStorage.removeItem(PIN_STORAGE_KEY);
+            alert('Semua data berhasil direset ke setelan awal!');
+            location.reload();
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (isAuthed()) {
+                showDashboard();
+            }
+        });
+    </script>
+</body>
+
+</html>
