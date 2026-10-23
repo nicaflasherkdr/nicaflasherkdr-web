@@ -414,31 +414,7 @@
             box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 240, 255, 0.2);
         }
 
-        /* 3D Phone HUD Visual */
-        .hud-phone-wrapper {
-            position: relative;
-            perspective: 1200px;
-        }
 
-        .hud-phone-chassis {
-            transform: rotateY(-8deg) rotateX(6deg);
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            animation: phoneLevitate 6s ease-in-out infinite alternate;
-        }
-
-        .hud-phone-wrapper:hover .hud-phone-chassis {
-            transform: rotateY(0deg) rotateX(0deg) scale(1.03);
-        }
-
-        @keyframes phoneLevitate {
-            0% {
-                transform: rotateY(-8deg) rotateX(6deg) translateY(0);
-            }
-
-            100% {
-                transform: rotateY(-5deg) rotateX(4deg) translateY(-14px);
-            }
-        }
 
 
 
@@ -707,147 +683,74 @@
     </header>
 
     <main>
-        <!-- ================= HERO SECTION ================= -->
-        <section id="home" class="relative pt-36 pb-24 px-4 overflow-hidden">
+        <!-- ================= HERO SECTION (MODERN TYPOGRAPHY EDITION) ================= -->
+        <section id="home" class="relative pt-36 md:pt-44 pb-20 md:pb-28 px-4 overflow-hidden text-center">
             <div class="cyber-grid"></div>
 
-            <div class="container mx-auto max-w-6xl relative z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
-                    <!-- Left Hero Copy -->
-                    <div class="lg:col-span-7 text-center lg:text-left reveal">
-                        <!-- Top pill status -->
-                        <div
-                            class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-cyan-950/40 border border-cyan-400/30 text-cyan-300 text-xs font-semibold mb-6 shadow-[0_0_20px_rgba(0,240,255,0.2)] backdrop-blur-md">
-                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-                            <span>NEXT-GEN MOBILE SOFTWARE LAB</span>
-                        </div>
-
-                        <!-- Main Headline -->
-                        <h1
-                            class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.12] mb-6 tracking-tight">
-                            Spesialis Flashing & Bypass <br>
-                            <span class="text-holo">Smartphone Modern</span>
-                        </h1>
-
-                        <!-- Subtitle -->
-                        <p class="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                            Solusi tuntas untuk <span class="text-cyan-300 font-semibold">Lupa Pola / PIN</span>, <span
-                                class="text-cyan-300 font-semibold">Bypass FRP Google</span>, <span
-                                class="text-emerald-300 font-semibold">Mi Cloud</span>, <span
-                                class="text-purple-300 font-semibold">Bypass iPhone</span>, hingga <span
-                                class="text-blue-300 font-semibold">Bootloop & Mati Suri (EDL 9008)</span>. Pengerjaan
-                            cepat jarak jauh via remote se-Indonesia atau datang langsung ke workshop kami di Kediri.
-                        </p>
-
-                        <!-- Primary CTA Buttons -->
-                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
-                            <a href="ai-diagnostic.html" onclick="playSound('click');"
-                                class="w-full sm:w-auto btn-cyber-primary px-8 py-4 text-center text-sm md:text-base flex items-center justify-center gap-2.5">
-                                <i class="fa-solid fa-brain text-slate-950 text-lg"></i>
-                                <span>Cek Diagnosa & AI Agent</span>
-                            </a>
-                            <a href="https://wa.me/6287888619552?text=Halo%20Admin%20NicaFlasherKDR,%20saya%20ingin%20konsultasi%20jasa%20flashing/bypass%20smartphone."
-                                target="_blank" onclick="playSound('click');"
-                                class="w-full sm:w-auto btn-cyber-secondary px-8 py-4 text-center text-sm md:text-base flex items-center justify-center gap-2.5">
-                                <i class="fa-brands fa-whatsapp text-emerald-400 text-lg"></i>
-                                <span>Chat Teknisi Langsung</span>
-                            </a>
-                        </div>
-
-                        <!-- Micro Tech Features -->
-                        <div
-                            class="flex flex-wrap items-center justify-center lg:justify-start gap-3 text-xs text-slate-300">
-                            <span class="cyber-badge"><i class="fa-solid fa-bolt text-cyan-300"></i> Pengerjaan 15-30
-                                Menit</span>
-                            <span class="cyber-badge"><i class="fa-solid fa-shield-halved text-emerald-300"></i> Garansi
-                                Sukses 100%</span>
-                            <span class="cyber-badge"><i class="fa-solid fa-laptop-code text-purple-300"></i> Remote
-                                UltraViewer/TeamViewer</span>
-                        </div>
+            <div class="container mx-auto max-w-5xl relative z-10">
+                <div class="reveal">
+                    <!-- Top Status Badge Pill -->
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-cyan-950/40 border border-cyan-400/30 text-cyan-300 text-xs font-semibold mb-8 shadow-[0_0_25px_rgba(0,240,255,0.2)] backdrop-blur-xl">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                        </span>
+                        <span class="font-code text-[11px] uppercase tracking-widest text-cyan-200">NEXT-GEN MOBILE SOFTWARE LAB</span>
+                        <span class="text-slate-600 hidden sm:inline">•</span>
+                        <span class="text-emerald-400 font-medium hidden sm:inline">Distrik Mojoroto, Kediri & Remote Se-Indonesia</span>
                     </div>
 
-                    <!-- Right Hero Visual (HUD Phone + Live Radar) -->
-                    <div class="lg:col-span-5 reveal">
-                        <div class="hud-phone-wrapper">
-                            <div
-                                class="hud-phone-chassis glass-card p-6 border-cyan-500/30 bg-gradient-to-b from-slate-900/90 to-[#030816]/95 spotlight-wrap">
-                                <!-- Top Chassis Status Bar -->
-                                <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
-                                        <span class="text-xs font-code font-bold text-slate-300 tracking-wider">NICALAB
-                                            • CORE V27.4</span>
-                                    </div>
-                                    <span
-                                        class="text-[11px] font-code px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-400/40 text-cyan-300">
-                                        REMOTE ACTIVE
-                                    </span>
-                                </div>
+                    <!-- Main Monumental Headline -->
+                    <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[1.06] mb-8 tracking-tight font-heading">
+                        Spesialis Flashing & Bypass <br>
+                        <span class="text-holo">Smartphone Modern</span>
+                    </h1>
 
-                                <!-- Device Screen Simulation -->
-                                <div
-                                    class="relative bg-slate-950/90 rounded-2xl p-5 border border-cyan-500/20 shadow-inner overflow-hidden mb-5">
-                                    <!-- Scanning beam -->
-                                    <div
-                                        class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-[bounce_3s_infinite] opacity-60">
-                                    </div>
+                    <!-- Editorial Subtitle with Crisp Typographic Highlights -->
+                    <p class="text-slate-300 text-base sm:text-lg md:text-xl lg:text-2xl mb-10 leading-relaxed max-w-3xl mx-auto font-normal">
+                        Solusi tuntas untuk <span class="text-white font-semibold underline decoration-cyan-400/50 underline-offset-4">Lupa Pola / PIN</span>, <span class="text-cyan-300 font-semibold">Bypass FRP Google</span>, <span class="text-emerald-300 font-semibold">Mi Cloud</span>, <span class="text-purple-300 font-semibold">Bypass iPhone</span>, hingga <span class="text-blue-300 font-semibold">Bootloop & Mati Total (EDL 9008)</span>. Pengerjaan cepat jarak jauh via remote se-Indonesia atau datang langsung ke workshop kami di Kediri.
+                    </p>
 
-                                    <div class="flex items-center justify-between mb-4">
-                                        <span class="text-[10px] font-code text-slate-400">TARGET: QUALCOMM 9008 /
-                                            BROM</span>
-                                        <span class="text-[10px] font-code text-emerald-400 font-bold">AUTH BYPASS:
-                                            OK</span>
-                                    </div>
+                    <!-- Modern Primary & Secondary CTA Action Group -->
+                    <div class="flex flex-wrap items-center justify-center gap-4 mb-12">
+                        <a href="reservasi.html" onclick="playSound('click');"
+                            class="btn-cyber-primary px-8 py-4 text-sm md:text-base font-bold flex items-center justify-center gap-2.5 shadow-[0_0_30px_rgba(0,240,255,0.45)]">
+                            <i class="fa-solid fa-calendar-check text-lg"></i>
+                            <span>Reservasi Layanan Cepat</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
 
-                                    <!-- Phone Graphic in Center -->
-                                    <div class="my-4 text-center">
-                                        <div
-                                            class="inline-block p-4 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-3xl mb-2 shadow-[0_0_25px_rgba(0,240,255,0.25)]">
-                                            <i class="fa-solid fa-mobile-screen-button"></i>
-                                        </div>
-                                        <div class="text-sm font-bold text-white font-heading">FRP & SYSTEM UNBRICK
-                                        </div>
-                                        <div class="text-[11px] text-slate-400 font-code">Partition writing:
-                                            userdata.img</div>
-                                    </div>
+                        <a href="ai-diagnostic.html" onclick="playSound('click');"
+                            class="btn-cyber-secondary px-8 py-4 text-sm md:text-base font-bold flex items-center justify-center gap-2.5">
+                            <i class="fa-solid fa-brain text-cyan-400 text-lg"></i>
+                            <span>Cek Diagnosa & AI Agent</span>
+                        </a>
 
-                                    <!-- Progress telemetry bars -->
-                                    <div class="space-y-2 mt-4">
-                                        <div class="flex justify-between text-[11px] font-code">
-                                            <span class="text-slate-400">Flashing Progress</span>
-                                            <span class="text-cyan-300 font-bold">100% SUCCESS</span>
-                                        </div>
-                                        <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
-                                            <div class="h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-emerald-400 rounded-full"
-                                                style="width: 100%;"></div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Dual Mini Metric Tiles -->
-                                    <div class="grid grid-cols-2 gap-2 mt-4 text-center">
-                                        <div class="p-2 rounded-xl bg-slate-900/80 border border-white/5">
-                                            <span class="text-[10px] text-slate-400 block font-code">LATENCY</span>
-                                            <span class="text-xs font-bold text-cyan-300 font-code">12 ms</span>
-                                        </div>
-                                        <div class="p-2 rounded-xl bg-slate-900/80 border border-white/5">
-                                            <span class="text-[10px] text-slate-400 block font-code">ENCRYPTION</span>
-                                            <span class="text-xs font-bold text-emerald-300 font-code">AES-256</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Bottom Status Indicator -->
-                                <div class="flex items-center justify-between text-xs text-slate-400 pt-2">
-                                    <span class="flex items-center gap-1.5 font-code">
-                                        <i class="fa-solid fa-location-dot text-rose-400"></i> Workshop Kediri, Jatim
-                                    </span>
-                                    <span class="text-cyan-400 font-code font-bold">24/7 SUPPORT</span>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="https://wa.me/6287888619552?text=Halo%20Admin%20NicaFlasherKDR,%20saya%20ingin%20konsultasi%20jasa%20flashing/bypass%20smartphone."
+                            target="_blank" onclick="playSound('click');"
+                            class="px-6 py-4 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-sm md:text-base font-bold flex items-center justify-center gap-2.5 transition backdrop-blur-xl">
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i>
+                            <span>Chat Teknisi Langsung</span>
+                        </a>
                     </div>
 
+                    <!-- Micro Capability Badges -->
+                    <div class="flex flex-wrap items-center justify-center gap-3 mb-10 text-xs text-slate-300">
+                        <span class="cyber-badge px-4 py-2"><i class="fa-solid fa-bolt text-yellow-400"></i> Pengerjaan Kilat 15–30 Menit</span>
+                        <span class="cyber-badge px-4 py-2"><i class="fa-solid fa-shield-halved text-emerald-400"></i> Garansi Sukses 100% (No Cure No Pay)</span>
+                        <span class="cyber-badge px-4 py-2"><i class="fa-solid fa-satellite-dish text-cyan-400"></i> Remote UltraViewer & AnyDesk</span>
+                        <span class="cyber-badge px-4 py-2"><i class="fa-solid fa-location-dot text-rose-400"></i> Workshop Distrik Mojoroto, Kediri</span>
+                    </div>
+
+                    <!-- Supported Technologies Typographic Pill Strip -->
+                    <div class="pt-6 border-t border-white/5 max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-2 text-[11px] font-code text-slate-400">
+                        <span class="text-slate-500 font-semibold tracking-wider uppercase mr-2"><i class="fa-solid fa-microchip text-cyan-400 mr-1"></i> PROTOKOL:</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-slate-900/80 border border-white/5 text-slate-300">Samsung Knox Safe</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-slate-900/80 border border-white/5 text-slate-300">Xiaomi HyperOS & MIUI Auth</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-slate-900/80 border border-white/5 text-slate-300">Qualcomm EDL 9008 Testpoint</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-slate-900/80 border border-white/5 text-slate-300">MediaTek BROM / Preloader</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-slate-900/80 border border-white/5 text-slate-300">iPhone Passcode & Hello Screen</span>
+                    </div>
                 </div>
             </div>
         </section>
