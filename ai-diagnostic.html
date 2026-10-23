@@ -328,7 +328,7 @@
                 <a href="hubungi-kami.html"
                     class="px-3.5 py-1.5 rounded-full hover:text-cyan-300 hover:bg-white/5 transition">Portofolio &
                     Kontak</a>
-                <a href="index.html#reservasi"
+                <a href="reservasi.html"
                     class="px-3.5 py-1.5 rounded-full hover:text-cyan-300 hover:bg-white/5 transition">Reservasi</a>
             </div>
 
@@ -367,15 +367,15 @@
             <a href="hubungi-kami.html"
                 class="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-slate-200 text-sm font-semibold">Portofolio &
                 Kontak</a>
-            <a href="index.html#reservasi"
+            <a href="reservasi.html"
                 class="block px-4 py-2.5 rounded-xl hover:bg-white/5 text-slate-200 text-sm font-semibold">Form
                 Reservasi Cepat</a>
 
-                <a href="https://wa.me/6287888619552" target="_blank"
-                    class="px-4 py-2.5 rounded-xl bg-emerald-600 text-xs font-bold text-white flex items-center gap-1.5">
-                    <i class="fa-brands fa-whatsapp"></i> Chat Admin
-                </a>
-            </div>
+            <a href="https://wa.me/6287888619552" target="_blank"
+                class="px-4 py-2.5 rounded-xl bg-emerald-600 text-xs font-bold text-white flex items-center gap-1.5">
+                <i class="fa-brands fa-whatsapp"></i> Chat Admin
+            </a>
+        </div>
         </div>
     </header>
 
@@ -731,7 +731,8 @@
             class="container mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
             <div>
                 <p class="text-white font-bold font-heading text-sm mb-1">Nica Flasher Distrik Mojoroto</p>
-                <p id="secretAdminTrigger" class="select-none cursor-default" title="">&copy; 2026 <span class="text-cyan-400 font-bold">Nica Flasher Distrik Mojoroto</span>. All rights
+                <p id="secretAdminTrigger" class="select-none cursor-default" title="">&copy; 2026 <span
+                        class="text-cyan-400 font-bold">Nica Flasher Distrik Mojoroto</span>. All rights
                     reserved.</p>
             </div>
             <div class="flex items-center gap-4">
@@ -739,6 +740,7 @@
                 <a href="ai-diagnostic.html" class="text-cyan-400 font-bold">AI Diagnostic</a>
                 <a href="price-list.html" class="hover:text-white transition">Price List</a>
                 <a href="hubungi-kami.html" class="hover:text-white transition">Portofolio & Kontak</a>
+                <a href="reservasi.html" class="hover:text-white transition">Reservasi Cepat</a>
             </div>
         </div>
     </footer>
@@ -1006,7 +1008,7 @@ Gunakan nada profesional, ramah, dan solutif. Format respons dengan rapi menggun
             if (engine === 'gemini' && apiKey) {
                 const storedModel = localStorage.getItem('nica_ai_model') || 'gemini-3.5-flash';
                 const candidates = [storedModel, 'gemini-3.5-flash', 'gemini-3.1-flash-lite', 'gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-flash-latest', 'gemini-2.5-flash'];
-                
+
                 for (const model of candidates) {
                     const cleanModel = model.replace(/^models\//, '');
                     for (const apiVer of ['v1beta', 'v1']) {
