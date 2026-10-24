@@ -1594,6 +1594,7 @@
 
             // 1. Kirim ke Global Cloud Realtime State (Instan tersinkron ke semua pengunjung di berbagai perangkat)
             try {
+                const tools = getBypassTools();
                 const cloudRes = await fetch(CLOUD_SYNC_ENDPOINT, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
@@ -1602,7 +1603,8 @@
                         data: {
                             globalMaintenance: cfg.globalMaintenance,
                             message: cfg.message,
-                            updated_at: cfg.updated_at
+                            updated_at: cfg.updated_at,
+                            tools: tools.map(t => ({ id: t.id, status: t.status }))
                         }
                     })
                 });
@@ -1682,7 +1684,7 @@
             }
         }
 
-        function toggleToolMaintenance(toolId) {
+        async function toggleToolMaintenance(toolId) {
             const tools = getBypassTools();
             const tool = tools.find(t => t.id === toolId);
             if (!tool) return;
@@ -1696,6 +1698,24 @@
             localStorage.setItem('nica_bypass_tools', JSON.stringify(tools));
             renderRentalToolsGrid();
             updateDashboardMetrics();
+
+            // Sync to Global Cloud Realtime State
+            try {
+                const cfg = getMaintenanceConfig();
+                await fetch(CLOUD_SYNC_ENDPOINT, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: 'nica_maintenance_state',
+                        data: {
+                            globalMaintenance: cfg.globalMaintenance,
+                            message: cfg.message,
+                            updated_at: new Date().toISOString(),
+                            tools: tools.map(t => ({ id: t.id, status: t.status }))
+                        }
+                    })
+                });
+            } catch(e) {}
         }
 
         function testPingApi(toolId) {

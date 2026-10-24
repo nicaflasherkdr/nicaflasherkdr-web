@@ -1044,11 +1044,13 @@
             document.getElementById('snapshotBadge').innerText = currentActiveTool.badge || currentActiveTool.category || 'BYPASS';
             document.getElementById('snapshotDesc').innerText = currentActiveTool.desc || 'Otorisasi server langsung secara instan.';
             
-            const isMaint = currentActiveTool.status === 'Maintenance';
+            const maintConfig = getMaintenanceConfig();
+            const isGlobalMaint = !!(maintConfig && maintConfig.globalMaintenance);
+            const isMaint = isGlobalMaint || currentActiveTool.status === 'Maintenance';
             const statusBadge = document.getElementById('snapshotStatusBadge');
             if (isMaint) {
-                statusBadge.className = 'shrink-0 px-2.5 py-0.5 rounded-full text-[10px] font-bold font-code bg-rose-500/20 text-rose-400 border border-rose-500/30';
-                statusBadge.innerHTML = '🔴 Maintenance Server';
+                statusBadge.className = 'shrink-0 px-2.5 py-0.5 rounded-full text-[10px] font-bold font-code bg-amber-500/20 text-amber-300 border border-amber-500/30';
+                statusBadge.innerHTML = '🟠 Maintenance';
             } else {
                 statusBadge.className = 'shrink-0 px-2.5 py-0.5 rounded-full text-[10px] font-bold font-code bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
                 statusBadge.innerHTML = '🟢 Server Ready';
@@ -1368,15 +1370,21 @@
         function renderCatalogCards() {
             const list = getBypassTools();
             const grid = document.getElementById('catalogGrid');
+            if (!grid) return;
             grid.innerHTML = '';
+
+            const maintConfig = getMaintenanceConfig();
+            const isGlobalMaint = !!(maintConfig && maintConfig.globalMaintenance);
 
             list.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'glass-card p-5 border-cyan-500/20 flex flex-col justify-between';
-                const isMaint = item.status === 'Maintenance';
+                
+                // Status maintenance jika global maintenance aktif ATAU tool tersebut diset maintenance oleh admin
+                const isMaint = isGlobalMaint || item.status === 'Maintenance';
                 const statusBadge = isMaint 
-                    ? `<span class="text-[10px] font-code px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 font-bold">🔴 Maintenance</span>`
-                    : `<span class="text-[10px] font-code px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold">🟢 Server Ready</span>`;
+                    ? `<span class="text-[10px] font-code px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> Maintenance</span>`
+                    : `<span class="text-[10px] font-code px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Server Ready</span>`;
 
                 card.innerHTML = `
                     <div>
@@ -1408,8 +1416,8 @@
                     </div>
 
                     <button onclick="selectToolAndGoToForm('${item.id}')"
-                        class="w-full py-2.5 rounded-xl bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-300 border border-cyan-500/40 text-xs font-bold flex items-center justify-center gap-2 transition cursor-pointer">
-                        <i class="fa-solid fa-fingerprint"></i>
+                        class="w-full py-2.5 rounded-xl ${isMaint ? 'bg-amber-950/40 hover:bg-amber-900/60 text-amber-300 border border-amber-500/40' : 'bg-cyan-950/40 hover:bg-cyan-900/60 text-cyan-300 border border-cyan-500/40'} text-xs font-bold flex items-center justify-center gap-2 transition cursor-pointer">
+                        <i class="fa-solid ${isMaint ? 'fa-triangle-exclamation' : 'fa-fingerprint'}"></i>
                         <span>Pilih Tool & Registrasi</span>
                     </button>
                 `;
@@ -1483,6 +1491,25 @@
                                 maint = data;
                                 localStorage.setItem('nica_maintenance_config', JSON.stringify(data));
                                 applyMaintenanceUI(maint);
+
+                                // Sinkronkan status masing-masing tool jika dikirim dari server/cloud
+                                if (data.tools && Array.isArray(data.tools)) {
+                                    const currentTools = getBypassTools();
+                                    let hasChange = false;
+                                    data.tools.forEach(st => {
+                                        const item = currentTools.find(ct => ct.id === st.id);
+                                        if (item && item.status !== st.status) {
+                                            item.status = st.status;
+                                            hasChange = true;
+                                        }
+                                    });
+                                    if (hasChange) {
+                                        localStorage.setItem('nica_bypass_tools', JSON.stringify(currentTools));
+                                        populateToolDropdown(document.getElementById('selectBypassTool').value);
+                                    }
+                                }
+
+                                renderCatalogCards();
                                 if (typeof onToolSelectChanged === 'function') onToolSelectChanged();
                                 break;
                             }
