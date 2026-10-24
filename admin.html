@@ -1541,20 +1541,34 @@
         }
 
         // ================= MAINTENANCE & BYPASS TOOLS CONTROLLER =================
+        const CLOUD_SYNC_ENDPOINT = 'https://api.restful-api.dev/objects/ff808181a09d98f701a16c6b362a7583';
+
         async function syncLiveMaintenanceStatusFromServer() {
             try {
                 const endpoints = [
+                    CLOUD_SYNC_ENDPOINT,
                     '/api/maintenance?v=' + Date.now(),
                     'maintenance.json?v=' + Date.now()
                 ];
+                const currentLocal = getMaintenanceConfig();
+                const localUpdatedAt = currentLocal && currentLocal.updated_at ? new Date(currentLocal.updated_at).getTime() : 0;
+
                 for (const url of endpoints) {
                     try {
                         const res = await fetch(url, { cache: 'no-store' });
                         if (res.ok) {
-                            const data = await res.json();
+                            const raw = await res.json();
+                            const data = raw && raw.data && typeof raw.data.globalMaintenance === 'boolean' 
+                                ? raw.data 
+                                : raw;
+
                             if (data && typeof data.globalMaintenance === 'boolean') {
-                                localStorage.setItem('nica_maintenance_config', JSON.stringify(data));
-                                updateMaintenanceUI();
+                                const serverUpdatedAt = data.updated_at ? new Date(data.updated_at).getTime() : 0;
+                                // Jangan menimpa status lokal jika admin baru saja mengubah status lokal secara manual
+                                if (serverUpdatedAt >= localUpdatedAt || !localUpdatedAt) {
+                                    localStorage.setItem('nica_maintenance_config', JSON.stringify(data));
+                                    updateMaintenanceUI();
+                                }
                                 break;
                             }
                         }
@@ -1578,7 +1592,26 @@
 
             let syncNotes = [];
 
-            // 1. Kirim ke Cloudflare Edge Function (/api/maintenance)
+            // 1. Kirim ke Global Cloud Realtime State (Instan tersinkron ke semua pengunjung di berbagai perangkat)
+            try {
+                const cloudRes = await fetch(CLOUD_SYNC_ENDPOINT, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: 'nica_maintenance_state',
+                        data: {
+                            globalMaintenance: cfg.globalMaintenance,
+                            message: cfg.message,
+                            updated_at: cfg.updated_at
+                        }
+                    })
+                });
+                if (cloudRes.ok) {
+                    syncNotes.push('Cloud Realtime: Berhasil disinkronkan ke seluruh perangkat pengunjung');
+                }
+            } catch(e) {}
+
+            // 2. Kirim ke Cloudflare Edge Function (/api/maintenance)
             try {
                 const cfRes = await fetch('/api/maintenance', {
                     method: 'POST',
@@ -1591,7 +1624,7 @@
                 }
             } catch(e) {}
 
-            // 2. Kirim ke PHP Backend (api-tools.php) jika ada
+            // 3. Kirim ke PHP Backend (api-tools.php) jika ada
             try {
                 const phpRes = await fetch('api-tools.php', {
                     method: 'POST',
@@ -1611,9 +1644,9 @@
 
             const statusText = cfg.globalMaintenance ? '🔴 MAINTENANCE MODE AKTIF' : '🟢 MAINTENANCE MODE DIMATIKAN';
             const detailText = cfg.globalMaintenance 
-                ? 'Seluruh pengunjung website di berbagai perangkat akan melihat peringatan maintenance.' 
+                ? 'Seluruh pengunjung website di berbagai perangkat akan melihat peringatan maintenance secara otomatis.' 
                 : 'Website kembali normal dan siap melayani pendaftaran dari semua pengunjung.';
-            const extra = syncNotes.length ? `\n\nStatus Sinkronisasi Server:\n• ${syncNotes.join('\n• ')}` : '';
+            const extra = syncNotes.length ? `\n\nStatus Sinkronisasi:\n• ${syncNotes.join('\n• ')}` : '';
 
             alert(`${statusText}\n${detailText}${extra}`);
         }

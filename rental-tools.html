@@ -1456,13 +1456,16 @@
         }
 
         // Check & apply global maintenance state (Lokal Cache + Live Server Fetch)
+        const CLOUD_SYNC_ENDPOINT = 'https://api.restful-api.dev/objects/ff808181a09d98f701a16c6b362a7583';
+
         async function checkMaintenanceBanner() {
             let maint = getMaintenanceConfig();
             applyMaintenanceUI(maint);
 
-            // Fetch Live Status from Server (Cloudflare Function / maintenance.json)
+            // Fetch Live Status from Server (Cloud Realtime / Cloudflare Function / maintenance.json)
             try {
                 const endpoints = [
+                    CLOUD_SYNC_ENDPOINT,
                     '/api/maintenance?v=' + Date.now(),
                     'maintenance.json?v=' + Date.now()
                 ];
@@ -1471,7 +1474,11 @@
                     try {
                         const res = await fetch(url, { cache: 'no-store' });
                         if (res.ok) {
-                            const data = await res.json();
+                            const raw = await res.json();
+                            const data = raw && raw.data && typeof raw.data.globalMaintenance === 'boolean'
+                                ? raw.data
+                                : raw;
+
                             if (data && typeof data.globalMaintenance === 'boolean') {
                                 maint = data;
                                 localStorage.setItem('nica_maintenance_config', JSON.stringify(data));
