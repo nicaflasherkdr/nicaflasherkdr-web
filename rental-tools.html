@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrasi ECID & Serial Number Tools Bypass Smartphone | Nica Flasher</title>
     <meta name="description"
-        content="Layanan resmi pendaftaran & otorisasi ECID dan Serial Number tools bypass smartphone iPhone Hello Screen, iCloud Passcode, MDM, Xiaomi Mi Cloud, dan Samsung FRP langsung ke server API.">
+        content="Layanan resmi pendaftaran & otorisasi ECID dan Serial Number tools bypass smartphone iPhone Hello Screen, iCloud Passcode, MDM, Xiaomi Mi Cloud, dan Samsung FRP langsung ke database server pusat.">
     <meta name="keywords"
         content="registrasi ecid, bypass icloud ecid, registrasi serial number, bypass hello screen, iremove ecid, smd ramdisk, minacris ecid, hfz tool ecid, bypass frp, mi cloud clean, nica flasher">
     <meta name="author" content="Nica Flasher Distrik Mojoroto">
@@ -351,7 +351,7 @@
                 <span class="text-holo">Tools Bypass Smartphone</span>
             </h1>
             <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-8">
-                Pusat pendaftaran otorisasi hardware ID (ECID & Serial Number) untuk tools bypass iPhone (Hello Screen, Passcode, MDM, Ramdisk) dan smartphone Android (Xiaomi Auth & Samsung FRP). Terkoneksi langsung ke API server pusat dengan proses aktivasi instan.
+                Pusat pendaftaran otorisasi hardware ID (ECID & Serial Number) untuk tools bypass iPhone (Hello Screen, Passcode, MDM, Ramdisk) dan smartphone Android (Xiaomi Auth & Samsung FRP). Terkoneksi langsung ke database server pusat dengan proses aktivasi instan.
             </p>
 
             <!-- Quick Highlight Badges -->
@@ -361,8 +361,8 @@
                         <i class="fa-solid fa-bolt"></i>
                     </div>
                     <div>
-                        <div class="text-xs font-bold text-white">Direct API PHP</div>
-                        <div class="text-[11px] text-slate-400">Instan 1-10 Menit</div>
+                        <div class="text-xs font-bold text-white">Otorisasi Instan</div>
+                        <div class="text-[11px] text-slate-400">Proses 1-10 Menit</div>
                     </div>
                 </div>
                 <div class="p-3 rounded-2xl bg-slate-900/60 border border-white/5 flex items-center gap-3">
@@ -410,7 +410,7 @@
             <button onclick="switchMainTab('catalog')" id="tabBtnCatalog"
                 class="tab-btn px-6 py-3 rounded-2xl border border-white/10 bg-slate-900/60 text-slate-300 font-heading font-bold text-xs sm:text-sm flex items-center gap-2.5 hover:border-cyan-400/40 transition-all">
                 <i class="fa-solid fa-layer-group text-emerald-400"></i>
-                <span>Katalog Tools & Status API</span>
+                <span>Katalog Tools & Status Server</span>
             </button>
             <button onclick="switchMainTab('guide')" id="tabBtnGuide"
                 class="tab-btn px-6 py-3 rounded-2xl border border-white/10 bg-slate-900/60 text-slate-300 font-heading font-bold text-xs sm:text-sm flex items-center gap-2.5 hover:border-cyan-400/40 transition-all">
@@ -432,11 +432,11 @@
                             </div>
                             <div>
                                 <h2 class="text-lg font-bold text-white font-heading">Input Data Perangkat & Otorisasi ID</h2>
-                                <p class="text-xs text-slate-400">Lengkapi formulir untuk menghubungkan ID ke server bypass via API PHP</p>
+                                <p class="text-xs text-slate-400">Lengkapi formulir untuk menghubungkan dan mengotorisasi ID ke database server pusat</p>
                             </div>
                         </div>
                         <span id="formServerStatusTag" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold font-code">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> API Online
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Server Online
                         </span>
                     </div>
 
@@ -576,7 +576,7 @@
                                 <span id="btnSubmitText">Daftarkan ECID / Serial Number Sekarang</span>
                             </button>
                             <p class="text-[11px] text-center text-slate-400 mt-2">
-                                Data ID akan diverifikasi dan dikirim ke endpoint API PHP tools bypass. Otorisasi berlaku permanen sesuai ketentuan server.
+                                Data ID akan diverifikasi dan diproses langsung ke database server pusat. Otorisasi berlaku permanen sesuai ketentuan server.
                             </p>
                         </div>
                     </form>
@@ -591,7 +591,7 @@
                             <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider font-heading">
                                 Ringkasan Otorisasi
                             </h3>
-                            <span class="text-[10px] font-code text-cyan-400 font-bold">API DIRECT</span>
+                            <span class="text-[10px] font-code text-cyan-400 font-bold">SERVER PUSAT</span>
                         </div>
 
                         <div class="space-y-3 text-xs">
@@ -642,22 +642,23 @@
                         </div>
                     </div>
 
-                    <!-- Developer / API Note Card -->
-                    <div class="glass-panel p-5 border-purple-500/20 space-y-3">
+                    <!-- Security & Server Guarantee Card -->
+                    <div class="glass-panel p-5 border-cyan-500/20 space-y-3">
                         <div class="flex items-center gap-2.5">
-                            <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-300 flex items-center justify-center text-sm">
-                                <i class="fa-solid fa-code"></i>
+                            <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-sm">
+                                <i class="fa-solid fa-shield-halved"></i>
                             </div>
                             <div>
-                                <h4 class="text-xs font-bold text-white font-heading">Koneksi API PHP Mandiri</h4>
-                                <p class="text-[10px] text-slate-400">Punya tool bypass baru? Hubungkan langsung ke sistem kami.</p>
+                                <h4 class="text-xs font-bold text-white font-heading">Jaminan Server Resmi 100%</h4>
+                                <p class="text-[10px] text-slate-400">Otorisasi ID Terdaftar di Database Pusat</p>
                             </div>
                         </div>
                         <p class="text-[11px] text-slate-300 leading-relaxed">
-                            Sistem kami dirancang agar admin dapat menambahkan endpoint API PHP tools baru kapan saja tanpa perlu merombak ulang sistem.
+                            Setiap ECID dan Serial Number yang Anda daftarkan diproses langsung ke server resmi. Kami memberikan garansi ID terdaftar atau opsi tool alternatif jika server pusat mengalami gangguan.
                         </p>
-                        <div class="p-2 rounded bg-slate-950 font-code text-[10px] text-cyan-300 border border-white/5">
-                            POST /api-tools.php?action=register
+                        <div class="p-2.5 rounded-xl bg-slate-950/70 font-code text-[11px] text-emerald-400 border border-white/5 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-xs"></i>
+                            <span>Garansi Otorisasi Hardware ID Valid</span>
                         </div>
                     </div>
 
@@ -698,7 +699,7 @@
             </div>
         </section>
 
-        <!-- ================= TAB 3: KATALOG TOOLS & STATUS API REAL-TIME ================= -->
+        <!-- ================= TAB 3: KATALOG TOOLS & STATUS SERVER REAL-TIME ================= -->
         <section id="tabSectionCatalog" class="hidden space-y-6">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-slate-900/70 border border-white/5">
                 <div>
@@ -1041,7 +1042,7 @@
 
             // Update Snapshot Info
             document.getElementById('snapshotBadge').innerText = currentActiveTool.badge || currentActiveTool.category || 'BYPASS';
-            document.getElementById('snapshotDesc').innerText = currentActiveTool.desc || 'Otorisasi server langsung via API.';
+            document.getElementById('snapshotDesc').innerText = currentActiveTool.desc || 'Otorisasi server langsung secara instan.';
             
             const isMaint = currentActiveTool.status === 'Maintenance';
             const statusBadge = document.getElementById('snapshotStatusBadge');
@@ -1145,7 +1146,7 @@
             const btn = document.getElementById('btnSubmitEcid');
             const btnText = document.getElementById('btnSubmitText');
             btn.disabled = true;
-            btnText.innerText = 'Menghubungkan ke API Server...';
+            btnText.innerText = 'Menghubungkan ke Server Pusat...';
 
             const regId = 'REG-' + Date.now().toString(36).toUpperCase();
             const newRecord = {
@@ -1165,7 +1166,7 @@
                 apiResponse: null
             };
 
-            // Attempt to dispatch to PHP API
+            // Attempt to dispatch to server backend
             try {
                 const endpoint = currentActiveTool.apiUrl || 'api-tools.php';
                 const payload = {
@@ -1190,7 +1191,7 @@
                 }
             } catch (err) {
                 // If offline or direct static mode, it still safely logs locally
-                console.log('API Dispatch local fallback handled');
+                console.log('Server dispatch fallback handled');
             }
 
             // Save to localStorage nica_ecid_registrations for Admin Panel
@@ -1290,7 +1291,7 @@
             resBox.innerHTML = `
                 <div class="p-4 text-center text-xs text-slate-400 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-spinner fa-spin text-cyan-400"></i>
-                    <span>Memeriksa database server & otorisasi API...</span>
+                    <span>Memeriksa status pendaftaran di server pusat...</span>
                 </div>
             `;
 
@@ -1302,7 +1303,7 @@
                 (r.id && r.id.toUpperCase() === query)
             );
 
-            // Also query API PHP
+            // Also query server backend
             let apiData = null;
             try {
                 const res = await fetch(`api-tools.php?action=check&id=${encodeURIComponent(query)}`);
@@ -1338,7 +1339,7 @@
                 } else if (apiData && apiData.data) {
                     resBox.innerHTML = `
                         <div class="flex items-center justify-between border-b border-white/5 pb-2">
-                            <span class="text-xs font-bold text-white font-heading">Server API Nica Flasher</span>
+                            <span class="text-xs font-bold text-white font-heading">Server Resmi Nica Flasher</span>
                             <span class="text-[10px] font-code px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold">
                                 ${apiData.data.status || 'AUTHORIZED'}
                             </span>
@@ -1397,7 +1398,7 @@
                         </div>
 
                         <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                            ${item.desc || 'Otorisasi server langsung via API PHP Nica Flasher.'}
+                            ${item.desc || 'Otorisasi server resmi langsung dan instan.'}
                         </p>
 
                         <div class="flex items-center justify-between px-3 py-2 rounded-xl bg-slate-900/60 border border-white/5 text-xs mb-4">
@@ -1474,7 +1475,7 @@
                 banner.classList.add('hidden');
                 if (statusTag) {
                     statusTag.className = 'hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold font-code';
-                    statusTag.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> API Online';
+                    statusTag.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400"></span> Server Online';
                 }
             }
         }
