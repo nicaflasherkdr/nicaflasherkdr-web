@@ -536,6 +536,21 @@
         </button>
     </div>
 
+    <!-- Global Maintenance Alert Banner for Visitors -->
+    <div id="globalHomeMaintBanner" class="hidden fixed top-0 inset-x-0 z-[60] bg-gradient-to-r from-rose-950/95 via-slate-900/95 to-amber-950/95 border-b border-rose-500/50 py-2.5 px-4 text-center text-xs text-white backdrop-blur-md shadow-2xl">
+        <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2 text-left">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping shrink-0"></span>
+                <span class="font-bold text-rose-300">Pemberitahuan Pemeliharaan Server:</span>
+                <span id="homeMaintText" class="text-slate-300 line-clamp-1">Layanan pendaftaran tools sedang dalam pemeliharaan berkala.</span>
+            </div>
+            <a href="https://wa.me/6287888619552?text=Halo%20Admin%20NicaFlasher,%20saya%20melihat%20pemberitahuan%20maintenance%20di%20website"
+                target="_blank" class="shrink-0 px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-[11px] transition">
+                <i class="fa-brands fa-whatsapp mr-1"></i> Hubungi WA
+            </a>
+        </div>
+    </div>
+
     <!-- ================= FLOATING ISLAND NAVBAR ================= -->
     <header class="fixed top-4 inset-x-0 z-50 px-4 pointer-events-none">
         <nav class="max-w-6xl mx-auto navbar-island px-5 py-3 pointer-events-auto flex items-center justify-between">
@@ -1711,6 +1726,39 @@
                 e.preventDefault();
                 window.location.href = 'admin.html';
             }
+        });
+
+        // Check Live Server Maintenance Status for All Visitors
+        async function checkHomeMaintenance() {
+            try {
+                const endpoints = ['/api/maintenance?v=' + Date.now(), 'maintenance.json?v=' + Date.now()];
+                for (const url of endpoints) {
+                    try {
+                        const res = await fetch(url, { cache: 'no-store' });
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (data && typeof data.globalMaintenance === 'boolean') {
+                                const banner = document.getElementById('globalHomeMaintBanner');
+                                const text = document.getElementById('homeMaintText');
+                                if (banner) {
+                                    if (data.globalMaintenance) {
+                                        banner.classList.remove('hidden');
+                                        if (data.message && text) text.innerText = data.message;
+                                    } else {
+                                        banner.classList.add('hidden');
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    } catch(e) {}
+                }
+            } catch(e) {}
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            checkHomeMaintenance();
+            setInterval(checkHomeMaintenance, 25000);
+            window.addEventListener('focus', checkHomeMaintenance);
         });
     </script>
 </body>

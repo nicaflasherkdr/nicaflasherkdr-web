@@ -1455,16 +1455,46 @@
             }
         }
 
-        // Check & apply global maintenance state
-        function checkMaintenanceBanner() {
-            const maint = getMaintenanceConfig();
+        // Check & apply global maintenance state (Lokal Cache + Live Server Fetch)
+        async function checkMaintenanceBanner() {
+            let maint = getMaintenanceConfig();
+            applyMaintenanceUI(maint);
+
+            // Fetch Live Status from Server (Cloudflare Function / maintenance.json)
+            try {
+                const endpoints = [
+                    '/api/maintenance?v=' + Date.now(),
+                    'maintenance.json?v=' + Date.now()
+                ];
+
+                for (const url of endpoints) {
+                    try {
+                        const res = await fetch(url, { cache: 'no-store' });
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (data && typeof data.globalMaintenance === 'boolean') {
+                                maint = data;
+                                localStorage.setItem('nica_maintenance_config', JSON.stringify(data));
+                                applyMaintenanceUI(maint);
+                                if (typeof onToolSelectChanged === 'function') onToolSelectChanged();
+                                break;
+                            }
+                        }
+                    } catch (e) {}
+                }
+            } catch (err) {}
+        }
+
+        function applyMaintenanceUI(maint) {
             const banner = document.getElementById('globalMaintBanner');
             const bannerText = document.getElementById('globalMaintText');
             const statusTag = document.getElementById('formServerStatusTag');
 
+            if (!banner) return;
+
             if (maint && maint.globalMaintenance) {
                 banner.classList.remove('hidden');
-                if (maint.message) {
+                if (maint.message && bannerText) {
                     bannerText.innerText = maint.message;
                 }
                 if (statusTag) {
@@ -1531,6 +1561,10 @@
                     renderCatalogCards();
                 }
             });
+
+            // Poll server status every 20 seconds & on window focus so any visitor gets live updates
+            setInterval(checkMaintenanceBanner, 20000);
+            window.addEventListener('focus', checkMaintenanceBanner);
         });
     </script>
 </body>

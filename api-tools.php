@@ -63,9 +63,33 @@ if ($action === 'ping' || $action === 'status') {
         'status' => 'success',
         'code' => 200,
         'maintenance' => $globalMaintenance,
-        'message' => $globalMaintenance ? $maintenanceMsg : 'Server API Nica Flasher Tools Bypass Online & Siap',
+        'globalMaintenance' => $globalMaintenance,
+        'message' => $globalMaintenance ? $maintenanceMsg : 'Server Nica Flasher Tools Bypass Online & Siap',
         'server_time' => date('Y-m-d H:i:s'),
         'supported_tools' => ['iremove', 'mina', 'smd', 'hfz', 'checkm8', 'custom_tool']
+    ], JSON_PRETTY_PRINT);
+    exit();
+}
+
+// 2. ACTION: TOGGLE MAINTENANCE (Update status pemeliharaan oleh Admin)
+if ($action === 'toggle_maintenance') {
+    $newStatus = !empty($data['maintenance']) || (!empty($data['globalMaintenance']));
+    $newMsg    = !empty($data['message']) ? trim($data['message']) : 'Server registrasi tools sedang dalam pemeliharaan rutin. Silakan hubungi admin via WhatsApp untuk pendaftaran manual.';
+
+    $cfg = [
+        'globalMaintenance' => $newStatus,
+        'message' => $newMsg,
+        'updated_at' => date('Y-m-d H:i:s')
+    ];
+
+    @file_put_contents($configFile, json_encode($cfg, JSON_PRETTY_PRINT));
+    @file_put_contents(__DIR__ . '/maintenance.json', json_encode($cfg, JSON_PRETTY_PRINT));
+
+    echo json_encode([
+        'status' => 'success',
+        'globalMaintenance' => $newStatus,
+        'message' => 'Status maintenance server berhasil diperbarui di server pusat.',
+        'data' => $cfg
     ], JSON_PRETTY_PRINT);
     exit();
 }

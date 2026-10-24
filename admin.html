@@ -711,7 +711,7 @@
                                 <i class="fa-solid fa-triangle-exclamation text-rose-600 text-base"></i>
                                 <div>
                                     <strong class="font-bold">Mode Maintenance Website & Tools Sedang Aktif!</strong>
-                                    <span class="block text-[11px] text-rose-600">Pengunjung di halaman registrasi melihat peringatan maintenance dan submit otomatis via API ditunda sementara.</span>
+                                    <span class="block text-[11px] text-rose-600">Pengunjung di halaman registrasi melihat peringatan maintenance dan pendaftaran otomatis dialihkan ke antrean atau WhatsApp.</span>
                                 </div>
                             </div>
                             <button onclick="toggleGlobalMaintenance()" class="px-3 py-1 rounded bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 transition">
@@ -1370,6 +1370,7 @@
             loadAiConfigToForm();
             updateMaintenanceUI();
             renderEcidRegistrationsTable();
+            syncLiveMaintenanceStatusFromServer();
         }
 
         // Update Dashboard Metrics matching Image 2
@@ -1540,14 +1541,81 @@
         }
 
         // ================= MAINTENANCE & BYPASS TOOLS CONTROLLER =================
-        function toggleGlobalMaintenance() {
+        async function syncLiveMaintenanceStatusFromServer() {
+            try {
+                const endpoints = [
+                    '/api/maintenance?v=' + Date.now(),
+                    'maintenance.json?v=' + Date.now()
+                ];
+                for (const url of endpoints) {
+                    try {
+                        const res = await fetch(url, { cache: 'no-store' });
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (data && typeof data.globalMaintenance === 'boolean') {
+                                localStorage.setItem('nica_maintenance_config', JSON.stringify(data));
+                                updateMaintenanceUI();
+                                break;
+                            }
+                        }
+                    } catch(e) {}
+                }
+            } catch(e) {}
+        }
+
+        async function toggleGlobalMaintenance() {
             const cfg = getMaintenanceConfig();
             cfg.globalMaintenance = !cfg.globalMaintenance;
+            if (!cfg.message) {
+                cfg.message = "Server registrasi tools sedang dalam pemeliharaan rutin. Silakan hubungi admin via WhatsApp untuk pendaftaran manual.";
+            }
+            cfg.updated_at = new Date().toISOString();
             localStorage.setItem('nica_maintenance_config', JSON.stringify(cfg));
             updateMaintenanceUI();
-            alert(cfg.globalMaintenance 
-                ? '🔴 MAINTENANCE MODE DIAKTIFKAN!\nPengunjung website akan melihat peringatan maintenance dan pendaftaran otomatis via API ditunda sementara.' 
-                : '🟢 MAINTENANCE MODE DIMATIKAN!\nWebsite dan server tools bypass kembali beroperasi secara normal.');
+
+            const btn = document.getElementById('btnGlobalMaintenance');
+            if (btn) btn.classList.add('opacity-75');
+
+            let syncNotes = [];
+
+            // 1. Kirim ke Cloudflare Edge Function (/api/maintenance)
+            try {
+                const cfRes = await fetch('/api/maintenance', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(cfg)
+                });
+                if (cfRes.ok) {
+                    const cfData = await cfRes.json();
+                    syncNotes.push('Cloudflare Edge: ' + (cfData.savedToKV ? 'Tersimpan di KV' : 'Tersinkron'));
+                }
+            } catch(e) {}
+
+            // 2. Kirim ke PHP Backend (api-tools.php) jika ada
+            try {
+                const phpRes = await fetch('api-tools.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'toggle_maintenance',
+                        globalMaintenance: cfg.globalMaintenance,
+                        message: cfg.message
+                    })
+                });
+                if (phpRes.ok) {
+                    syncNotes.push('PHP Server: Berhasil diupdate');
+                }
+            } catch(e) {}
+
+            if (btn) btn.classList.remove('opacity-75');
+
+            const statusText = cfg.globalMaintenance ? '🔴 MAINTENANCE MODE AKTIF' : '🟢 MAINTENANCE MODE DIMATIKAN';
+            const detailText = cfg.globalMaintenance 
+                ? 'Seluruh pengunjung website di berbagai perangkat akan melihat peringatan maintenance.' 
+                : 'Website kembali normal dan siap melayani pendaftaran dari semua pengunjung.';
+            const extra = syncNotes.length ? `\n\nStatus Sinkronisasi Server:\n• ${syncNotes.join('\n• ')}` : '';
+
+            alert(`${statusText}\n${detailText}${extra}`);
         }
 
         function updateMaintenanceUI() {
