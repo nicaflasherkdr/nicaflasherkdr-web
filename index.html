@@ -536,20 +536,6 @@
         </button>
     </div>
 
-    <!-- Global Maintenance Alert Banner for Visitors -->
-    <div id="globalHomeMaintBanner" class="hidden fixed top-0 inset-x-0 z-[60] bg-gradient-to-r from-rose-950/95 via-slate-900/95 to-amber-950/95 border-b border-rose-500/50 py-2.5 px-4 text-center text-xs text-white backdrop-blur-md shadow-2xl">
-        <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
-            <div class="flex items-center gap-2 text-left">
-                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping shrink-0"></span>
-                <span class="font-bold text-rose-300">Pemberitahuan Pemeliharaan Server:</span>
-                <span id="homeMaintText" class="text-slate-300 line-clamp-1">Layanan pendaftaran tools sedang dalam pemeliharaan berkala.</span>
-            </div>
-            <a href="https://wa.me/6287888619552?text=Halo%20Admin%20NicaFlasher,%20saya%20melihat%20pemberitahuan%20maintenance%20di%20website"
-                target="_blank" class="shrink-0 px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-[11px] transition">
-                <i class="fa-brands fa-whatsapp mr-1"></i> Hubungi WA
-            </a>
-        </div>
-    </div>
 
     <!-- ================= FLOATING ISLAND NAVBAR ================= -->
     <header class="fixed top-4 inset-x-0 z-50 px-4 pointer-events-none">
@@ -572,11 +558,6 @@
                     class="px-3.5 py-1.5 rounded-full hover:text-cyan-300 hover:bg-white/5 transition text-cyan-300 flex items-center gap-1.5">
                     <i class="fa-solid fa-brain text-[10px] text-cyan-400"></i> AI Diagnostic <span
                         class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/40">NEW</span>
-                </a>
-                <a href="rental-tools.html"
-                    class="px-3.5 py-1.5 rounded-full hover:text-cyan-300 hover:bg-white/5 transition text-cyan-300 flex items-center gap-1.5">
-                    <i class="fa-solid fa-fingerprint text-[10px] text-cyan-400"></i> Registrasi ECID & SN <span
-                        class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/40">INSTAN</span>
                 </a>
 
                 <a href="price-list.html"
@@ -632,10 +613,6 @@
             <a href="ai-diagnostic.html"
                 class="block px-4 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-300 text-sm font-semibold flex items-center gap-2">
                 <i class="fa-solid fa-brain"></i> AI Diagnostic & Agent
-            </a>
-            <a href="rental-tools.html"
-                class="block px-4 py-2.5 rounded-xl bg-cyan-500/10 text-cyan-300 text-sm font-semibold flex items-center gap-2">
-                <i class="fa-solid fa-fingerprint text-cyan-400"></i> Registrasi ECID & Serial Number
             </a>
 
             <a href="price-list.html"
@@ -835,38 +812,6 @@
                     </div>
                 </div>
 
-                <!-- Teaser Registrasi ECID & Serial Number Tools Bypass -->
-                <div
-                    class="glass-card mt-6 p-6 md:p-10 rounded-3xl border border-cyan-500/30 bg-gradient-to-r from-cyan-950/30 via-slate-900/90 to-purple-950/30 shadow-[0_0_50px_rgba(0,240,255,0.12)] flex flex-col lg:flex-row items-center justify-between gap-8 reveal">
-                    <div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5">
-                        <div
-                            class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-500 p-0.5 shadow-[0_0_30px_rgba(0,240,255,0.35)] flex items-center justify-center shrink-0">
-                            <div
-                                class="w-full h-full bg-[#030712] rounded-[14px] flex items-center justify-center text-cyan-400 text-2xl">
-                                <i class="fa-solid fa-fingerprint"></i>
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <div
-                                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 text-[11px] font-code font-bold uppercase tracking-wider">
-                                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-                                Khusus Teknisi & Otorisasi Hardware ID
-                            </div>
-                            <h3 class="text-2xl md:text-3xl font-extrabold font-heading text-white">Registrasi ECID & Serial Number Bypass</h3>
-                            <p class="text-slate-400 text-xs sm:text-sm max-w-xl leading-relaxed">
-                                Pendaftaran resmi ECID & Serial Number untuk tools bypass iPhone (Hello Screen, Passcode, Ramdisk) dan Android (Xiaomi Auth, Samsung FRP) terkoneksi langsung ke server otorisasi pusat dengan proses aktivasi instan.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
-                        <a href="rental-tools.html"
-                            class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black text-xs sm:text-sm flex items-center justify-center gap-3 font-bold font-heading shadow-[0_0_25px_rgba(0,240,255,0.3)] hover:opacity-95 transition">
-                            <i class="fa-solid fa-bolt"></i>
-                            <span>Daftarkan ECID / Serial Number</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -1721,51 +1666,10 @@
 
         window.addEventListener('keydown', (e) => {
             if ((e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) || 
-                (e.ctrlKey && e.shiftKey && (e.key === 'T' || e.key === 't')) || 
                 (e.altKey && (e.key === 'A' || e.key === 'a'))) {
                 e.preventDefault();
                 window.location.href = 'admin.html';
             }
-        });
-
-        // Check Live Server Maintenance Status for All Visitors
-        async function checkHomeMaintenance() {
-            try {
-                const endpoints = [
-                    '/api/maintenance?v=' + Date.now(), 
-                    'maintenance.json?v=' + Date.now()
-                ];
-                for (const url of endpoints) {
-                    try {
-                        const res = await fetch(url, { cache: 'no-store' });
-                        if (res.ok) {
-                            const raw = await res.json();
-                            const data = raw && raw.data && typeof raw.data.globalMaintenance === 'boolean'
-                                ? raw.data
-                                : raw;
-
-                            if (data && typeof data.globalMaintenance === 'boolean') {
-                                const banner = document.getElementById('globalHomeMaintBanner');
-                                const text = document.getElementById('homeMaintText');
-                                if (banner) {
-                                    if (data.globalMaintenance) {
-                                        banner.classList.remove('hidden');
-                                        if (data.message && text) text.innerText = data.message;
-                                    } else {
-                                        banner.classList.add('hidden');
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                    } catch(e) {}
-                }
-            } catch(e) {}
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-            checkHomeMaintenance();
-            setInterval(checkHomeMaintenance, 25000);
-            window.addEventListener('focus', checkHomeMaintenance);
         });
     </script>
 </body>

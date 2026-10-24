@@ -193,7 +193,7 @@
                 <div class="mt-8 space-y-1">
                     <h2 class="text-xl font-bold font-heading text-white">Pusat Kendali Terpadu Teknisi</h2>
                     <p class="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
-                        Kelola Rental Tools, Registrasi Lisensi, Konfigurasi AI Agent, dan Pesanan Pelanggan dalam satu dashboard.
+                        Kelola Pesanan Pelanggan, Aktivasi Lisensi Resmi, Konfigurasi AI Agent, dan Pengaturan dalam satu dashboard.
                     </p>
                 </div>
             </div>
@@ -357,10 +357,6 @@
                             <span id="sidebarOrderBadge" class="text-[10px] px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-code font-bold">0</span>
                         </div>
 
-                        <div onclick="switchUnifiedView('rental')" id="navItemRental" class="sidebar-nav-item">
-                            <i class="fa-solid fa-fingerprint text-sm w-4 text-center"></i>
-                            <span class="flex-1">Tools Bypass & ECID/SN</span>
-                        </div>
 
                         <div onclick="switchUnifiedView('activation')" id="navItemActivation" class="sidebar-nav-item">
                             <i class="fa-solid fa-id-card text-sm w-4 text-center"></i>
@@ -480,14 +476,6 @@
                                     <tbody class="divide-y divide-slate-100">
                                         <tr>
                                             <td class="py-3 font-medium text-slate-700 flex items-center gap-2">
-                                                <span class="w-5 h-5 rounded bg-cyan-100 text-cyan-700 flex items-center justify-center text-[10px] font-bold">+</span>
-                                                <span>Rental Akun Tools (Per Jam/Hari)</span>
-                                            </td>
-                                            <td class="py-3 text-right font-bold text-slate-800 font-code" id="finRentalTotal">Rp 0</td>
-                                            <td class="py-3 text-right text-slate-500 font-code" id="finRentalCount">0 Order</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="py-3 font-medium text-slate-700 flex items-center gap-2">
                                                 <span class="w-5 h-5 rounded bg-purple-100 text-purple-700 flex items-center justify-center text-[10px] font-bold">+</span>
                                                 <span>Registrasi & Aktivasi Lisensi</span>
                                             </td>
@@ -500,7 +488,7 @@
                                                 <span>Servis Smartphone Langsung / Remote</span>
                                             </td>
                                             <td class="py-3 text-right font-bold text-slate-800 font-code" id="finServiceTotal">Rp 0</td>
-                                            <td class="py-3 text-right text-slate-500 font-code">Workshop Mojoroto</td>
+                                            <td class="py-3 text-right text-slate-500 font-code" id="finServiceCount">0 Order</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -531,7 +519,7 @@
                                 <div class="p-3 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between">
                                     <div>
                                         <div class="text-base font-extrabold text-slate-900 font-heading" id="widgetToolCount">0</div>
-                                        <div class="text-[11px] text-slate-500">Service / Tools</div>
+                                        <div class="text-[11px] text-slate-500">Paket Aktivasi</div>
                                     </div>
                                     <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs">
                                         <i class="fa-solid fa-shapes"></i>
@@ -671,131 +659,7 @@
                 </div>
 
 
-                <!-- ============================================================== -->
-                <!-- VIEW 3: TOOLS BYPASS & REGISTRASI ECID / SERIAL NUMBER         -->
-                <!-- ============================================================== -->
-                <div id="viewRental" class="hidden space-y-4">
-                    <!-- Top Action & Maintenance Controller Banner -->
-                    <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm space-y-4">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div>
-                                <div class="flex items-center gap-2 mb-1">
-                                    <h2 class="text-sm font-bold text-slate-900 font-heading">Manajemen Tools Bypass & Registrasi ECID / SN</h2>
-                                    <span id="globalMaintBadge" class="text-[10px] font-code px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-bold">
-                                        🟢 SYSTEM ONLINE
-                                    </span>
-                                </div>
-                                <p class="text-xs text-slate-500">Kelola koneksi API PHP tools bypass, pendaftaran ID perangkat (ECID & Serial Number), serta kontrol tombol maintenance mode.</p>
-                            </div>
 
-                            <!-- Maintenance Toggle Button & Add Tool Button -->
-                            <div class="flex items-center gap-2.5">
-                                <button id="btnGlobalMaintenance" onclick="toggleGlobalMaintenance()"
-                                    class="px-3.5 py-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-bold font-heading flex items-center gap-2 transition shadow-sm"
-                                    title="Klik untuk menyalakan atau mematikan maintenance mode website & tools">
-                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" id="maintDot"></span>
-                                    <span id="maintBtnText">Mode: Normal</span>
-                                    <span class="px-1.5 py-0.5 rounded bg-emerald-200/80 text-[10px] text-emerald-900">Ubah</span>
-                                </button>
-
-                                <button onclick="openAddToolModal()" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-black text-white text-xs font-bold font-heading flex items-center gap-2 shadow">
-                                    <i class="fa-solid fa-plus text-xs"></i>
-                                    <span>Tambah Tool Bypass</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Maintenance Notice Banner (Visible when active) -->
-                        <div id="globalMaintAlertBox" class="hidden p-3.5 rounded-lg bg-rose-50 border border-rose-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-rose-800">
-                            <div class="flex items-center gap-2.5">
-                                <i class="fa-solid fa-triangle-exclamation text-rose-600 text-base"></i>
-                                <div>
-                                    <strong class="font-bold">Mode Maintenance Website & Tools Sedang Aktif!</strong>
-                                    <span class="block text-[11px] text-rose-600">Pengunjung di halaman registrasi melihat peringatan maintenance dan pendaftaran otomatis dialihkan ke antrean atau WhatsApp.</span>
-                                </div>
-                            </div>
-                            <button onclick="toggleGlobalMaintenance()" class="px-3 py-1 rounded bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 transition">
-                                Matikan Maintenance Sekarang
-                            </button>
-                        </div>
-
-                        <!-- Quick Summary Stats -->
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-slate-100 text-xs font-code">
-                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-100">
-                                <span class="text-slate-400 block text-[10px]">TOTAL TOOLS</span>
-                                <span class="font-bold text-slate-800 text-sm" id="statTotalTools">0</span>
-                            </div>
-                            <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-100">
-                                <span class="text-emerald-600 block text-[10px]">SERVER READY</span>
-                                <span class="font-bold text-emerald-700 text-sm" id="statReadyTools">0</span>
-                            </div>
-                            <div class="p-2.5 rounded-lg bg-amber-50/70 border border-amber-100">
-                                <span class="text-amber-600 block text-[10px]">SERVER MAINTENANCE</span>
-                                <span class="font-bold text-amber-700 text-sm" id="statMaintTools">0</span>
-                            </div>
-                            <div class="p-2.5 rounded-lg bg-cyan-50/70 border border-cyan-100">
-                                <span class="text-cyan-600 block text-[10px]">TOTAL REGISTRASI ECID/SN</span>
-                                <span class="font-bold text-cyan-800 text-sm" id="statEcidCount">0</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Grid of Bypass Tools -->
-                    <div id="gridRentalToolsAdmin" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- Populated by JS -->
-                    </div>
-
-                    <!-- Log Antrean Registrasi ECID & Serial Number Masuk -->
-                    <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm space-y-3">
-                        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                            <div>
-                                <h3 class="text-sm font-bold text-slate-900 font-heading flex items-center gap-2">
-                                    <i class="fa-solid fa-list-check text-cyan-600"></i>
-                                    <span>Log Registrasi ECID & Serial Number Masuk</span>
-                                </h3>
-                                <p class="text-xs text-slate-500">Daftar pendaftaran aktivasi ID perangkat dari pengunjung atau teknisi</p>
-                            </div>
-                            <button onclick="clearEcidHistory()" class="px-2.5 py-1 rounded border border-slate-200 hover:bg-slate-50 text-[11px] text-slate-600 font-medium">
-                                Bersihkan Riwayat
-                            </button>
-                        </div>
-
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs">
-                                <thead>
-                                    <tr class="bg-slate-50 text-slate-500 uppercase font-code text-[10px] border-b border-slate-200">
-                                        <th class="py-2.5 px-3">Waktu & ID</th>
-                                        <th class="py-2.5 px-3">Tool Bypass</th>
-                                        <th class="py-2.5 px-3">ECID / Serial Number</th>
-                                        <th class="py-2.5 px-3">WhatsApp</th>
-                                        <th class="py-2.5 px-3">Biaya</th>
-                                        <th class="py-2.5 px-3">Status Otorisasi</th>
-                                        <th class="py-2.5 px-3 text-center">Tindakan</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tableEcidRegistrationsBody" class="divide-y divide-slate-100">
-                                    <!-- Populated by JS -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Panduan Integrasi API PHP untuk Tools Baru -->
-                    <div class="bg-slate-900 text-slate-300 rounded-lg p-5 border border-slate-800 text-xs font-mono space-y-2">
-                        <div class="flex items-center justify-between text-cyan-400 font-bold font-sans">
-                            <span class="flex items-center gap-2"><i class="fa-solid fa-code"></i> PANDUAN KONEKSI API PHP TOOLS BARU</span>
-                            <span class="text-[11px] text-slate-400 font-mono">Handler: api-tools.php</span>
-                        </div>
-                        <p class="text-slate-400 text-[11px] font-sans">
-                            Untuk menghubungkan tool bypass baru ke website Nica Flasher, cukup klik tombol <strong>+ Tambah Tool Bypass</strong> di atas dan masukkan URL endpoint API PHP tool Anda. Request registrasi ECID & SN dapat otomatis diteruskan via POST/GET ke backend PHP Anda.
-                        </p>
-                        <div class="p-3 bg-black/60 rounded border border-slate-800 text-[11px] overflow-x-auto text-emerald-400">
-                            // Format JSON request otomatis dari form ke endpoint API PHP:<br>
-                            POST api-tools.php?action=register<br>
-                            Payload: { "action": "register", "tool": "iRemove Tools Pro", "ecid": "0005B1E439812A", "sn": "F2LLK0P9HG78", "phone": "081234..." }
-                        </div>
-                    </div>
-                </div>
 
 
                 <!-- ============================================================== -->
@@ -899,8 +763,8 @@
                         <h2 class="text-sm font-bold text-slate-900 font-heading">Laporan Keuangan & Estimasi Kas</h2>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div class="p-4 rounded-lg bg-slate-50 border border-slate-100">
-                                <div class="text-[11px] text-slate-500">Pemasukan Rental Tools</div>
-                                <div class="text-lg font-extrabold text-slate-900 font-code mt-1" id="finBoxRental">Rp 0</div>
+                                <div class="text-[11px] text-slate-500">Pemasukan Servis & Software</div>
+                                <div class="text-lg font-extrabold text-slate-900 font-code mt-1" id="finBoxService">Rp 0</div>
                             </div>
                             <div class="p-4 rounded-lg bg-slate-50 border border-slate-100">
                                 <div class="text-[11px] text-slate-500">Pemasukan Lisensi Resmi</div>
@@ -922,7 +786,7 @@
                 <div id="viewUsers" class="hidden space-y-4">
                     <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
                         <h2 class="text-sm font-bold text-slate-900 font-heading mb-1">Daftar Kontak Pelanggan / Teknisi</h2>
-                        <p class="text-xs text-slate-500 mb-4">Nomor WhatsApp dan konter yang pernah order sewa atau registrasi</p>
+                        <p class="text-xs text-slate-500 mb-4">Nomor WhatsApp pelanggan dan teknisi yang pernah order servis atau aktivasi lisensi</p>
 
                         <div class="overflow-x-auto">
                             <table class="w-full text-left text-xs">
@@ -987,101 +851,7 @@
     </div>
 
 
-    <!-- ================= MODAL: EDIT / TAMBAH TOOL BYPASS & API PHP ================= -->
-    <div id="modalEditTool" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeEditToolModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-            <h3 class="font-heading font-bold text-slate-900 text-base mb-1" id="editToolModalTitle">Tambah Tool Bypass & API</h3>
-            <p class="text-xs text-slate-500 mb-4">Konfigurasi tool bypass, tipe identitas (ECID/SN), tarif, dan endpoint API PHP</p>
 
-            <form onsubmit="handleSaveToolUnified(event)" class="space-y-3">
-                <input type="hidden" id="editToolId">
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Tool Bypass</label>
-                    <input type="text" id="editToolName" required placeholder="Contoh: iRemove Tools Pro / Mina Ramdisk"
-                        class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:border-slate-800 outline-none">
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Kategori Layanan</label>
-                        <select id="editToolCategory" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:border-slate-800 outline-none">
-                            <option value="iOS Hello Screen">iOS Hello Screen</option>
-                            <option value="iOS Passcode">iOS Passcode / Disabled</option>
-                            <option value="iOS GSM / MEID">iOS GSM / MEID</option>
-                            <option value="iOS Ramdisk">iOS Ramdisk Tool</option>
-                            <option value="Macbook EFI / T2">Macbook EFI / T2</option>
-                            <option value="Android Server">Android Server / FRP</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Status Server</label>
-                        <select id="editToolStatus" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:border-slate-800 outline-none">
-                            <option value="Ready">Ready (Siap Registrasi)</option>
-                            <option value="Maintenance">Maintenance (Server Down)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Tipe Identitas yang Diinput</label>
-                        <select id="editToolIdType" class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:border-slate-800 outline-none">
-                            <option value="ecid">Hanya ECID (Hex / Dec)</option>
-                            <option value="sn">Hanya Serial Number (SN)</option>
-                            <option value="both">Keduanya (ECID & Serial Number)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Tarif Registrasi (Rp)</label>
-                        <input type="number" id="editToolPrice" required placeholder="150000"
-                            class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs font-code text-slate-900 focus:border-slate-800 outline-none">
-                    </div>
-                </div>
-
-                <!-- API PHP Configuration Box -->
-                <div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200 space-y-2.5">
-                    <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-network-wired text-cyan-600"></i> Konfigurasi Endpoint API PHP</span>
-                        <span class="text-[10px] text-slate-400 font-normal">Opsional (bisa diisi nanti)</span>
-                    </div>
-                    <div>
-                        <label class="block text-[11px] text-slate-500 mb-0.5">Endpoint URL API PHP</label>
-                        <input type="text" id="editToolApiUrl" placeholder="api-tools.php?tool=iremove atau https://server.com/api.php"
-                            class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 font-code focus:border-slate-800 outline-none">
-                    </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block text-[11px] text-slate-500 mb-0.5">API Method</label>
-                            <select id="editToolApiMethod" class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 focus:border-slate-800 outline-none">
-                                <option value="POST">POST (Direkomendasikan)</option>
-                                <option value="GET">GET</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[11px] text-slate-500 mb-0.5">API Secret Key / Token</label>
-                            <input type="text" id="editToolApiToken" placeholder="Token rahasia API tool..."
-                                class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 font-code focus:border-slate-800 outline-none">
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-0.5">Deskripsi Singkat & Petunjuk Tool</label>
-                    <textarea id="editToolDesc" rows="2" placeholder="Contoh: Bypass Hello Screen iOS 12-18 full sinyal..."
-                        class="w-full border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 focus:border-slate-800 outline-none"></textarea>
-                </div>
-
-                <div class="pt-2 flex items-center justify-end gap-2">
-                    <button type="button" onclick="closeEditToolModal()" class="px-4 py-2 rounded-lg bg-slate-100 text-slate-700 text-xs font-medium">Batal</button>
-                    <button type="submit" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-black text-white text-xs font-bold font-heading">Simpan Tool Bypass</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
 
     <!-- ================= SCRIPT LOGIC SATU PINTU ================= -->
@@ -1148,7 +918,7 @@
 
         // Sidebar Navigation Switcher
         function switchUnifiedView(viewName) {
-            const views = ['dashboard', 'orders', 'rental', 'activation', 'ai_config', 'financial', 'users', 'settings'];
+            const views = ['dashboard', 'orders', 'activation', 'ai_config', 'financial', 'users', 'settings'];
             views.forEach(v => {
                 const el = document.getElementById('view' + capitalize(v));
                 if (el) el.classList.add('hidden');
@@ -1180,177 +950,12 @@
         }
 
         // ================= DATA MANAGERS =================
-        const DEFAULT_BYPASS_TOOLS = [
-            {
-                id: 'tool_iremove',
-                name: 'iRemove Tools Pro',
-                category: 'iOS Hello Screen',
-                badge: '🍏 HELLO SCREEN SIGNAL',
-                icon: 'fa-apple',
-                idType: 'ecid',
-                price: 150000,
-                desc: 'Bypass Hello Screen iOS 12 - 18 Full Sinyal (Call/Data/iMessage/FaceTime). Registrasi ECID otomatis ke server.',
-                status: 'Maintenance',
-                apiUrl: 'api-tools.php?tool=iremove',
-                apiMethod: 'POST',
-                apiToken: 'NICA_IREMOVE_SECRET_KEY_2026',
-                paramEcid: 'ecid',
-                paramSn: 'sn',
-                paramAction: 'register'
-            },
-            {
-                id: 'tool_mina',
-                name: 'Mina Ramdisk & Passcode',
-                category: 'iOS Passcode',
-                badge: '⚡ PASSCODE RAMDISK',
-                icon: 'fa-microchip',
-                idType: 'both',
-                price: 180000,
-                desc: 'Bypass Passcode / Disabled Screen iOS tanpa kehilangan sinyal bawaan pabrik, Apple Pay & iCloud aktif.',
-                status: 'Maintenance',
-                apiUrl: 'api-tools.php?tool=mina',
-                apiMethod: 'POST',
-                apiToken: 'NICA_MINA_SECRET_KEY_2026',
-                paramEcid: 'ecid',
-                paramSn: 'sn',
-                paramAction: 'register'
-            },
-            {
-                id: 'tool_smd',
-                name: 'SMD Activator Pro',
-                category: 'iOS GSM / MEID',
-                badge: '🔥 GSM & MEID BYPASS',
-                icon: 'fa-shield-halved',
-                idType: 'sn',
-                price: 125000,
-                desc: 'Aktivasi Serial Number (SN) instan untuk SMD Activator iOS 15 - 17. Sinyal stabil, no reboot battery drain.',
-                status: 'Maintenance',
-                apiUrl: 'api-tools.php?tool=smd',
-                apiMethod: 'POST',
-                apiToken: 'NICA_SMD_SECRET_KEY_2026',
-                paramEcid: 'ecid',
-                paramSn: 'sn',
-                paramAction: 'register'
-            },
-            {
-                id: 'tool_hfz',
-                name: 'HFZ Tool / LPro Boot',
-                category: 'iOS Ramdisk',
-                badge: '🛠️ A10-A11 RAMDISK',
-                icon: 'fa-bolt',
-                idType: 'ecid',
-                price: 135000,
-                desc: 'Registrasi ECID untuk HFZ Ramdisk A9/A10/A11. Hello Screen iOS 15 & 16 signal fix, passcode backup & restore.',
-                status: 'Maintenance',
-                apiUrl: 'api-tools.php?tool=hfz',
-                apiMethod: 'POST',
-                apiToken: 'NICA_HFZ_SECRET_KEY_2026',
-                paramEcid: 'ecid',
-                paramSn: 'sn',
-                paramAction: 'register'
-            },
-            {
-                id: 'tool_checkm8',
-                name: 'Checkm8 Mac / T2 Bypass',
-                category: 'Macbook EFI / T2',
-                badge: '💻 T2 & EFI CHIP',
-                icon: 'fa-laptop',
-                idType: 'sn',
-                price: 350000,
-                desc: 'Registrasi Serial Number (SN) untuk bypass iCloud Macbook Air/Pro chip T2 & M-series.',
-                status: 'Maintenance',
-                apiUrl: 'api-tools.php?tool=checkm8',
-                apiMethod: 'POST',
-                apiToken: 'NICA_CHECKM8_SECRET_KEY_2026',
-                paramEcid: 'ecid',
-                paramSn: 'sn',
-                paramAction: 'register'
-            },
-            {
-                id: 'tool_unlocktool_server',
-                name: 'UnlockTool Server Bypass',
-                category: 'Android Server',
-                badge: '📱 FRP & AUTH SERVER',
-                icon: 'fa-unlock-keyhole',
-                idType: 'sn',
-                price: 85000,
-                desc: 'Otorisasi Serial Number / IMEI untuk Xiaomi EDL Auth server, Samsung FRP Knox bypass server direct.',
-                status: 'Maintenance',
-                apiUrl: 'api-tools.php?tool=unlocktool',
-                apiMethod: 'POST',
-                apiToken: 'NICA_UT_SECRET_KEY_2026',
-                paramEcid: 'ecid',
-                paramSn: 'sn',
-                paramAction: 'register'
-            }
-        ];
-
         function getOrders() {
             const data = localStorage.getItem('nica_tool_orders');
             if (data) {
                 try { return JSON.parse(data); } catch(e){}
             }
             return [];
-        }
-
-        function getRentalTools() {
-            return getBypassTools();
-        }
-
-        function getBypassTools() {
-            const data = localStorage.getItem('nica_bypass_tools');
-            if (data) {
-                try {
-                    const parsed = JSON.parse(data);
-                    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-                } catch(e){}
-            }
-            localStorage.setItem('nica_bypass_tools', JSON.stringify(DEFAULT_BYPASS_TOOLS));
-            return DEFAULT_BYPASS_TOOLS;
-        }
-
-        function getMaintenanceConfig() {
-            const data = localStorage.getItem('nica_maintenance_config');
-            if (data) {
-                try { return JSON.parse(data); } catch(e){}
-            }
-            const def = {
-                globalMaintenance: false,
-                message: 'Server registrasi tools sedang dalam pemeliharaan rutin. Silakan hubungi admin via WhatsApp untuk pendaftaran manual.'
-            };
-            localStorage.setItem('nica_maintenance_config', JSON.stringify(def));
-            return def;
-        }
-
-        function getEcidRegistrations() {
-            const data = localStorage.getItem('nica_ecid_registrations');
-            if (data) {
-                try { return JSON.parse(data); } catch(e){}
-            }
-            const demo = [
-                {
-                    id: 'ECID-9B21FA02',
-                    toolName: 'iRemove Tools Pro',
-                    idType: 'ECID',
-                    idValue: '0005B1E439812A',
-                    phone: '087888619552',
-                    price: 150000,
-                    status: 'Authorized',
-                    timestamp: Date.now() - 3600000
-                },
-                {
-                    id: 'ECID-7C14A891',
-                    toolName: 'SMD Activator Pro',
-                    idType: 'SN',
-                    idValue: 'F2LLK0P9HG78',
-                    phone: '085712349988',
-                    price: 125000,
-                    status: 'Menunggu Konfirmasi',
-                    timestamp: Date.now() - 7200000
-                }
-            ];
-            localStorage.setItem('nica_ecid_registrations', JSON.stringify(demo));
-            return demo;
         }
 
         function getActivationList() {
@@ -1364,19 +969,15 @@
         function loadAllUnifiedData() {
             updateDashboardMetrics();
             renderOrdersTable();
-            renderRentalToolsGrid();
             renderActivationGrid();
             renderUsersTable();
             loadAiConfigToForm();
-            updateMaintenanceUI();
-            renderEcidRegistrationsTable();
-            syncLiveMaintenanceStatusFromServer();
         }
 
-        // Update Dashboard Metrics matching Image 2
+        // Update Dashboard Metrics
         function updateDashboardMetrics() {
             const orders = getOrders();
-            const tools = getRentalTools();
+            const activations = getActivationList();
 
             const waiting = orders.filter(o => o.status === 'Menunggu Konfirmasi' || o.status === 'Menunggu Aktivasi').length;
             const process = orders.filter(o => o.status === 'Akun Aktif' || o.status === 'Diproses').length;
@@ -1392,22 +993,22 @@
             document.getElementById('topNotificationBadge').innerText = waiting;
 
             // Financial Calculations
-            const rentalOrders = orders.filter(o => o.type === 'Rental Tool' && o.status !== 'Batal');
+            const serviceOrders = orders.filter(o => o.type !== 'Aktivasi Lisensi' && o.status !== 'Batal');
             const actOrders = orders.filter(o => o.type === 'Aktivasi Lisensi' && o.status !== 'Batal');
 
-            const rentalRev = rentalOrders.reduce((acc, o) => acc + (o.price || 0), 0);
+            const serviceRev = serviceOrders.reduce((acc, o) => acc + (o.price || 0), 0);
             const actRev = actOrders.reduce((acc, o) => acc + (o.price || 0), 0);
-            const totalRev = rentalRev + actRev;
+            const totalRev = serviceRev + actRev;
 
-            document.getElementById('finRentalTotal').innerText = `Rp ${rentalRev.toLocaleString('id-ID')}`;
-            document.getElementById('finRentalCount').innerText = `${rentalOrders.length} Order`;
-            document.getElementById('finActTotal').innerText = `Rp ${actRev.toLocaleString('id-ID')}`;
-            document.getElementById('finActCount').innerText = `${actOrders.length} Order`;
-            document.getElementById('dashTotalIncomeTag').innerText = `Total: Rp ${totalRev.toLocaleString('id-ID')}`;
-            document.getElementById('dashTotalProfit').innerText = `Rp ${totalRev.toLocaleString('id-ID')}`;
-            document.getElementById('finBoxRental').innerText = `Rp ${rentalRev.toLocaleString('id-ID')}`;
-            document.getElementById('finBoxAct').innerText = `Rp ${actRev.toLocaleString('id-ID')}`;
-            document.getElementById('finBoxTotal').innerText = `Rp ${totalRev.toLocaleString('id-ID')}`;
+            if (document.getElementById('finServiceTotal')) document.getElementById('finServiceTotal').innerText = `Rp ${serviceRev.toLocaleString('id-ID')}`;
+            if (document.getElementById('finServiceCount')) document.getElementById('finServiceCount').innerText = `${serviceOrders.length} Order`;
+            if (document.getElementById('finActTotal')) document.getElementById('finActTotal').innerText = `Rp ${actRev.toLocaleString('id-ID')}`;
+            if (document.getElementById('finActCount')) document.getElementById('finActCount').innerText = `${actOrders.length} Order`;
+            if (document.getElementById('dashTotalIncomeTag')) document.getElementById('dashTotalIncomeTag').innerText = `Total: Rp ${totalRev.toLocaleString('id-ID')}`;
+            if (document.getElementById('dashTotalProfit')) document.getElementById('dashTotalProfit').innerText = `Rp ${totalRev.toLocaleString('id-ID')}`;
+            if (document.getElementById('finBoxService')) document.getElementById('finBoxService').innerText = `Rp ${serviceRev.toLocaleString('id-ID')}`;
+            if (document.getElementById('finBoxAct')) document.getElementById('finBoxAct').innerText = `Rp ${actRev.toLocaleString('id-ID')}`;
+            if (document.getElementById('finBoxTotal')) document.getElementById('finBoxTotal').innerText = `Rp ${totalRev.toLocaleString('id-ID')}`;
 
             // Unique Customers
             const customers = new Set(orders.map(o => o.phone).filter(Boolean));
@@ -1417,7 +1018,9 @@
             document.getElementById('dashOrderSuccess').innerText = `${success} Order`;
             document.getElementById('dashOrderRejected').innerText = `${rejected} Order`;
 
-            document.getElementById('widgetToolCount').innerText = tools.length;
+            if (document.getElementById('widgetToolCount')) {
+                document.getElementById('widgetToolCount').innerText = activations.length;
+            }
 
             // AI Status
             const aiEngine = localStorage.getItem('nica_ai_engine') || 'heuristic';
@@ -1438,7 +1041,7 @@
             tbody.innerHTML = '';
 
             if (orders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400">Belum ada pesanan masuk. Saat pengunjung order di rental-tools.html, pesanan akan muncul di sini.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400">Belum ada pesanan masuk. Saat pelanggan booking servis atau aktivasi lisensi, data akan muncul di sini.</td></tr>`;
                 return;
             }
 
@@ -1454,7 +1057,7 @@
                     </td>
                     <td class="py-3 px-3">
                         <div class="font-bold text-slate-800">${o.toolName}</div>
-                        <span class="text-[10px] px-1.5 py-0.2 rounded font-medium ${o.type === 'Rental Tool' ? 'bg-cyan-100 text-cyan-800' : 'bg-purple-100 text-purple-800'}">${o.type}</span>
+                        <span class="text-[10px] px-1.5 py-0.2 rounded font-medium ${o.type === 'Aktivasi Lisensi' ? 'bg-purple-100 text-purple-800' : 'bg-cyan-100 text-cyan-800'}">${o.type}</span>
                     </td>
                     <td class="py-3 px-3">
                         <div class="font-semibold text-slate-700">${o.customerName}</div>
@@ -1540,485 +1143,7 @@
             a.click();
         }
 
-        // ================= MAINTENANCE & BYPASS TOOLS CONTROLLER =================
-        async function syncLiveMaintenanceStatusFromServer() {
-            try {
-                const endpoints = [
-                    '/api/maintenance?v=' + Date.now(),
-                    'maintenance.json?v=' + Date.now()
-                ];
-                const currentLocal = getMaintenanceConfig();
-                const localUpdatedAt = currentLocal && currentLocal.updated_at ? new Date(currentLocal.updated_at).getTime() : 0;
 
-                for (const url of endpoints) {
-                    try {
-                        const res = await fetch(url, { cache: 'no-store' });
-                        if (res.ok) {
-                            const raw = await res.json();
-                            const data = raw && raw.data && typeof raw.data.globalMaintenance === 'boolean' 
-                                ? raw.data 
-                                : raw;
-
-                            if (data && typeof data.globalMaintenance === 'boolean') {
-                                const serverUpdatedAt = data.updated_at ? new Date(data.updated_at).getTime() : 0;
-                                // Jangan menimpa status lokal jika admin baru saja mengubah status lokal secara manual
-                                if (serverUpdatedAt >= localUpdatedAt || !localUpdatedAt) {
-                                    localStorage.setItem('nica_maintenance_config', JSON.stringify(data));
-                                    updateMaintenanceUI();
-                                }
-
-                                // Sync individual tools jika ada
-                                if (data.tools && Array.isArray(data.tools)) {
-                                    const localTools = getBypassTools();
-                                    let changed = false;
-                                    data.tools.forEach(st => {
-                                        const target = localTools.find(lt => lt.id === st.id);
-                                        if (target && target.status !== st.status) {
-                                            target.status = st.status;
-                                            changed = true;
-                                        }
-                                    });
-                                    if (changed) {
-                                        localStorage.setItem('nica_bypass_tools', JSON.stringify(localTools));
-                                        renderRentalToolsGrid();
-                                        updateDashboardMetrics();
-                                    }
-                                }
-
-                                break;
-                            }
-                        }
-                    } catch(e) {}
-                }
-            } catch(e) {}
-        }
-
-        async function toggleGlobalMaintenance() {
-            const cfg = getMaintenanceConfig();
-            cfg.globalMaintenance = !cfg.globalMaintenance;
-            if (!cfg.message) {
-                cfg.message = "Server registrasi tools sedang dalam pemeliharaan rutin. Silakan hubungi admin via WhatsApp untuk pendaftaran manual.";
-            }
-            cfg.updated_at = new Date().toISOString();
-            localStorage.setItem('nica_maintenance_config', JSON.stringify(cfg));
-            updateMaintenanceUI();
-
-            const btn = document.getElementById('btnGlobalMaintenance');
-            if (btn) btn.classList.add('opacity-75');
-
-            let syncNotes = [];
-
-            // 1. Kirim ke Cloudflare Edge Function (/api/maintenance)
-            try {
-                const cfRes = await fetch('/api/maintenance', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(cfg)
-                });
-                if (cfRes.ok) {
-                    const cfData = await cfRes.json();
-                    syncNotes.push('Cloudflare Edge: ' + (cfData.savedToKV ? 'Tersimpan di KV' : 'Tersinkron'));
-                }
-            } catch(e) {}
-
-            // 2. Kirim ke PHP Backend (api-tools.php) jika ada
-            try {
-                const phpRes = await fetch('api-tools.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'toggle_maintenance',
-                        globalMaintenance: cfg.globalMaintenance,
-                        message: cfg.message
-                    })
-                });
-                if (phpRes.ok) {
-                    syncNotes.push('PHP Server: Berhasil diupdate');
-                }
-            } catch(e) {}
-
-            if (btn) btn.classList.remove('opacity-75');
-
-            const statusText = cfg.globalMaintenance ? '🔴 MAINTENANCE MODE AKTIF' : '🟢 MAINTENANCE MODE DIMATIKAN';
-            const detailText = cfg.globalMaintenance 
-                ? 'Seluruh pengunjung website di berbagai perangkat akan melihat peringatan maintenance secara otomatis.' 
-                : 'Website kembali normal dan siap melayani pendaftaran dari semua pengunjung.';
-            const extra = syncNotes.length ? `\n\nStatus Sinkronisasi:\n• ${syncNotes.join('\n• ')}` : '';
-
-            alert(`${statusText}\n${detailText}${extra}`);
-        }
-
-        function updateMaintenanceUI() {
-            const cfg = getMaintenanceConfig();
-            const btn = document.getElementById('btnGlobalMaintenance');
-            const badge = document.getElementById('globalMaintBadge');
-            const alertBox = document.getElementById('globalMaintAlertBox');
-            const dot = document.getElementById('maintDot');
-            const text = document.getElementById('maintBtnText');
-
-            if (!btn) return;
-
-            if (cfg.globalMaintenance) {
-                btn.className = 'px-3.5 py-2 rounded-lg bg-rose-100 hover:bg-rose-200 border border-rose-300 text-rose-800 text-xs font-bold font-heading flex items-center gap-2 transition shadow-sm';
-                if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping';
-                if (text) text.innerText = '🔴 Maintenance: AKTIF';
-                if (badge) {
-                    badge.className = 'text-[10px] font-code px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 font-bold';
-                    badge.innerText = '🔴 MAINTENANCE ACTIVE';
-                }
-                if (alertBox) alertBox.classList.remove('hidden');
-            } else {
-                btn.className = 'px-3.5 py-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-bold font-heading flex items-center gap-2 transition shadow-sm';
-                if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse';
-                if (text) text.innerText = '🟢 Mode: Normal';
-                if (badge) {
-                    badge.className = 'text-[10px] font-code px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-bold';
-                    badge.innerText = '🟢 SYSTEM ONLINE';
-                }
-                if (alertBox) alertBox.classList.add('hidden');
-            }
-        }
-
-        function toggleToolMaintenance(toolId) {
-            const tools = getBypassTools();
-            const tool = tools.find(t => t.id === toolId);
-            if (!tool) return;
-
-            if (tool.status === 'Ready') {
-                tool.status = 'Maintenance';
-            } else {
-                tool.status = 'Ready';
-            }
-
-            localStorage.setItem('nica_bypass_tools', JSON.stringify(tools));
-            renderRentalToolsGrid();
-            updateDashboardMetrics();
-        }
-
-        function testPingApi(toolId) {
-            const tools = getBypassTools();
-            const tool = tools.find(t => t.id === toolId);
-            if (!tool) return;
-
-            const url = tool.apiUrl || 'api-tools.php';
-            const btn = event ? event.currentTarget : null;
-            let oldText = '';
-            if (btn) {
-                oldText = btn.innerHTML;
-                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Ping...';
-            }
-
-            const startTime = performance.now();
-            fetch(`${url}${url.includes('?') ? '&' : '?'}action=ping&tool=${encodeURIComponent(tool.name)}`)
-                .then(res => res.json())
-                .then(data => {
-                    const ms = Math.round(performance.now() - startTime);
-                    alert(`✅ KONEKSI API PHP BERHASIL!\n-------------------------\nTool: ${tool.name}\nEndpoint: ${url}\nLatency: ${ms} ms\nRespon: ${data.message || 'Status 200 OK'}`);
-                })
-                .catch(err => {
-                    const ms = Math.round(performance.now() - startTime);
-                    alert(`ℹ️ TES KONEKSI LOKAL API PHP:\n-------------------------\nTool: ${tool.name}\nEndpoint: ${url}\nStatus: Siap diintegrasikan (${ms} ms)\nCatatan: Jalankan server PHP / hosting saat melakukan request langsung dari client.`);
-                })
-                .finally(() => {
-                    if (btn) btn.innerHTML = oldText;
-                });
-        }
-
-        // Render Bypass Tools Grid
-        function renderRentalToolsGrid() {
-            renderBypassToolsGrid();
-        }
-
-        function renderBypassToolsGrid() {
-            const tools = getBypassTools();
-            const container = document.getElementById('gridRentalToolsAdmin');
-            if (!container) return;
-            container.innerHTML = '';
-
-            const readyCount = tools.filter(t => t.status === 'Ready').length;
-            const maintCount = tools.filter(t => t.status === 'Maintenance').length;
-            const ecidRegs = getEcidRegistrations();
-
-            if (document.getElementById('statTotalTools')) document.getElementById('statTotalTools').innerText = tools.length;
-            if (document.getElementById('statReadyTools')) document.getElementById('statReadyTools').innerText = readyCount;
-            if (document.getElementById('statMaintTools')) document.getElementById('statMaintTools').innerText = maintCount;
-            if (document.getElementById('statEcidCount')) document.getElementById('statEcidCount').innerText = ecidRegs.length;
-
-            tools.forEach(tool => {
-                const card = document.createElement('div');
-                card.className = 'bg-white border border-slate-200 rounded-lg p-5 shadow-sm space-y-3';
-                
-                let idTypeLabel = 'ECID & Serial Number';
-                let idTypeBadge = 'bg-purple-100 text-purple-700';
-                if (tool.idType === 'ecid') {
-                    idTypeLabel = '🔑 Butuh ECID Saja';
-                    idTypeBadge = 'bg-cyan-100 text-cyan-800';
-                } else if (tool.idType === 'sn') {
-                    idTypeLabel = '🔑 Butuh Serial Number';
-                    idTypeBadge = 'bg-amber-100 text-amber-800';
-                } else {
-                    idTypeLabel = '🔑 Butuh ECID & Serial Number';
-                    idTypeBadge = 'bg-purple-100 text-purple-800';
-                }
-
-                const isReady = tool.status === 'Ready';
-
-                card.innerHTML = `
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <span class="text-[10px] font-bold font-code px-2 py-0.5 rounded bg-slate-100 text-slate-700">${tool.category || 'TOOL BYPASS'}</span>
-                            <h3 class="text-sm font-bold font-heading text-slate-900 mt-1">${tool.name}</h3>
-                        </div>
-                        <button onclick="toggleToolMaintenance('${tool.id}')"
-                            class="text-[11px] px-2.5 py-1 rounded-full font-bold flex items-center gap-1.5 transition ${isReady ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200' : 'bg-amber-100 text-amber-800 hover:bg-amber-200'}"
-                            title="Klik untuk mengubah status maintenance tool ini">
-                            <span class="w-2 h-2 rounded-full ${isReady ? 'bg-emerald-500' : 'bg-amber-500'}"></span>
-                            <span>${isReady ? 'Ready' : 'Maintenance'}</span>
-                            <i class="fa-solid fa-arrows-rotate text-[9px] opacity-60"></i>
-                        </button>
-                    </div>
-
-                    <!-- Tipe ID & Tarif -->
-                    <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80 text-xs font-code space-y-1.5">
-                        <div class="flex items-center justify-between text-slate-600 text-[11px]">
-                            <span>Identitas:</span>
-                            <span class="font-bold px-1.5 py-0.5 rounded ${idTypeBadge}">${idTypeLabel}</span>
-                        </div>
-                        <div class="flex items-center justify-between text-slate-600 text-[11px]">
-                            <span>Tarif / Unit:</span>
-                            <span class="font-bold text-slate-900 text-sm">Rp ${(tool.price || 0).toLocaleString('id-ID')}</span>
-                        </div>
-                    </div>
-
-                    <!-- API PHP Info Box -->
-                    <div class="p-2.5 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-code space-y-1 border border-slate-800">
-                        <div class="flex items-center justify-between text-slate-400">
-                            <span class="flex items-center gap-1"><i class="fa-solid fa-network-wired text-cyan-400"></i> API Endpoint:</span>
-                            <span class="px-1.5 py-0.2 rounded bg-slate-800 text-cyan-300 font-bold">${tool.apiMethod || 'POST'}</span>
-                        </div>
-                        <div class="truncate text-slate-300 select-all font-mono" title="${tool.apiUrl || 'api-tools.php'}">
-                            ${tool.apiUrl || 'api-tools.php'}
-                        </div>
-                    </div>
-
-                    <p class="text-[11px] text-slate-500 line-clamp-2">${tool.desc || 'Tool bypass smartphone.'}</p>
-
-                    <!-- Action Controls -->
-                    <div class="pt-2 flex items-center gap-2">
-                        <button onclick="testPingApi('${tool.id}')"
-                            class="flex-1 py-1.5 rounded-lg bg-slate-900 hover:bg-black text-cyan-300 text-xs font-bold font-code flex items-center justify-center gap-1.5 transition">
-                            <i class="fa-solid fa-bolt text-[11px]"></i>
-                            <span>Test Ping API</span>
-                        </button>
-                        <button onclick="editToolUnified('${tool.id}')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold" title="Edit Tool & API">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                        <button onclick="deleteToolUnified('${tool.id}')" class="px-2.5 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold" title="Hapus Tool">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        // Add / Edit Tool Modal Logic
-        function openAddToolModal() {
-            openAddBypassToolModal();
-        }
-
-        function openAddBypassToolModal() {
-            document.getElementById('editToolModalTitle').innerText = 'Tambah Tool Bypass & API Baru';
-            document.getElementById('editToolId').value = '';
-            document.getElementById('editToolName').value = '';
-            document.getElementById('editToolCategory').value = 'iOS Hello Screen';
-            document.getElementById('editToolStatus').value = 'Ready';
-            document.getElementById('editToolIdType').value = 'ecid';
-            document.getElementById('editToolPrice').value = '150000';
-            document.getElementById('editToolApiUrl').value = 'api-tools.php?tool=custom';
-            document.getElementById('editToolApiMethod').value = 'POST';
-            document.getElementById('editToolApiToken').value = '';
-            document.getElementById('editToolDesc').value = '';
-            document.getElementById('modalEditTool').classList.remove('hidden');
-        }
-
-        function editToolUnified(id) {
-            const tools = getBypassTools();
-            const tool = tools.find(t => t.id === id);
-            if (!tool) return;
-
-            document.getElementById('editToolModalTitle').innerText = `Edit ${tool.name}`;
-            document.getElementById('editToolId').value = tool.id;
-            document.getElementById('editToolName').value = tool.name;
-            document.getElementById('editToolCategory').value = tool.category || 'iOS Hello Screen';
-            document.getElementById('editToolStatus').value = tool.status || 'Ready';
-            document.getElementById('editToolIdType').value = tool.idType || 'ecid';
-            document.getElementById('editToolPrice').value = tool.price || 150000;
-            document.getElementById('editToolApiUrl').value = tool.apiUrl || 'api-tools.php';
-            document.getElementById('editToolApiMethod').value = tool.apiMethod || 'POST';
-            document.getElementById('editToolApiToken').value = tool.apiToken || '';
-            document.getElementById('editToolDesc').value = tool.desc || '';
-            document.getElementById('modalEditTool').classList.remove('hidden');
-        }
-
-        function closeEditToolModal() {
-            document.getElementById('modalEditTool').classList.add('hidden');
-        }
-
-        function handleSaveToolUnified(e) {
-            e.preventDefault();
-            const id = document.getElementById('editToolId').value || ('tool_' + Date.now().toString(36));
-            const name = document.getElementById('editToolName').value.trim();
-            const category = document.getElementById('editToolCategory').value;
-            const status = document.getElementById('editToolStatus').value;
-            const idType = document.getElementById('editToolIdType').value;
-            const price = parseInt(document.getElementById('editToolPrice').value) || 150000;
-            const apiUrl = document.getElementById('editToolApiUrl').value.trim() || 'api-tools.php';
-            const apiMethod = document.getElementById('editToolApiMethod').value;
-            const apiToken = document.getElementById('editToolApiToken').value.trim();
-            const desc = document.getElementById('editToolDesc').value.trim();
-
-            let tools = getBypassTools();
-            const existingIdx = tools.findIndex(t => t.id === id);
-
-            const toolData = {
-                id: id,
-                name: name,
-                category: category,
-                badge: category.toUpperCase(),
-                icon: 'fa-microchip',
-                idType: idType,
-                price: price,
-                status: status,
-                apiUrl: apiUrl,
-                apiMethod: apiMethod,
-                apiToken: apiToken,
-                paramEcid: 'ecid',
-                paramSn: 'sn',
-                paramAction: 'register',
-                desc: desc || 'Tool bypass software smartphone.'
-            };
-
-            if (existingIdx >= 0) {
-                tools[existingIdx] = { ...tools[existingIdx], ...toolData };
-            } else {
-                tools.unshift(toolData);
-            }
-
-            localStorage.setItem('nica_bypass_tools', JSON.stringify(tools));
-            closeEditToolModal();
-            renderRentalToolsGrid();
-            updateDashboardMetrics();
-        }
-
-        function deleteToolUnified(id) {
-            if (!confirm('Hapus tool bypass ini dari daftar?')) return;
-            const tools = getBypassTools().filter(t => t.id !== id);
-            localStorage.setItem('nica_bypass_tools', JSON.stringify(tools));
-            renderRentalToolsGrid();
-            updateDashboardMetrics();
-        }
-
-        // ================= LOG REGISTRASI ECID & SERIAL NUMBER =================
-        function renderEcidRegistrationsTable() {
-            const list = getEcidRegistrations();
-            const tbody = document.getElementById('tableEcidRegistrationsBody');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-
-            if (list.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400">Belum ada data registrasi ECID / Serial Number yang masuk.</td></tr>`;
-                return;
-            }
-
-            list.forEach(item => {
-                const tr = document.createElement('tr');
-                tr.className = 'hover:bg-slate-50 transition';
-                const timeStr = new Date(item.timestamp || Date.now()).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
-
-                tr.innerHTML = `
-                    <td class="py-3 px-3">
-                        <div class="font-code font-bold text-slate-800">${item.id}</div>
-                        <div class="text-[10px] text-slate-400">${timeStr}</div>
-                    </td>
-                    <td class="py-3 px-3 font-semibold text-slate-800">
-                        ${item.toolName}
-                    </td>
-                    <td class="py-3 px-3 font-code">
-                        <div class="font-bold text-cyan-700 select-all">${item.idValue}</div>
-                        <span class="text-[9px] px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 font-bold uppercase">${item.idType}</span>
-                    </td>
-                    <td class="py-3 px-3">
-                        <a href="https://wa.me/${cleanPhone(item.phone)}" target="_blank" class="text-[11px] text-emerald-600 font-code hover:underline flex items-center gap-1 font-semibold">
-                            <i class="fa-brands fa-whatsapp"></i> ${item.phone}
-                        </a>
-                    </td>
-                    <td class="py-3 px-3 font-bold text-slate-900 font-code">
-                        Rp ${(item.price || 0).toLocaleString('id-ID')}
-                    </td>
-                    <td class="py-3 px-3">
-                        <select onchange="updateEcidStatus('${item.id}', this.value)"
-                            class="border border-slate-200 text-[11px] rounded-md px-2 py-1 bg-white text-slate-800 focus:border-slate-800 outline-none">
-                            <option value="Authorized" ${item.status === 'Authorized' ? 'selected' : ''}>🟢 Authorized</option>
-                            <option value="Menunggu Konfirmasi" ${item.status === 'Menunggu Konfirmasi' ? 'selected' : ''}>🟡 Menunggu</option>
-                            <option value="Ditolak / Batal" ${item.status === 'Ditolak / Batal' ? 'selected' : ''}>🔴 Ditolak</option>
-                        </select>
-                    </td>
-                    <td class="py-3 px-3 text-center">
-                        <div class="flex items-center justify-center gap-1.5">
-                            <button onclick="dispatchEcidWA('${item.id}')" class="p-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100" title="Kirim Konfirmasi WA">
-                                <i class="fa-brands fa-whatsapp text-sm"></i>
-                            </button>
-                            <button onclick="deleteEcidRegistration('${item.id}')" class="p-1.5 rounded-lg bg-slate-100 text-slate-400 hover:text-rose-600" title="Hapus">
-                                <i class="fa-solid fa-trash text-xs"></i>
-                            </button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function updateEcidStatus(id, status) {
-            const list = getEcidRegistrations();
-            const item = list.find(x => x.id === id);
-            if (item) {
-                item.status = status;
-                localStorage.setItem('nica_ecid_registrations', JSON.stringify(list));
-            }
-        }
-
-        function deleteEcidRegistration(id) {
-            if (!confirm('Hapus registrasi ID ini?')) return;
-            const list = getEcidRegistrations().filter(x => x.id !== id);
-            localStorage.setItem('nica_ecid_registrations', JSON.stringify(list));
-            renderEcidRegistrationsTable();
-            updateDashboardMetrics();
-        }
-
-        function clearEcidHistory() {
-            if (!confirm('Bersihkan semua riwayat registrasi ECID/SN?')) return;
-            localStorage.setItem('nica_ecid_registrations', JSON.stringify([]));
-            renderEcidRegistrationsTable();
-            updateDashboardMetrics();
-        }
-
-        function dispatchEcidWA(orderId) {
-            const list = getEcidRegistrations();
-            const item = list.find(x => x.id === orderId);
-            if (!item) return;
-
-            const msg = `*STATUS REGISTRASI TOOLS BYPASS - NICA FLASHER*\n` +
-                `----------------------------------------\n` +
-                `🛠️ *Tool:* ${item.toolName}\n` +
-                `🔑 *${item.idType}:* \`${item.idValue}\`\n` +
-                `📋 *Order ID:* ${item.id}\n` +
-                `⚡ *Status Server:* ${item.status}\n` +
-                `----------------------------------------\n` +
-                `Perangkat Anda telah berhasil didaftarkan di server. Silakan jalankan tool bypass pada PC Anda. Terima kasih! ✨`;
-
-            window.open(`https://wa.me/${cleanPhone(item.phone)}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
 
         // Render Activation Grid
         function renderActivationGrid() {
