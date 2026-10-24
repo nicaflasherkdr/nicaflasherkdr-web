@@ -910,7 +910,7 @@
                 idType: 'ecid',
                 price: 150000,
                 desc: 'Bypass Hello Screen iOS 12 - 18 Full Sinyal (Call/Data/iMessage/FaceTime). Registrasi ECID otomatis ke server.',
-                status: 'Ready',
+                status: 'Maintenance',
                 apiUrl: 'api-tools.php?tool=iremove',
                 apiMethod: 'POST'
             },
@@ -923,7 +923,7 @@
                 idType: 'both',
                 price: 180000,
                 desc: 'Bypass Passcode / Disabled Screen iOS tanpa kehilangan sinyal bawaan pabrik, Apple Pay & iCloud aktif.',
-                status: 'Ready',
+                status: 'Maintenance',
                 apiUrl: 'api-tools.php?tool=mina',
                 apiMethod: 'POST'
             },
@@ -936,7 +936,7 @@
                 idType: 'sn',
                 price: 125000,
                 desc: 'Aktivasi Serial Number (SN) instan untuk SMD Activator iOS 15 - 17. Sinyal stabil, no reboot battery drain.',
-                status: 'Ready',
+                status: 'Maintenance',
                 apiUrl: 'api-tools.php?tool=smd',
                 apiMethod: 'POST'
             },
@@ -949,7 +949,7 @@
                 idType: 'ecid',
                 price: 135000,
                 desc: 'Registrasi ECID untuk HFZ Ramdisk A9/A10/A11. Hello Screen iOS 15 & 16 signal fix, passcode backup & restore.',
-                status: 'Ready',
+                status: 'Maintenance',
                 apiUrl: 'api-tools.php?tool=hfz',
                 apiMethod: 'POST'
             },
@@ -962,7 +962,7 @@
                 idType: 'sn',
                 price: 350000,
                 desc: 'Registrasi Serial Number (SN) untuk bypass iCloud Macbook Air/Pro chip T2 & M-series.',
-                status: 'Ready',
+                status: 'Maintenance',
                 apiUrl: 'api-tools.php?tool=checkm8',
                 apiMethod: 'POST'
             },
@@ -975,7 +975,7 @@
                 idType: 'sn',
                 price: 85000,
                 desc: 'Otorisasi Serial Number / IMEI untuk Xiaomi EDL Auth server, Samsung FRP Knox bypass server direct.',
-                status: 'Ready',
+                status: 'Maintenance',
                 apiUrl: 'api-tools.php?tool=unlocktool',
                 apiMethod: 'POST'
             }
@@ -1464,16 +1464,13 @@
         }
 
         // Check & apply global maintenance state (Lokal Cache + Live Server Fetch)
-        const CLOUD_SYNC_ENDPOINT = 'https://api.restful-api.dev/objects/ff808181a09d98f701a16c6b362a7583';
-
         async function checkMaintenanceBanner() {
             let maint = getMaintenanceConfig();
             applyMaintenanceUI(maint);
 
-            // Fetch Live Status from Server (Cloud Realtime / Cloudflare Function / maintenance.json)
+            // Fetch Live Status from Server (Cloudflare Function / maintenance.json)
             try {
                 const endpoints = [
-                    CLOUD_SYNC_ENDPOINT,
                     '/api/maintenance?v=' + Date.now(),
                     'maintenance.json?v=' + Date.now()
                 ];

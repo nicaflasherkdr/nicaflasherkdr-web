@@ -1729,12 +1729,9 @@
         });
 
         // Check Live Server Maintenance Status for All Visitors
-        const CLOUD_SYNC_ENDPOINT = 'https://api.restful-api.dev/objects/ff808181a09d98f701a16c6b362a7583';
-
         async function checkHomeMaintenance() {
             try {
                 const endpoints = [
-                    CLOUD_SYNC_ENDPOINT,
                     '/api/maintenance?v=' + Date.now(), 
                     'maintenance.json?v=' + Date.now()
                 ];

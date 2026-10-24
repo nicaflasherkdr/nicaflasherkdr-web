@@ -1190,7 +1190,7 @@
                 idType: 'ecid',
                 price: 150000,
                 desc: 'Bypass Hello Screen iOS 12 - 18 Full Sinyal (Call/Data/iMessage/FaceTime). Registrasi ECID otomatis ke server.',
-                status: 'Ready',
+                status: 'Maintenance',
                 apiUrl: 'api-tools.php?tool=iremove',
                 apiMethod: 'POST',
                 apiToken: 'NICA_IREMOVE_SECRET_KEY_2026',
@@ -1207,7 +1207,7 @@
                 idType: 'both',
                 price: 180000,
                 desc: 'Bypass Passcode / Disabled Screen iOS tanpa kehilangan sinyal bawaan pabrik, Apple Pay & iCloud aktif.',
-                status: 'Ready',
+                status: 'Maintenance',
                 apiUrl: 'api-tools.php?tool=mina',
                 apiMethod: 'POST',
                 apiToken: 'NICA_MINA_SECRET_KEY_2026',
@@ -1224,7 +1224,7 @@
                 idType: 'sn',
                 price: 125000,
                 desc: 'Aktivasi Serial Number (SN) instan untuk SMD Activator iOS 15 - 17. Sinyal stabil, no reboot battery drain.',
-                status: 'Ready',
+                status: 'Maintenance',
                 apiUrl: 'api-tools.php?tool=smd',
                 apiMethod: 'POST',
                 apiToken: 'NICA_SMD_SECRET_KEY_2026',
@@ -1241,7 +1241,7 @@
                 idType: 'ecid',
                 price: 135000,
                 desc: 'Registrasi ECID untuk HFZ Ramdisk A9/A10/A11. Hello Screen iOS 15 & 16 signal fix, passcode backup & restore.',
-                status: 'Ready',
+                status: 'Maintenance',
                 apiUrl: 'api-tools.php?tool=hfz',
                 apiMethod: 'POST',
                 apiToken: 'NICA_HFZ_SECRET_KEY_2026',
@@ -1258,7 +1258,7 @@
                 idType: 'sn',
                 price: 350000,
                 desc: 'Registrasi Serial Number (SN) untuk bypass iCloud Macbook Air/Pro chip T2 & M-series.',
-                status: 'Ready',
+                status: 'Maintenance',
                 apiUrl: 'api-tools.php?tool=checkm8',
                 apiMethod: 'POST',
                 apiToken: 'NICA_CHECKM8_SECRET_KEY_2026',
@@ -1541,12 +1541,9 @@
         }
 
         // ================= MAINTENANCE & BYPASS TOOLS CONTROLLER =================
-        const CLOUD_SYNC_ENDPOINT = 'https://api.restful-api.dev/objects/ff808181a09d98f701a16c6b362a7583';
-
         async function syncLiveMaintenanceStatusFromServer() {
             try {
                 const endpoints = [
-                    CLOUD_SYNC_ENDPOINT,
                     '/api/maintenance?v=' + Date.now(),
                     'maintenance.json?v=' + Date.now()
                 ];
@@ -1569,6 +1566,25 @@
                                     localStorage.setItem('nica_maintenance_config', JSON.stringify(data));
                                     updateMaintenanceUI();
                                 }
+
+                                // Sync individual tools jika ada
+                                if (data.tools && Array.isArray(data.tools)) {
+                                    const localTools = getBypassTools();
+                                    let changed = false;
+                                    data.tools.forEach(st => {
+                                        const target = localTools.find(lt => lt.id === st.id);
+                                        if (target && target.status !== st.status) {
+                                            target.status = st.status;
+                                            changed = true;
+                                        }
+                                    });
+                                    if (changed) {
+                                        localStorage.setItem('nica_bypass_tools', JSON.stringify(localTools));
+                                        renderRentalToolsGrid();
+                                        updateDashboardMetrics();
+                                    }
+                                }
+
                                 break;
                             }
                         }
@@ -1592,28 +1608,7 @@
 
             let syncNotes = [];
 
-            // 1. Kirim ke Global Cloud Realtime State (Instan tersinkron ke semua pengunjung di berbagai perangkat)
-            try {
-                const tools = getBypassTools();
-                const cloudRes = await fetch(CLOUD_SYNC_ENDPOINT, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: 'nica_maintenance_state',
-                        data: {
-                            globalMaintenance: cfg.globalMaintenance,
-                            message: cfg.message,
-                            updated_at: cfg.updated_at,
-                            tools: tools.map(t => ({ id: t.id, status: t.status }))
-                        }
-                    })
-                });
-                if (cloudRes.ok) {
-                    syncNotes.push('Cloud Realtime: Berhasil disinkronkan ke seluruh perangkat pengunjung');
-                }
-            } catch(e) {}
-
-            // 2. Kirim ke Cloudflare Edge Function (/api/maintenance)
+            // 1. Kirim ke Cloudflare Edge Function (/api/maintenance)
             try {
                 const cfRes = await fetch('/api/maintenance', {
                     method: 'POST',
@@ -1626,7 +1621,7 @@
                 }
             } catch(e) {}
 
-            // 3. Kirim ke PHP Backend (api-tools.php) jika ada
+            // 2. Kirim ke PHP Backend (api-tools.php) jika ada
             try {
                 const phpRes = await fetch('api-tools.php', {
                     method: 'POST',
@@ -1684,7 +1679,7 @@
             }
         }
 
-        async function toggleToolMaintenance(toolId) {
+        function toggleToolMaintenance(toolId) {
             const tools = getBypassTools();
             const tool = tools.find(t => t.id === toolId);
             if (!tool) return;
@@ -1698,24 +1693,6 @@
             localStorage.setItem('nica_bypass_tools', JSON.stringify(tools));
             renderRentalToolsGrid();
             updateDashboardMetrics();
-
-            // Sync to Global Cloud Realtime State
-            try {
-                const cfg = getMaintenanceConfig();
-                await fetch(CLOUD_SYNC_ENDPOINT, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: 'nica_maintenance_state',
-                        data: {
-                            globalMaintenance: cfg.globalMaintenance,
-                            message: cfg.message,
-                            updated_at: new Date().toISOString(),
-                            tools: tools.map(t => ({ id: t.id, status: t.status }))
-                        }
-                    })
-                });
-            } catch(e) {}
         }
 
         function testPingApi(toolId) {
